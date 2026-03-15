@@ -137,7 +137,7 @@ html.light #login-glow{display:none}
 html.light .shell{overflow:visible}
 html.light body{overflow:hidden}
 html.gold-light #s-login{background:var(--s0)}
-html.gold-light #s-home,html.gold-light #s-checkin,html.gold-light #s-trips,html.gold-light #s-pods,html.gold-light #s-messages,html.gold-light #s-profile,html.gold-light #s-city{background:var(--s0)}
+html.gold-light #s-home,html.gold-light #s-checkin,html.gold-light #s-trips,html.gold-light #s-pods,html.gold-light #s-messages,html.gold-light #s-profile,html.gold-light #s-city,html.gold-light #s-onboard,html.gold-light #s-aftermath,html.gold-light #s-assistant{background:var(--s0)}
 html.gold-light .phone{box-shadow:0 0 0 1.5px var(--brH),0 0 0 1px rgba(200,148,26,0.15),0 4px 20px rgba(100,60,0,0.1)}
 html.gold-light .shell{overflow:visible}
 html.gold-light .shell::before{background:none}
@@ -403,8 +403,9 @@ html.light .phone{box-shadow:0 0 0 1.5px var(--brH),0 0 0 1px rgba(0,168,150,0.1
 /* SCREEN-SPECIFIC */
 #s-login{background:radial-gradient(ellipse at 50% 30%,#061520 0%,var(--s0) 65%);color:var(--tx);align-items:center;padding:48px 22px 26px;text-align:center}
 html.light #s-login{background:var(--s0)}
-html.light #s-home,html.light #s-checkin,html.light #s-trips,html.light #s-pods,html.light #s-messages,html.light #s-profile,html.light #s-city{background:var(--s0)}
-#s-home,#s-checkin,#s-trips,#s-pods,#s-messages,#s-profile,#s-city{background:var(--s0);color:var(--tx);padding-top:48px}
+html.light #s-home,html.light #s-checkin,html.light #s-trips,html.light #s-pods,html.light #s-messages,html.light #s-profile,html.light #s-city,html.light #s-onboard,html.light #s-aftermath,html.light #s-assistant{background:var(--s0)}
+#s-home,#s-checkin,#s-trips,#s-pods,#s-messages,#s-profile,#s-city,#s-aftermath,#s-assistant{background:var(--s0);color:var(--tx);padding-top:48px}
+#s-onboard{background:var(--s0);color:var(--tx)}
 .lbrand{margin:10px 0 3px;font-family:var(--fd);font-size:15px;letter-spacing:0.22em;background:var(--acGrad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .ldiv{width:65px;height:1px;background:linear-gradient(90deg,transparent,var(--ac),transparent);margin:0 auto 13px;opacity:0.4}
 .ltit{font-size:18px;font-weight:600;color:var(--tx);line-height:1.2}
@@ -439,6 +440,8 @@ html.light #s-home,html.light #s-checkin,html.light #s-trips,html.light #s-pods,
   <div class="ctx" data-s="messages" onclick="go('messages')"><span class="ctx-n">06</span><span class="ctx-l">Messages</span></div>
   <div class="ctx" data-s="pods" onclick="go('pods')"><span class="ctx-n">05</span><span class="ctx-l">Connect</span></div>
         <div class="ctx" data-s="city" onclick="go('city')"><span class="ctx-n">05b</span><span class="ctx-l">City Safety</span></div>
+        <div class="ctx" data-s="assistant" onclick="go('assistant')"><span class="ctx-n">AI</span><span class="ctx-l">Safety AI</span></div>
+        <div class="ctx" data-s="aftermath" onclick="go('aftermath')"><span class="ctx-n">SOS+</span><span class="ctx-l">SOS Aftermath</span></div>
         <div class="ctx" data-s="profile" onclick="go('profile')"><span class="ctx-n">07</span><span class="ctx-l">Profile</span></div>
 </div>
 
@@ -447,7 +450,7 @@ html.light #s-home,html.light #s-checkin,html.light #s-trips,html.light #s-pods,
   <div class="sb"><span class="sb-t">9:41</span><div class="sb-i"><span>▲▲▲</span><span>WiFi</span><span>⬛⬛⬛⬛</span></div></div>
 
   <!-- 01 LOGIN — Minimal Line Design -->
-  <div class="screen active" id="s-login">
+  <div class="screen" id="s-login">
     <!-- Full-screen login bg -->
     <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:52px 28px 0;position:relative">
       <!-- Background glow -->
@@ -846,7 +849,7 @@ html.light #s-home,html.light #s-checkin,html.light #s-trips,html.light #s-pods,
       <div class="hdr a1"><div class="ht" style="text-align:left;font-size:17px">Messages</div></div>
       <div class="sl a2">Recent</div>
       <div class="mr a2" onclick="toast('💬','Sarah Chen','Hey! Saw your check-in. Stay safe! 🙏')"><div class="mav" style="background:var(--acGrad);color:var(--s0)">SC<div class="mon"></div></div><div class="mb"><div class="mn">Sarah Chen</div><div class="mp">Hey! Saw your check-in. Stay safe!</div></div><div class="mm"><div class="mtime">2m</div><div class="mbadge">3</div></div></div>
-      <div class="mr a3" onclick="toast('🛡','Safety Bot','Your next check-in is in 2 hours')"><div class="mav" style="background:linear-gradient(135deg,#E8394D,#C42A3C);color:#fff;font-size:14px">🛡<div class="mon"></div></div><div class="mb"><div class="mn">Safety Assistant</div><div class="mp">Next check-in due in 2 hours</div></div><div class="mm"><div class="mtime">18m</div><div class="mbadge">1</div></div></div>
+      <div class="mr a3" onclick="go('assistant')"><div class="mav" style="background:linear-gradient(135deg,#E8394D,#C42A3C);color:#fff;font-size:14px">🛡<div class="mon"></div></div><div class="mb"><div class="mn">Safety Assistant <span style='font-size:9px;background:rgba(0,201,177,0.12);color:var(--ac);padding:1px 6px;border-radius:999px;border:1px solid var(--br);margin-left:4px'>AI</span></div><div class="mp">Next check-in due in 2 hours</div></div><div class="mm"><div class="mtime">18m</div><div class="mbadge">1</div></div></div>
       <div class="mr a4" onclick="toast('💬','Marcus','All good here! Budapest looks amazing')"><div class="mav" style="background:linear-gradient(135deg,#5BA8D8,#2E6EA0);color:#fff">MJ</div><div class="mb"><div class="mn">Marcus Johnson</div><div class="mp">All good! Budapest looks amazing 🏰</div></div><div class="mm"><div class="mtime">1h</div></div></div>
       <div class="mr a5" onclick="toast('💬','Emma','Heads up — I might be offline tonight')"><div class="mav" style="background:linear-gradient(135deg,#C89BFF,#7B4BBF);color:#fff">ER</div><div class="mb"><div class="mn">Emma Rodriguez</div><div class="mp">Heads up — offline tonight</div></div><div class="mm"><div class="mtime">3h</div></div></div>
       <div class="sl a6">Community</div>
@@ -895,7 +898,207 @@ html.light #s-home,html.light #s-checkin,html.light #s-trips,html.light #s-pods,
     </div>
   </div>
 
-  <!-- SOS FULL-SCREEN SAFETY CIRCLES OVERLAY -->
+  <!-- AI SAFETY ASSISTANT SCREEN -->
+  <div class="screen" id="s-assistant">
+    <div style="display:flex;flex-direction:column;height:100%;background:var(--s0)">
+      <!-- Header -->
+      <div style="padding:52px 16px 12px;border-bottom:1px solid var(--br);background:var(--s0);flex-shrink:0">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="hbk" onclick="go('messages')">←</div>
+          <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#E8394D,#C42A3C);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">🛡</div>
+          <div style="flex:1">
+            <div style="font-size:14px;font-weight:700;color:var(--tx)">Safety Assistant</div>
+            <div style="font-size:10px;color:var(--green);display:flex;align-items:center;gap:4px"><span style="width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block"></span>AI-powered · Always on</div>
+          </div>
+          <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:0.1em;padding:3px 8px;border-radius:999px;background:rgba(0,201,177,0.1);border:1px solid var(--br);color:var(--ac)">CLAUDE AI</div>
+        </div>
+      </div>
+
+      <!-- Context bar -->
+      <div style="padding:8px 14px;background:rgba(0,201,177,0.05);border-bottom:1px solid var(--br);flex-shrink:0">
+        <div style="font-size:10px;color:var(--tx3)">Active trip context: <span style="color:var(--ac);font-weight:600">Budapest, Hungary · Low Risk · Check-in in 2h 15m</span></div>
+      </div>
+
+      <!-- Chat messages -->
+      <div id="chat-msgs" style="flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:12px;scrollbar-width:none">
+
+        <!-- Assistant greeting -->
+        <div style="display:flex;gap:9px;align-items:flex-end">
+          <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#E8394D,#C42A3C);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">🛡</div>
+          <div style="max-width:80%">
+            <div style="background:var(--s2);border:1px solid var(--br);border-radius:16px 16px 16px 4px;padding:11px 13px">
+              <div style="font-size:13px;color:var(--tx);line-height:1.55">Hey Ahmad! I'm your AI safety companion for this Budapest trip. I have real-time access to local risk data, embassy info, and your trip details.</div>
+              <div style="font-size:13px;color:var(--tx);line-height:1.55;margin-top:7px">Your current area — District V — is <span style="color:var(--green);font-weight:600">very safe</span> for solo travelers. Anything specific I can help you with?</div>
+            </div>
+            <div style="font-size:9px;color:var(--tx3);margin-top:3px;padding-left:4px">Just now</div>
+          </div>
+        </div>
+
+        <!-- Quick suggest chips -->
+        <div id="suggest-chips" style="display:flex;flex-wrap:wrap;gap:6px;padding-left:37px">
+          <button onclick="sendSuggest(this,'Is it safe to walk home from District VII at midnight?')" style="padding:6px 12px;border-radius:999px;border:1px solid var(--brH);background:rgba(0,201,177,0.07);color:var(--ac);font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif">District VII at midnight?</button>
+          <button onclick="sendSuggest(this,'What are the emergency numbers here?')" style="padding:6px 12px;border-radius:999px;border:1px solid var(--brH);background:rgba(0,201,177,0.07);color:var(--ac);font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif">Emergency numbers</button>
+          <button onclick="sendSuggest(this,'How do I get to the US Embassy from here?')" style="padding:6px 12px;border-radius:999px;border:1px solid var(--brH);background:rgba(0,201,177,0.07);color:var(--ac);font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif">US Embassy directions</button>
+          <button onclick="sendSuggest(this,'What should I know about solo travel safety in Budapest?')" style="padding:6px 12px;border-radius:999px;border:1px solid var(--brH);background:rgba(0,201,177,0.07);color:var(--ac);font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif">Safety tips for Budapest</button>
+        </div>
+
+      </div>
+
+      <!-- Input bar -->
+      <div style="padding:10px 14px 22px;border-top:1px solid var(--br);background:var(--s0);flex-shrink:0">
+        <div style="display:flex;gap:8px;align-items:flex-end">
+          <div style="flex:1;background:var(--s2);border:1px solid var(--br);border-radius:20px;padding:10px 14px;min-height:42px;display:flex;align-items:center">
+            <input id="chat-input" type="text" placeholder="Ask anything about your safety…" onkeydown="if(event.key==='Enter')sendChat()" style="background:none;border:none;outline:none;width:100%;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--tx)" />
+          </div>
+          <button onclick="sendChat()" id="chat-send" style="width:42px;height:42px;border-radius:50%;border:none;background:var(--acGrad);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;flex-shrink:0;transition:transform 0.15s" onmousedown="this.style.transform='scale(0.92)'" onmouseup="this.style.transform='scale(1)'">↑</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOS AFTERMATH SCREEN -->
+  <div class="screen" id="s-aftermath">
+    <div class="sb2" style="background:var(--s0)">
+      <!-- Success hero -->
+      <div style="padding:52px 20px 20px;text-align:center;background:linear-gradient(180deg,rgba(46,204,113,0.08),transparent)">
+        <div style="width:72px;height:72px;border-radius:50%;background:rgba(46,204,113,0.15);border:2px solid rgba(46,204,113,0.4);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 14px;animation:bi 0.6s both">✅</div>
+        <div style="font-family:'Cinzel',serif;font-size:18px;letter-spacing:0.08em;color:var(--tx);margin-bottom:6px">Network Activated</div>
+        <div style="font-size:13px;color:var(--tx2);line-height:1.5">All 3 shadow contacts were alerted in <span style="color:var(--green);font-weight:700">8.3 seconds</span></div>
+      </div>
+
+      <!-- Shadow confirmation cards -->
+      <div style="padding:0 14px;display:flex;flex-direction:column;gap:8px">
+
+        <div style="background:rgba(46,204,113,0.08);border:1px solid rgba(46,204,113,0.25);border-radius:14px;padding:13px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+            <div style="width:36px;height:36px;border-radius:50%;background:var(--acGrad);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--s0)">SC</div>
+            <div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--tx)">Sarah Chen</div><div style="font-size:10px;color:var(--tx3)">Sister · San Francisco</div></div>
+            <div style="font-size:11px;font-weight:700;color:var(--green)">✓ Confirmed</div>
+          </div>
+          <div style="font-size:11px;color:var(--tx3);background:var(--s2);border-radius:8px;padding:7px 10px">📱 "I got it, calling you now!" · 0:12 ago</div>
+        </div>
+
+        <div style="background:rgba(46,204,113,0.08);border:1px solid rgba(46,204,113,0.25);border-radius:14px;padding:13px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+            <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#5BA8D8,#2E6EA0);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff">MJ</div>
+            <div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--tx)">Marcus Johnson</div><div style="font-size:10px;color:var(--tx3)">Friend · New York</div></div>
+            <div style="font-size:11px;font-weight:700;color:var(--green)">✓ Confirmed</div>
+          </div>
+          <div style="font-size:11px;color:var(--tx3);background:var(--s2);border-radius:8px;padding:7px 10px">👀 Viewing your live location now</div>
+        </div>
+
+        <div style="background:rgba(243,156,18,0.08);border:1px solid rgba(243,156,18,0.25);border-radius:14px;padding:13px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+            <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#C89BFF,#7B4BBF);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff">ER</div>
+            <div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--tx)">Emma Rodriguez</div><div style="font-size:10px;color:var(--tx3)">Colleague · Miami</div></div>
+            <div style="font-size:11px;font-weight:700;color:var(--amber)">⏳ SMS Sent</div>
+          </div>
+          <div style="font-size:11px;color:var(--tx3);background:var(--s2);border-radius:8px;padding:7px 10px">📨 SMS delivered · Will see when online</div>
+        </div>
+      </div>
+
+      <!-- Live location countdown -->
+      <div style="margin:14px 14px 0;background:rgba(232,57,77,0.08);border:1px solid rgba(232,57,77,0.25);border-radius:14px;padding:13px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+          <div style="font-size:12px;font-weight:700;color:var(--red)">🔴 Live Location Active</div>
+          <div style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:var(--red)" id="loc-countdown">23:47</div>
+        </div>
+        <div style="font-size:11px;color:var(--tx3)">Your shadows can see your exact location for 24 hours. Tap to extend or stop sharing.</div>
+        <div style="height:4px;background:rgba(232,57,77,0.15);border-radius:2px;margin-top:10px;overflow:hidden"><div style="width:98%;height:100%;background:var(--red);border-radius:2px;animation:sw 24s linear forwards"></div></div>
+      </div>
+
+      <!-- Actions -->
+      <div style="padding:14px 14px 0">
+        <button onclick="toast('✅','False Alarm','SOS cancelled. Shadows notified you are safe.')" style="width:100%;padding:12px;border-radius:14px;border:1px solid rgba(46,204,113,0.3);background:rgba(46,204,113,0.08);color:var(--green);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:8px">✓ I'm Safe — Cancel Alert</button>
+        <button onclick="toast('🚨','Emergency Services','Calling 112...')" style="width:100%;padding:12px;border-radius:14px;border:1px solid rgba(232,57,77,0.3);background:rgba(232,57,77,0.08);color:var(--red);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:8px">📞 Call Emergency Services (112)</button>
+        <button onclick="go('home')" style="width:100%;padding:11px;border-radius:14px;border:1px solid var(--br);background:transparent;color:var(--tx3);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer">Back to Home</button>
+      </div>
+
+      <!-- Footer note -->
+      <div style="padding:16px 14px 30px;font-size:10px;color:var(--tx3);text-align:center;line-height:1.5">Location sharing will automatically stop in 24 hours<br>All SOS events are logged for your safety record</div>
+    </div>
+  </div>
+
+  <!-- ONBOARDING SCREENS -->
+  <div class="screen active" id="s-onboard">
+    <div style="height:100%;background:var(--s0);display:flex;flex-direction:column;position:relative;overflow:hidden">
+
+      <!-- Background glow -->
+      <div style="position:absolute;top:30%;left:50%;transform:translate(-50%,-50%);width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(0,201,177,0.12) 0%,transparent 70%);pointer-events:none"></div>
+
+      <!-- Skip button -->
+      <button onclick="go('login')" style="position:absolute;top:52px;right:18px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:999px;padding:5px 14px;color:var(--tx3);font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer;z-index:10">Skip</button>
+
+      <!-- Slide container -->
+      <div id="ob-slides" style="flex:1;display:flex;overflow:hidden;transition:transform 0.45s cubic-bezier(.4,0,.2,1)">
+
+        <!-- Slide 1 -->
+        <div class="ob-slide" id="ob-0" style="min-width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 28px 20px;text-align:center">
+          <canvas id="ob-compass" width="180" height="180" style="margin-bottom:20px"></canvas>
+          <div style="font-family:'Cinzel',serif;font-size:22px;letter-spacing:0.1em;background:var(--acGrad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px">SOLO PASSPORT</div>
+          <div style="font-size:24px;font-weight:700;color:var(--tx);line-height:1.25;margin-bottom:12px">Travel Solo.<br>Never Alone.</div>
+          <div style="font-size:14px;color:var(--tx2);line-height:1.7;max-width:260px">70% of solo travelers have felt unsafe during a trip. We're changing that — one journey at a time.</div>
+          <div style="margin-top:20px;display:flex;flex-direction:column;gap:9px;width:100%;max-width:260px">
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:28px;height:28px;border-radius:8px;background:rgba(0,201,177,0.12);border:1px solid var(--br);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">✓</div><div style="font-size:13px;color:var(--tx2);text-align:left">Verified travelers only</div></div>
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:28px;height:28px;border-radius:8px;background:rgba(0,201,177,0.12);border:1px solid var(--br);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">🛡</div><div style="font-size:13px;color:var(--tx2);text-align:left">Real safety tools, not just tips</div></div>
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:28px;height:28px;border-radius:8px;background:rgba(0,201,177,0.12);border:1px solid var(--br);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">🌍</div><div style="font-size:13px;color:var(--tx2);text-align:left">Curated destinations with risk data</div></div>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="ob-slide" id="ob-1" style="min-width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 28px 20px;text-align:center">
+          <div style="font-size:64px;margin-bottom:16px;animation:bi 0.5s both">🔗</div>
+          <div style="font-size:24px;font-weight:700;color:var(--tx);line-height:1.25;margin-bottom:12px">Your Safety<br>Network</div>
+          <div style="font-size:14px;color:var(--tx2);line-height:1.7;max-width:260px;margin-bottom:20px">Assign shadow contacts who track your journey. If you miss a check-in, they're instantly alerted with your exact location.</div>
+          <!-- Mini network diagram -->
+          <div style="position:relative;width:200px;height:160px">
+            <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;border-radius:50%;background:var(--acGrad);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--s0);z-index:2;box-shadow:0 0 0 6px rgba(0,201,177,0.15)">YOU</div>
+            <!-- Connection lines -->
+            <svg style="position:absolute;inset:0;width:100%;height:100%" viewBox="0 0 200 160">
+              <line x1="100" y1="80" x2="20" y2="20" stroke="rgba(0,201,177,0.3)" stroke-width="1" stroke-dasharray="4,4"/>
+              <line x1="100" y1="80" x2="180" y2="20" stroke="rgba(0,201,177,0.3)" stroke-width="1" stroke-dasharray="4,4"/>
+              <line x1="100" y1="80" x2="20" y2="140" stroke="rgba(0,201,177,0.3)" stroke-width="1" stroke-dasharray="4,4"/>
+              <line x1="100" y1="80" x2="180" y2="140" stroke="rgba(0,201,177,0.3)" stroke-width="1" stroke-dasharray="4,4"/>
+            </svg>
+            <div style="position:absolute;top:2px;left:2px;width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#E8B84B,#C8941A);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--s0);border:2px solid var(--green)">SC</div>
+            <div style="position:absolute;top:2px;right:2px;width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#5BA8D8,#2E6EA0);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;border:2px solid var(--green)">MJ</div>
+            <div style="position:absolute;bottom:2px;left:2px;width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#C89BFF,#7B4BBF);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;border:2px solid rgba(255,255,255,0.2)">ER</div>
+            <div style="position:absolute;bottom:2px;right:2px;width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#2ECC71,#1A8A4C);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;border:2px solid rgba(255,255,255,0.2)">+</div>
+          </div>
+          <div style="font-size:12px;color:var(--tx3);margin-top:8px">K-factor 1.4 — every traveler grows the network</div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="ob-slide" id="ob-2" style="min-width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 28px 20px;text-align:center">
+          <div style="font-size:64px;margin-bottom:16px;animation:bi 0.5s both">🚨</div>
+          <div style="font-size:24px;font-weight:700;color:var(--tx);line-height:1.25;margin-bottom:12px">One Tap.<br>Your People Know.</div>
+          <div style="font-size:14px;color:var(--tx2);line-height:1.7;max-width:260px;margin-bottom:20px">In an emergency, hit SOS. Your shadows receive your exact location, a live tracking link, and an escalating alert — in under 10 seconds.</div>
+          <!-- SOS mini mockup -->
+          <div style="background:rgba(232,57,77,0.08);border:1.5px solid rgba(232,57,77,0.35);border-radius:16px;padding:16px 20px;width:100%;max-width:260px">
+            <div style="font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--red);margin-bottom:10px">🔴 SOS SEQUENCE</div>
+            <div style="display:flex;flex-direction:column;gap:7px">
+              <div style="display:flex;align-items:center;gap:8px"><div style="width:20px;height:20px;border-radius:50%;background:rgba(46,204,113,0.2);border:1px solid rgba(46,204,113,0.4);display:flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0">✓</div><div style="font-size:12px;color:var(--tx)">GPS locked · Budapest, HU</div></div>
+              <div style="display:flex;align-items:center;gap:8px"><div style="width:20px;height:20px;border-radius:50%;background:rgba(46,204,113,0.2);border:1px solid rgba(46,204,113,0.4);display:flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0">✓</div><div style="font-size:12px;color:var(--tx)">3 shadows alerted instantly</div></div>
+              <div style="display:flex;align-items:center;gap:8px"><div style="width:20px;height:20px;border-radius:50%;background:rgba(46,204,113,0.2);border:1px solid rgba(46,204,113,0.4);display:flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0">✓</div><div style="font-size:12px;color:var(--tx)">Live location shared 24h</div></div>
+              <div style="display:flex;align-items:center;gap:8px"><div style="width:20px;height:20px;border-radius:50%;background:rgba(46,204,113,0.2);border:1px solid rgba(46,204,113,0.4);display:flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0">✓</div><div style="font-size:12px;color:var(--tx)">Embassy contacted if escalated</div></div>
+            </div>
+          </div>
+          <div style="font-size:12px;color:var(--tx3);margin-top:14px">Average response from shadows: <span style="color:var(--green);font-weight:700">47 seconds</span></div>
+        </div>
+      </div>
+
+      <!-- Dots + CTA -->
+      <div style="padding:16px 28px 32px;display:flex;flex-direction:column;align-items:center;gap:16px;flex-shrink:0;background:var(--s0)">
+        <div style="display:flex;gap:8px" id="ob-dots">
+          <div id="od0" style="width:24px;height:6px;border-radius:3px;background:var(--ac);transition:all 0.3s"></div>
+          <div id="od1" style="width:6px;height:6px;border-radius:3px;background:var(--br);transition:all 0.3s"></div>
+          <div id="od2" style="width:6px;height:6px;border-radius:3px;background:var(--br);transition:all 0.3s"></div>
+        </div>
+        <button id="ob-cta" onclick="obNext()" style="width:100%;padding:14px;border-radius:999px;border:none;background:var(--acGrad);color:var(--s0);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:0.03em">Continue →</button>
+        <div onclick="go('login')" style="font-size:12px;color:var(--tx3);cursor:pointer">Already have an account? <span style="color:var(--ac);font-weight:600">Sign in</span></div>
+      </div>
+    </div>
+  </div>
   <div class="sos-ov" id="sos-ov">
     <canvas id="sos-cv"></canvas>
 
@@ -931,7 +1134,7 @@ html.light #s-home,html.light #s-checkin,html.light #s-trips,html.light #s-pods,
       </div>
     </div>
 
-    <button class="sos-dismiss" id="sos-dismiss" onclick="closeSOS()">✓ All Shadows Notified — Close</button>
+    <button class="sos-dismiss" id="sos-dismiss" onclick="closeSOS();setTimeout(()=>go('aftermath'),400)">✓ All Shadows Notified — See Status →</button>
   </div>
 
   <!-- NEW TRIP MODAL -->
@@ -1186,7 +1389,7 @@ html.light #s-home,html.light #s-checkin,html.light #s-trips,html.light #s-pods,
 
 <script>
 // ── STATE ─────────────────────────────────────────────────────────────────────
-let cur = 'login', ciSecs = 42*60+22, ciIv = null, ringRaf = null, sosRaf = null;
+let cur = 'onboard', ciSecs = 42*60+22, ciIv = null, ringRaf = null, sosRaf = null;
 let _compassLightMode = false; // MUST be before compass IIFE below
 
 // ── NAVIGATION ─────────────────────────────────────────────────────────────────
@@ -1194,17 +1397,21 @@ function go(name) {
   if (cur === name) return;
   document.getElementById('s-' + cur).classList.remove('active');
   const next = document.getElementById('s-' + name);
+  if (!next) return;
   next.classList.add('active');
   cur = name;
   document.querySelectorAll('.ctx').forEach(el => el.classList.toggle('on', el.dataset.s === name));
   next.querySelectorAll('[class]').forEach(el => {
     if (/\ba[1-7]\b/.test(el.className)) { el.style.animation = 'none'; el.offsetHeight; el.style.animation = ''; }
   });
-  if (name === 'checkin') { startRing(); drawMap('map-ci', 304, 124); }
-  if (name === 'home') { updateGreeting(); drawMap('map-home', 304, 150); }
-  if (name === 'profile') animStats();
-  if (name === 'pods') { setTimeout(() => drawConnectMap(), 80); }
-  if (name === 'city') { setTimeout(() => drawCityHero(), 80); }
+  if (name === 'checkin')    { startRing(); drawMap('map-ci', 304, 124); }
+  if (name === 'home')       { updateGreeting(); drawMap('map-home', 304, 150); }
+  if (name === 'profile')    animStats();
+  if (name === 'pods')       setTimeout(() => drawConnectMap(), 80);
+  if (name === 'city')       setTimeout(() => drawCityHero(), 80);
+  if (name === 'onboard')    setTimeout(() => drawObCompass(), 80);
+  if (name === 'aftermath')  setTimeout(() => startLocCountdown(), 400);
+  if (name === 'assistant')  setTimeout(() => document.getElementById('chat-input')?.focus(), 300);
 }
 function nc(el) { el.closest('.bn').querySelectorAll('.ni').forEach(n => n.classList.remove('on')); el.classList.add('on'); }
 
@@ -2344,6 +2551,8 @@ async function _runDemo() {
   document.getElementById('demo-btn').style.borderColor = 'rgba(232,57,77,0.4)';
   document.getElementById('demo-btn').style.color = '#FF8090';
   if (!investorOn) toggleInvestor();
+  // Skip onboarding for demo
+  if (cur === 'onboard') { document.getElementById('s-onboard').classList.remove('active'); document.getElementById('s-login').classList.add('active'); cur='login'; }
 
   const S = [
     // 01 LOGIN
@@ -2448,7 +2657,7 @@ document.addEventListener('keydown', e => {
   if (k === 'r') { if (document.getElementById('rev-calc').style.display === 'flex') closeRevCalc(); else openRevCalc(); }
   if (k === 'v') { populateBrowserVoices(); document.getElementById('voice-modal').style.display = 'flex'; }
   if (k === 'escape') { closeSOS(); closeRevCalc(); stopAutoDemo(); document.getElementById('voice-modal').style.display = 'none'; }
-  const screenOrder = ['login','home','trips','pods','city','messages','checkin','profile'];
+  const screenOrder = ['onboard','login','home','trips','pods','city','messages','assistant','checkin','aftermath','profile'];
   const idx = screenOrder.indexOf(cur);
   if (k === 'arrowright' && idx < screenOrder.length - 1) go(screenOrder[idx + 1]);
   if (k === 'arrowleft'  && idx > 0)                     go(screenOrder[idx - 1]);
@@ -2463,7 +2672,191 @@ setTimeout(() => {
   setTimeout(() => { hint.style.opacity = '0'; hint.style.transition = 'opacity 0.8s'; setTimeout(() => hint.remove(), 900); }, 6000);
 }, 1400);
 
-// ── CONNECT SCREEN — Map/List toggle + Filter ──────────────────────────────────
+// ── ONBOARDING ────────────────────────────────────────────────────────────────
+let obSlide = 0;
+function obNext() {
+  if (obSlide < 2) {
+    obSlide++;
+    const track = document.getElementById('ob-slides');
+    track.style.transform = `translateX(-${obSlide * 100}%)`;
+    track.style.transition = 'transform 0.45s cubic-bezier(.4,0,.2,1)';
+    // Update dots
+    [0,1,2].forEach(i => {
+      const d = document.getElementById('od'+i);
+      if (!d) return;
+      d.style.width  = i===obSlide ? '24px' : '6px';
+      d.style.background = i===obSlide ? 'var(--ac)' : 'var(--br)';
+    });
+    if (obSlide===2) {
+      const btn = document.getElementById('ob-cta');
+      if (btn) { btn.textContent = 'Get Started 🚀'; btn.onclick = ()=>go('login'); }
+    }
+  } else {
+    go('login');
+  }
+}
+
+// Draw mini compass on onboarding slide 1
+function drawObCompass() {
+  const cv = document.getElementById('ob-compass');
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
+  const W=cv.width, H=cv.height, cx=W/2, cy=H/2;
+  let t=0;
+  function frame(){
+    ctx.clearRect(0,0,W,H); t++;
+    const C = _compassLightMode ? '#00A896' : '#00C9B1';
+    const CL = '#5EEEDD';
+    const bg = _compassLightMode ? 'rgba(0,168,150,' : 'rgba(0,201,177,';
+    const gw=ctx.createRadialGradient(cx,cy,0,cx,cy,78);
+    gw.addColorStop(0,bg+'0.18)'); gw.addColorStop(1,bg+'0)');
+    ctx.fillStyle=gw; ctx.beginPath(); ctx.arc(cx,cy,78,0,Math.PI*2); ctx.fill();
+    [[68,0.28,1.0],[55,0.55,1.0],[40,0.30,0.6]].forEach(([r,alpha,lw])=>{
+      ctx.save(); ctx.strokeStyle=C; ctx.lineWidth=lw; ctx.globalAlpha=alpha;
+      ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.stroke(); ctx.restore();
+    });
+    const rot=t*0.003;
+    ctx.save(); ctx.translate(cx,cy); ctx.rotate(rot);
+    ctx.strokeStyle=C; ctx.lineWidth=0.7; ctx.globalAlpha=0.3;
+    ctx.beginPath(); ctx.moveTo(0,-68); ctx.lineTo(0,68); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(-68,0); ctx.lineTo(68,0); ctx.stroke();
+    ctx.restore();
+    ctx.save(); ctx.translate(cx,cy); ctx.rotate(-t*0.002);
+    for(let i=0;i<4;i++){
+      ctx.save(); ctx.rotate(i*Math.PI/2);
+      ctx.globalAlpha=i===0?1.0:0.5; ctx.fillStyle=i===0?CL:C;
+      ctx.beginPath(); ctx.moveTo(0,-66); ctx.lineTo(-4,-48); ctx.lineTo(0,-54); ctx.lineTo(4,-48); ctx.closePath(); ctx.fill();
+      ctx.restore();
+    }
+    ctx.restore();
+    ctx.strokeStyle=C; ctx.lineWidth=1.5; ctx.globalAlpha=1;
+    ctx.beginPath(); ctx.arc(cx,cy,8,0,Math.PI*2); ctx.stroke();
+    ctx.fillStyle=C; ctx.beginPath(); ctx.arc(cx,cy,3,0,Math.PI*2); ctx.fill();
+    [0,22,44].forEach(off=>{
+      const p=((t+off)*0.016)%1;
+      ctx.save(); ctx.strokeStyle=C; ctx.lineWidth=1.5; ctx.globalAlpha=0.5*(1-p);
+      ctx.beginPath(); ctx.arc(cx,cy,40+p*36,0,Math.PI*2); ctx.stroke(); ctx.restore();
+    });
+    if(cur==='onboard') requestAnimationFrame(frame);
+  }
+  frame();
+}
+
+// ── AI SAFETY ASSISTANT ───────────────────────────────────────────────────────
+const SAFETY_CONTEXT = `You are the Solo Passport Safety Assistant — an AI safety companion embedded in a solo travel app.
+The traveler is Ahmad Schleifer, currently on a solo trip in Budapest, Hungary.
+Trip details: Active trip "Budapest Adventure", Mar 15–22 2026. Risk level: Low. 3 shadow contacts active. Next check-in in 2h 15m. Currently in District V (Old Town area).
+
+You have access to: local safety intelligence, embassy locations, emergency numbers, neighborhood risk data, and real-time alerts.
+
+Emergency numbers for Hungary: Emergency 112, Police 107, Ambulance 104, Fire 105.
+US Embassy Budapest: Szabadság tér 12, +36 1 475 4400, open Mon-Fri 8am-5pm.
+
+Respond in 2-3 short paragraphs max. Be warm but direct. Always prioritize safety. Reference their specific location context when relevant. End with a safety tip or follow-up question when appropriate. Never break character.`;
+
+let chatHistory = [];
+let chatTyping = false;
+
+async function sendChat() {
+  const input = document.getElementById('chat-input');
+  const msg = input.value.trim();
+  if (!msg || chatTyping) return;
+  input.value = '';
+  // Hide suggest chips after first message
+  const chips = document.getElementById('suggest-chips');
+  if (chips) chips.style.display = 'none';
+  appendChatMsg('user', msg);
+  await askAssistant(msg);
+}
+
+async function sendSuggest(el, msg) {
+  const chips = document.getElementById('suggest-chips');
+  if (chips) chips.style.display = 'none';
+  appendChatMsg('user', msg);
+  await askAssistant(msg);
+}
+
+function appendChatMsg(role, text) {
+  const msgs = document.getElementById('chat-msgs');
+  if (!msgs) return;
+  const isUser = role === 'user';
+  const div = document.createElement('div');
+  div.style.cssText = `display:flex;gap:9px;align-items:flex-end;${isUser?'flex-direction:row-reverse':''}`;
+  div.innerHTML = isUser
+    ? `<div style="max-width:80%"><div style="background:var(--acGrad);border-radius:16px 16px 4px 16px;padding:11px 13px"><div style="font-size:13px;color:var(--s0);line-height:1.55">${text}</div></div></div>`
+    : `<div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#E8394D,#C42A3C);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">🛡</div>
+       <div style="max-width:80%"><div id="ai-bubble-${Date.now()}" style="background:var(--s2);border:1px solid var(--br);border-radius:16px 16px 16px 4px;padding:11px 13px"><div style="font-size:13px;color:var(--tx);line-height:1.55">${text}</div></div><div style="font-size:9px;color:var(--tx3);margin-top:3px;padding-left:4px">Just now</div></div>`;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  chatHistory.push({ role, content: text });
+}
+
+function appendTypingIndicator() {
+  const msgs = document.getElementById('chat-msgs');
+  if (!msgs) return null;
+  const div = document.createElement('div');
+  div.id = 'typing-indicator';
+  div.style.cssText = 'display:flex;gap:9px;align-items:flex-end';
+  div.innerHTML = `<div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#E8394D,#C42A3C);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">🛡</div>
+    <div style="background:var(--s2);border:1px solid var(--br);border-radius:16px 16px 16px 4px;padding:12px 16px;display:flex;gap:5px;align-items:center">
+      <div style="width:6px;height:6px;border-radius:50%;background:var(--ac);animation:pp 1s 0s infinite"></div>
+      <div style="width:6px;height:6px;border-radius:50%;background:var(--ac);animation:pp 1s 0.2s infinite"></div>
+      <div style="width:6px;height:6px;border-radius:50%;background:var(--ac);animation:pp 1s 0.4s infinite"></div>
+    </div>`;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  return div;
+}
+
+async function askAssistant(userMsg) {
+  chatTyping = true;
+  const send = document.getElementById('chat-send');
+  if (send) send.style.opacity = '0.5';
+  const typing = appendTypingIndicator();
+
+  try {
+    const messages = [
+      ...chatHistory.slice(0,-1).map(m => ({ role: m.role==='user'?'user':'assistant', content: m.content })),
+      { role: 'user', content: userMsg }
+    ];
+
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 400,
+        system: SAFETY_CONTEXT,
+        messages
+      })
+    });
+
+    const data = await res.json();
+    const reply = data.content?.[0]?.text || "I'm having trouble connecting right now. For immediate safety concerns, call 112.";
+    if (typing) typing.remove();
+    appendChatMsg('assistant', reply);
+  } catch(e) {
+    if (typing) typing.remove();
+    appendChatMsg('assistant', "I'm offline right now. For emergencies call 112. Embassy: +36 1 475 4400.");
+  }
+
+  chatTyping = false;
+  if (send) send.style.opacity = '1';
+}
+
+// ── SOS AFTERMATH ─────────────────────────────────────────────────────────────
+function startLocCountdown() {
+  let secs = 23 * 3600 + 47 * 60;
+  const el = document.getElementById('loc-countdown');
+  const iv = setInterval(() => {
+    if (!el || !document.getElementById('s-aftermath').classList.contains('active')) { clearInterval(iv); return; }
+    secs--;
+    const h = Math.floor(secs/3600), m = Math.floor((secs%3600)/60), s = secs%60;
+    el.textContent = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}`;
+  }, 1000);
+}
+
+// ── WIRE EVERYTHING TO go() ───────────────────────────────────────────────────
 let connectView = 'map';
 let connectFilter = 'all';
 
@@ -2665,10 +3058,11 @@ function drawCityHero() {
   }
 }
 
-// ── BOOT additions — also update light/gold overrides ─────────────────────────
-startCompass();  // compass runs after _compassLightMode is declared
+// ── BOOT ─────────────────────────────────────────────────────────────────────
+startCompass();
 startRing();
 drawMap('map-home', 304, 150);
+drawObCompass();
 </script>
 </body>
 </html>
