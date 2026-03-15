@@ -1,0 +1,2238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Solo Passport — Investor Demo</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+/* ══════════════════════════════════════════════════════════════
+   DARK THEME — Minimal Line (Navy + Teal) — DEFAULT
+   ══════════════════════════════════════════════════════════════ */
+:root {
+  /* Accent */
+  --ac:       #00C9B1;  /* primary teal */
+  --acL:      #5EEEDD;  /* teal light */
+  --acLL:     #A0FFF5;  /* teal lightest */
+  --acD:      #007A6A;  /* teal dark */
+  --acGrad:   linear-gradient(135deg,#5EEEDD 0%,#00C9B1 50%,#007A6A 100%);
+  /* Surfaces */
+  --bg:       #060E14;   /* page bg */
+  --s0:       #0A1628;   /* phone bg / deepest surface */
+  --s1:       #0D1E35;   /* card bg */
+  --s2:       #122540;   /* elevated card */
+  --s3:       #1A3050;   /* hover */
+  --s4:       #22405E;
+  /* Text */
+  --tx:       #FFFFFF;
+  --tx2:      #C8DDF0;   /* secondary */
+  --tx3:      #6B8CAE;   /* muted */
+  --tx4:      #3A5068;   /* very muted */
+  /* Semantic */
+  --red:      #E8394D;
+  --green:    #2ECC71;
+  --amber:    #F39C12;
+  --blue:     #5BA8D8;
+  /* Borders */
+  --br:       rgba(0,201,177,0.18);
+  --brH:      rgba(0,201,177,0.45);
+  /* Gold (kept for SOS/emergency accents) */
+  --gold:     #C8941A;--goldL:#E8B84B;--goldLL:#F5C542;
+  --goldGrad: linear-gradient(135deg,#F5D06A 0%,#C8941A 50%,#9A6800 100%);
+  /* Fonts */
+  --fd:'Cinzel',serif;--fb:'DM Sans',sans-serif;--fm:'Space Mono',monospace;
+  /* Theme id */
+  --theme: 'dark';
+}
+
+/* ══════════════════════════════════════════════════════════════
+   LIGHT THEME — Minimal Line (Cream + Teal) — class="light"
+   ══════════════════════════════════════════════════════════════ */
+html.light {
+  --ac:       #00A896;
+  --acL:      #00C9B1;
+  --acLL:     #007A6A;
+  --acD:      #005A52;
+  --acGrad:   linear-gradient(135deg,#00C9B1 0%,#00A896 50%,#007A6A 100%);
+  --bg:       #F0F5F8;
+  --s0:       #FFFFFF;
+  --s1:       #F7FAFB;
+  --s2:       #EDF3F6;
+  --s3:       #E0ECF0;
+  --s4:       #CCDDE5;
+  --tx:       #0A1628;
+  --tx2:      #1E3A52;
+  --tx3:      #4A6A82;
+  --tx4:      #8AACBC;
+  --br:       rgba(0,168,150,0.18);
+  --brH:      rgba(0,168,150,0.55);
+  --red:      #D42B3E;
+  --green:    #1E9E56;
+  --amber:    #D4880A;
+  --blue:     #2E7AB0;
+  --gold:     #B07A10;--goldL:#C8941A;--goldLL:#E8B84B;
+  --goldGrad: linear-gradient(135deg,#E8B84B 0%,#C8941A 50%,#9A6800 100%);
+  --theme: 'light';
+}
+/* ══════════════════════════════════════════════════════════════
+   THEME 3 — Gold Dark (Black + Gold) — class="gold-dark"
+   ══════════════════════════════════════════════════════════════ */
+html.gold-dark {
+  --ac:       #C8941A;
+  --acL:      #E8B84B;
+  --acLL:     #F5C542;
+  --acD:      #9A6800;
+  --acGrad:   linear-gradient(135deg,#F5D06A 0%,#C8941A 50%,#9A6800 100%);
+  --bg:       #060400;
+  --s0:       #0C0A06;
+  --s1:       #131109;
+  --s2:       #1C1A12;
+  --s3:       #252318;
+  --s4:       #2E2B1E;
+  --tx:       #FFFFFF;
+  --tx2:      #E8DFC0;
+  --tx3:      #8A7F62;
+  --tx4:      #4A3A20;
+  --br:       rgba(200,148,26,0.18);
+  --brH:      rgba(200,148,26,0.5);
+  --red:      #E8394D;--green:#2ECC71;--amber:#F39C12;--blue:#5BA8D8;
+  --gold:     #C8941A;--goldL:#E8B84B;--goldLL:#F5C542;
+  --goldGrad: linear-gradient(135deg,#F5D06A 0%,#C8941A 50%,#9A6800 100%);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   THEME 4 — Gold Light (White + Gold) — class="gold-light"
+   ══════════════════════════════════════════════════════════════ */
+html.gold-light {
+  --ac:       #B07A10;
+  --acL:      #C8941A;
+  --acLL:     #E8B84B;
+  --acD:      #7A5200;
+  --acGrad:   linear-gradient(135deg,#E8B84B 0%,#C8941A 50%,#9A6800 100%);
+  --bg:       #FDFAF5;
+  --s0:       #FFFFFF;
+  --s1:       #FDF8EE;
+  --s2:       #F5EDD6;
+  --s3:       #EDE0BC;
+  --s4:       #E0CFA0;
+  --tx:       #1A0E00;
+  --tx2:      #3A2800;
+  --tx3:      #7A6040;
+  --tx4:      #B09878;
+  --br:       rgba(200,148,26,0.2);
+  --brH:      rgba(200,148,26,0.55);
+  --red:      #D42B3E;--green:#1E9E56;--amber:#C8941A;--blue:#2E7AB0;
+  --gold:     #B07A10;--goldL:#C8941A;--goldLL:#E8B84B;
+  --goldGrad: linear-gradient(135deg,#E8B84B 0%,#C8941A 50%,#9A6800 100%);
+}
+
+
+html,body{height:100%;background:var(--bg);font-family:var(--fb);overflow:hidden;user-select:none;transition:background 0.3s}
+.shell{display:flex;align-items:center;justify-content:center;height:100vh;gap:2.5rem;padding:1.5rem;position:relative;overflow:hidden}
+.shell::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 70% at 50% 50%,rgba(0,201,177,0.05) 0%,transparent 70%);pointer-events:none;transition:all 0.3s}
+html.light .shell::before{background:none}
+html.light #login-glow{display:none}
+html.light .shell{overflow:visible}
+html.light body{overflow:hidden}
+html.gold-light #s-login{background:var(--s0)}
+html.gold-light #s-home,html.gold-light #s-checkin,html.gold-light #s-trips,html.gold-light #s-pods,html.gold-light #s-messages,html.gold-light #s-profile{background:var(--s0)}
+html.gold-light .phone{box-shadow:0 0 0 1.5px var(--brH),0 0 0 1px rgba(200,148,26,0.15),0 4px 20px rgba(100,60,0,0.1)}
+html.gold-light .shell{overflow:visible}
+html.gold-light .shell::before{background:none}
+html.gold-light #login-glow{display:none}
+html.gold-light body{overflow:hidden}
+html.gold-dark .shell::before{background:radial-gradient(ellipse 80% 70% at 50% 50%,rgba(200,148,26,0.06) 0%,transparent 70%)}
+html.gold-dark .phone{box-shadow:0 0 0 1.5px rgba(200,148,26,0.4),0 0 0 3px rgba(0,0,0,0.8),0 32px 80px rgba(0,0,0,0.8),0 0 60px rgba(200,148,26,0.08)}
+
+
+/* PHONE */
+.phone{width:332px;height:682px;border-radius:44px;background:var(--s0);position:relative;overflow:hidden;flex-shrink:0;
+  box-shadow:0 0 0 1.5px var(--brH),0 0 0 3px rgba(0,0,0,0.5),0 32px 80px rgba(0,0,0,0.5),0 0 50px rgba(0,201,177,0.07);
+  transition:transform 0.5s cubic-bezier(.4,0,.2,1),background 0.3s,box-shadow 0.3s}
+html.light .phone{box-shadow:0 0 0 1.5px var(--brH),0 0 0 1px rgba(0,168,150,0.15),0 4px 20px rgba(0,100,90,0.08)}
+.phone:hover{transform:translateY(-3px)}
+.island{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:100px;height:28px;background:#000;border-radius:18px;z-index:200}
+.sb{position:absolute;top:0;left:0;right:0;height:48px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 18px 5px;z-index:199;font-size:11px;font-weight:600;color:var(--tx);transition:color 0.3s}
+.sb-t{font-family:var(--fm);font-size:12px}
+.sb-i{display:flex;gap:4px;align-items:center;opacity:0.85}
+
+/* SCREENS */
+.screen{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity 0.38s cubic-bezier(.4,0,.2,1);overflow:hidden;display:flex;flex-direction:column}
+.screen.active{opacity:1;pointer-events:all}
+.sb2{flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding-bottom:76px}
+.sb2::-webkit-scrollbar{display:none}
+
+/* ANIMATIONS */
+@keyframes fu{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fi{from{opacity:0}to{opacity:1}}
+@keyframes bi{0%{transform:scale(0.3);opacity:0}50%{transform:scale(1.1)}70%{transform:scale(0.95)}100%{transform:scale(1);opacity:1}}
+@keyframes sk{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+@keyframes ro{0%{transform:scale(0);opacity:0.6}100%{transform:scale(3.5);opacity:0}}
+@keyframes gp{0%,100%{box-shadow:0 0 20px rgba(232,57,77,0.4)}50%{box-shadow:0 0 50px rgba(232,57,77,0.85),0 0 80px rgba(232,57,77,0.4)}}
+@keyframes nd{0%{transform:translateY(-60px);opacity:0}15%{transform:translateY(3px)}25%{transform:translateY(-1px)}35%{transform:translateY(0);opacity:1}75%{transform:translateY(0);opacity:1}100%{transform:translateY(-60px);opacity:0}}
+@keyframes nt{0%{transform:translateY(8px);opacity:0}100%{transform:translateY(0);opacity:1}}
+@keyframes pp{0%,100%{opacity:1}50%{opacity:0.4}}
+@keyframes sw{from{width:0%}to{width:100%}}
+.a1{animation:fu 0.45s 0.06s both cubic-bezier(.4,0,.2,1)}
+.a2{animation:fu 0.45s 0.14s both cubic-bezier(.4,0,.2,1)}
+.a3{animation:fu 0.45s 0.22s both cubic-bezier(.4,0,.2,1)}
+.a4{animation:fu 0.45s 0.30s both cubic-bezier(.4,0,.2,1)}
+.a5{animation:fu 0.45s 0.38s both cubic-bezier(.4,0,.2,1)}
+.a6{animation:fu 0.45s 0.46s both cubic-bezier(.4,0,.2,1)}
+.a7{animation:fu 0.45s 0.54s both cubic-bezier(.4,0,.2,1)}
+
+/* BUTTONS */
+.bg{width:100%;padding:13px;border-radius:999px;border:none;background:var(--acGrad);color:#fff;font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer;letter-spacing:0.04em;transition:transform 0.15s,box-shadow 0.15s,filter 0.15s;box-shadow:0 4px 18px rgba(0,201,177,0.3);position:relative;overflow:hidden}
+.bg::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.14),transparent 55%);border-radius:inherit;pointer-events:none}
+.bg:hover{transform:translateY(-1px);box-shadow:0 8px 28px rgba(0,201,177,0.45);filter:brightness(1.06)}
+.bg:active{transform:scale(0.97)}
+.br{width:100%;padding:14px;border-radius:14px;border:none;background:linear-gradient(135deg,#FF4D62,#E8394D,#C42A3C);color:#fff;font-family:var(--fb);font-size:15px;font-weight:700;cursor:pointer;letter-spacing:0.06em;transition:transform 0.15s,box-shadow 0.15s;box-shadow:0 4px 20px rgba(232,57,77,0.4);position:relative;overflow:hidden}
+.br::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.12),transparent);border-radius:inherit;pointer-events:none}
+.br:hover{transform:translateY(-1px);box-shadow:0 8px 30px rgba(232,57,77,0.6)}
+.bo{width:100%;padding:11px;border-radius:999px;border:1.5px solid var(--brH);background:transparent;color:var(--ac);font-family:var(--fb);font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s}
+.bo:hover{background:rgba(0,201,177,0.08);border-color:var(--ac)}
+.rp{position:absolute;border-radius:50%;background:rgba(255,255,255,0.25);animation:ro 0.6s linear forwards;pointer-events:none}
+
+/* FIELDS */
+.fi{width:100%;background:rgba(0,201,177,0.04);border:1px solid var(--br);border-radius:999px;padding:11px 18px;color:var(--tx);font-family:var(--fb);font-size:13px;outline:none;margin-bottom:10px;transition:all 0.25s}
+.fi::placeholder{color:var(--tx3)}
+.fi:focus{border-color:var(--brH);background:rgba(0,201,177,0.07);box-shadow:0 0 0 3px rgba(0,201,177,0.1)}
+.fw{position:relative;width:100%}
+.fe{position:absolute;right:15px;top:50%;transform:translateY(-60%);color:var(--tx3);font-size:13px;cursor:pointer}
+
+/* SECTION LABEL */
+.sl{font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--tx3);padding:11px 16px 6px}
+
+/* CARD */
+.card{background:var(--s1);border:1px solid var(--br);border-radius:16px;padding:13px 14px;margin:0 14px 9px;transition:background 0.2s,border-color 0.2s}
+.card:hover{background:var(--s2);border-color:var(--brH)}
+.cg{border-color:var(--brH);background:rgba(0,201,177,0.06)}
+
+/* BOTTOM NAV */
+.bn{position:absolute;bottom:0;left:0;right:0;height:74px;background:var(--s0);backdrop-filter:blur(20px);border-top:1px solid var(--br);display:flex;align-items:flex-start;justify-content:space-around;padding-top:10px;z-index:100;transition:background 0.3s,border-color 0.3s}
+.ni{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:0 8px;position:relative}
+.ni:hover{transform:translateY(-1px)}
+.ni .ico{font-size:19px;transition:transform 0.2s}
+.ni .lbl{font-size:8.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--tx3);transition:color 0.2s}
+.ni.on .ico{transform:scale(1.12)}
+.ni.on .lbl{color:var(--ac)}
+.ni.on::before{content:'';position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:22px;height:2.5px;background:var(--acGrad);border-radius:2px}
+
+/* TOAST */
+.toast{position:absolute;top:54px;left:12px;right:12px;background:var(--s1);border:1px solid var(--brH);border-radius:14px;padding:11px 13px;z-index:500;display:flex;gap:10px;align-items:flex-start;animation:nd 3.8s cubic-bezier(.4,0,.2,1) forwards;backdrop-filter:blur(20px);box-shadow:0 8px 24px rgba(0,0,0,0.5)}
+.toast-ico{font-size:18px;flex-shrink:0;margin-top:1px}
+.toast-body .tt{font-size:12px;font-weight:700;color:var(--tx)}
+.toast-body .ts{font-size:10px;color:var(--tx2);margin-top:2px}
+
+/* HEADER */
+.hdr{display:flex;align-items:center;padding:9px 16px 10px;border-bottom:1px solid var(--br)}
+.hbk{width:28px;height:28px;border-radius:50%;background:var(--s2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px;transition:background 0.2s;flex-shrink:0}
+.hbk:hover{background:var(--s3)}
+.hm{flex:1;text-align:center}
+.ht{font-size:16px;font-weight:700;color:var(--tx)}
+.hs{font-size:10px;color:var(--tx2);margin-top:1px}
+
+/* MODAL */
+.mo{position:absolute;inset:0;background:rgba(0,0,0,0.86);z-index:400;display:flex;align-items:flex-end;opacity:0;pointer-events:none;transition:opacity 0.3s;backdrop-filter:blur(8px)}
+.mo.open{opacity:1;pointer-events:all}
+.ms{background:var(--s1);border-radius:28px 28px 0 0;padding:18px 18px 34px;width:100%;transform:translateY(100%);transition:transform 0.4s cubic-bezier(.4,0,.2,1);border:1px solid rgba(200,148,26,0.14);border-bottom:none}
+.mo.open .ms{transform:translateY(0)}
+.mh{width:38px;height:4px;background:var(--br);border-radius:2px;margin:0 auto 14px}
+.mt{font-size:17px;font-weight:700;color:var(--tx);margin-bottom:3px}
+.msub{font-size:12px;color:var(--tx2);margin-bottom:16px}
+
+/* SOS OVERLAY — full cinematic Safety Circles */
+.sos-ov{position:absolute;inset:0;z-index:600;opacity:0;pointer-events:none;transition:opacity 0.5s;overflow:hidden}
+.sos-ov.open{opacity:1;pointer-events:all}
+#sos-cv{position:absolute;inset:0;width:100%;height:100%}
+
+/* Top HUD */
+.sos-hud{position:absolute;top:0;left:0;right:0;padding:52px 18px 0;z-index:10;display:flex;flex-direction:column;align-items:center;gap:4px;pointer-events:none}
+.sos-alert-strip{display:flex;align-items:center;gap:7px;background:rgba(232,57,77,0.18);border:1px solid rgba(232,57,77,0.5);border-radius:999px;padding:4px 14px;backdrop-filter:blur(12px)}
+.sos-alert-dot{width:7px;height:7px;border-radius:50%;background:#E8394D;animation:pp 0.5s infinite}
+.sos-alert-lbl{font-family:var(--fm);font-size:9px;letter-spacing:0.2em;color:#E8394D;text-transform:uppercase}
+.sos-headline{font-size:19px;font-weight:700;color:#fff;text-align:center;text-shadow:0 2px 20px rgba(0,0,0,0.8)}
+.sos-sublabel{font-family:var(--fm);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.5);text-align:center}
+
+/* Phase label — centre floating */
+.sos-phase-pill{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:10;
+  background:rgba(10,8,4,0.88);border:1px solid rgba(0,201,177,0.4);
+  border-radius:999px;padding:5px 16px;backdrop-filter:blur(16px);
+  font-family:var(--fm);font-size:9px;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--acL);white-space:nowrap;pointer-events:none;
+  transition:opacity 0.4s}
+
+/* Bottom shadow status cards */
+.sos-cards{position:absolute;bottom:88px;left:14px;right:14px;z-index:10;display:flex;flex-direction:column;gap:6px}
+.scard{display:flex;align-items:center;gap:10px;background:rgba(8,6,4,0.82);
+  border:1px solid rgba(255,255,255,0.08);border-radius:13px;padding:9px 12px;
+  backdrop-filter:blur(16px);transition:border-color 0.4s,background 0.4s,transform 0.3s}
+.scard.sc-active{border-color:rgba(232,57,77,0.6);background:rgba(232,57,77,0.08);transform:translateX(2px)}
+.scard.sc-done{border-color:rgba(46,204,113,0.45);background:rgba(46,204,113,0.07)}
+.sc-av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;position:relative}
+.sc-av-ring{position:absolute;inset:-3px;border-radius:50%;border:1.5px solid transparent;transition:border-color 0.4s}
+.scard.sc-active .sc-av-ring{border-color:var(--red);animation:pp 0.6s infinite}
+.scard.sc-done .sc-av-ring{border-color:var(--green)}
+.sc-info{flex:1}
+.sc-name{font-size:12px;font-weight:600;color:#fff}
+.sc-loc{font-size:10px;color:var(--mist);margin-top:1px}
+.sc-status{font-size:10px;font-weight:700;color:var(--mistD);font-family:var(--fm);transition:color 0.3s}
+.scard.sc-active .sc-status{color:var(--red);animation:pp 0.7s infinite}
+.scard.sc-done .sc-status{color:var(--green)}
+
+/* Close button */
+.sos-dismiss{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:10;
+  display:none;padding:10px 32px;border-radius:999px;border:1px solid rgba(255,255,255,0.18);
+  background:rgba(12,10,6,0.8);color:rgba(255,255,255,0.65);font-size:12px;font-family:var(--fb);
+  cursor:pointer;backdrop-filter:blur(12px);transition:all 0.2s;white-space:nowrap}
+.sos-dismiss:hover{background:rgba(255,255,255,0.1);color:#fff;border-color:rgba(255,255,255,0.35)}
+
+/* MAP */
+.map-wrap{position:relative;border-radius:14px;overflow:hidden;background:#0d1117;margin-bottom:9px}
+.map-lbl{position:absolute;bottom:7px;left:9px;background:rgba(0,0,0,0.7);color:#fff;font-size:10px;padding:3px 8px;border-radius:20px;backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.1)}
+
+/* TRIP CARD */
+.tc{margin:12px 14px;background:linear-gradient(145deg,rgba(0,201,177,0.1),rgba(0,201,177,0.03));border:1px solid var(--brH);border-radius:20px;padding:14px;position:relative;overflow:hidden}
+.tc::before{content:'';position:absolute;top:0;left:0;right:0;height:2.5px;background:var(--acGrad)}
+.tab{display:inline-flex;align-items:center;gap:5px;font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--green)}
+.adot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pp 1.8s infinite}
+.tdt{font-size:10px;color:var(--tx3);float:right}
+.tn{font-size:17px;font-weight:700;color:var(--tx);margin:5px 0 2px;clear:both}
+.tl{font-size:11px;color:var(--tx2);margin-bottom:12px}
+.sr{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.sc{background:var(--s1);border:1px solid var(--br);border-radius:10px;padding:8px 10px;display:flex;align-items:center;gap:6px}
+.sci{font-size:12px;opacity:0.7}
+.scl{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:0.06em}
+.scv{font-size:13px;font-weight:700;color:var(--tx);margin-top:1px}
+
+/* RING */
+.cw{display:flex;flex-direction:column;align-items:center;padding:20px 20px 14px}
+.cr{position:relative;width:170px;height:170px}
+#ring-cv{position:absolute;inset:0;width:100%;height:100%}
+.ri{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.rt{font-family:var(--fm);font-size:30px;font-weight:700;color:var(--acL);letter-spacing:0.04em}
+.rf{font-size:10px;color:var(--tx3);margin-top:2px}
+
+/* SETTING ROW */
+.strow{display:flex;align-items:center;gap:10px;padding:11px 12px;background:var(--s1);border:1px solid var(--br);border-radius:13px;margin:0 14px 7px;cursor:pointer;transition:all 0.2s}
+.strow:hover{background:var(--s2);border-color:var(--brH)}
+.sti{width:30px;height:30px;border-radius:8px;background:rgba(0,201,177,0.1);border:1px solid var(--br);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.stt{flex:1}
+.sttl{font-size:12px;font-weight:600;color:var(--tx)}
+.sts{font-size:10px;color:var(--tx2);margin-top:1px}
+.sta{font-size:12px;color:var(--tx3)}
+
+/* TRIPS */
+.ti{display:flex;align-items:center;gap:11px;padding:12px 13px;background:var(--s1);border:1px solid var(--br);border-radius:14px;margin:0 14px 8px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden}
+.ti:hover{background:var(--s2);border-color:var(--brH);transform:translateX(2px)}
+.tif{font-size:22px;flex-shrink:0}
+.tii{flex:1}
+.tin{font-size:13px;font-weight:700;color:var(--tx)}
+.tic{font-size:10px;color:var(--tx2);margin-top:1px}
+.tid{font-size:10px;color:var(--tx3)}
+.tis{padding:3px 8px;border-radius:999px;font-size:9px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase}
+.tis.act{background:rgba(46,204,113,0.12);color:var(--green);border:1px solid rgba(46,204,113,0.25)}
+.tis.pln{background:rgba(0,201,177,0.1);color:var(--acL);border:1px solid rgba(0,201,177,0.25)}
+.tis.don{background:rgba(255,255,255,0.06);color:var(--mist);border:1px solid rgba(255,255,255,0.1)}
+
+/* PODS */
+.pc{margin:0 14px 8px;background:var(--s1);border:1px solid var(--br);border-radius:14px;padding:12px 13px;cursor:pointer;transition:all 0.2s}
+.pc:hover{background:var(--s2);border-color:var(--brH)}
+.ph{display:flex;align-items:center;gap:9px;margin-bottom:7px}
+.pav{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--ob);flex-shrink:0}
+.pname{font-size:13px;font-weight:600;color:var(--tx)}
+.prel{font-size:10px;color:var(--tx2)}
+.pst{margin-left:auto;display:flex;align-items:center;gap:4px;font-size:10px;font-weight:600}
+.ppill{display:flex;align-items:center;gap:5px;background:var(--s2);border-radius:8px;padding:5px 9px;font-size:10px;color:var(--tx2)}
+
+/* MESSAGES */
+.mr{display:flex;align-items:center;gap:10px;padding:11px 13px;margin:0 14px 7px;background:var(--s1);border:1px solid var(--br);border-radius:13px;cursor:pointer;transition:background 0.2s}
+.mr:hover{background:var(--s2)}
+.mav{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;position:relative}
+.mon{position:absolute;bottom:0;right:0;width:9px;height:9px;border-radius:50%;background:var(--green);border:1.5px solid var(--ob2)}
+.mb{flex:1}
+.mn{font-size:12px;font-weight:700;color:var(--tx)}
+.mp{font-size:11px;color:var(--tx2);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:155px}
+.mm{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.mtime{font-size:10px;color:var(--tx3)}
+.mbadge{width:17px;height:17px;border-radius:50%;background:var(--ac);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--ob)}
+
+/* PROFILE */
+.prhero{background:linear-gradient(180deg,rgba(0,201,177,0.08),transparent);padding:22px 18px 16px;display:flex;flex-direction:column;align-items:center;border-bottom:1px solid var(--br)}
+.pravt{width:68px;height:68px;border-radius:50%;background:var(--acGrad);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:var(--ob);font-family:var(--fd);border:2.5px solid rgba(200,148,26,0.4);box-shadow:0 0 0 6px rgba(200,148,26,0.08);margin-bottom:10px;position:relative}
+.prvbg{position:absolute;bottom:-1px;right:-1px;width:20px;height:20px;border-radius:50%;background:var(--green);border:2px solid var(--s0);display:flex;align-items:center;justify-content:center;font-size:9px}
+.prn{font-size:17px;font-weight:700;color:var(--tx)}
+.prh{font-size:11px;color:var(--tx2);margin-top:2px}
+.prst{display:flex;gap:18px;margin-top:14px}
+.psi{text-align:center}
+.psv{font-size:17px;font-weight:700;color:var(--acL)}
+.psl{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:0.08em;margin-top:1px}
+.menu-row{display:flex;align-items:center;gap:11px;padding:12px 13px;background:var(--s1);border:1px solid var(--br);border-radius:13px;margin:0 14px 7px;cursor:pointer;transition:background 0.2s}
+.menu-row:hover{background:var(--s2)}
+.mi{font-size:15px;width:20px;text-align:center}
+.mlb{flex:1;font-size:13px;font-weight:500;color:var(--tx)}
+.ma{font-size:11px;color:var(--tx3)}
+
+/* STEP DOTS */
+.sdots{display:flex;justify-content:center;gap:6px;margin-bottom:14px}
+.sdot{width:22px;height:4px;border-radius:2px;background:var(--br);transition:background 0.3s}
+.sdot.done{background:var(--ac)}
+.sdot.cur{background:var(--acL)}
+
+/* ── INVESTOR PANEL ── */
+.inv-card{background:var(--s1);border:1px solid var(--br);border-radius:12px;padding:11px 13px}
+.inv-label{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:0.15em;text-transform:uppercase;color:#8A7F62;margin-bottom:5px}
+.inv-val{font-size:22px;font-weight:700;color:var(--acL);font-family:'Space Mono',monospace;line-height:1}
+.inv-sub{font-size:10px;color:#8A7F62;margin-top:3px}
+.inv-bar{height:3px;background:rgba(255,255,255,0.08);border-radius:2px;margin-top:7px;overflow:hidden}
+.inv-bar-fill{height:100%;background:var(--acGrad);border-radius:2px;transition:width 1.5s cubic-bezier(.4,0,.2,1)}
+.inv-target{font-size:9px;color:#4A3A20;margin-top:3px}
+.tk{display:inline-block;padding:0 28px;font-family:'Space Mono',monospace;font-size:9.5px;color:var(--tx3);letter-spacing:0.06em}
+.tk::before{content:'◆';color:var(--ac);margin-right:10px;font-size:7px}
+@keyframes ticker-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* VOICE WAVE BARS */
+.wbar{width:3px;border-radius:2px;background:var(--ac);animation:wave-bar 0.8s ease-in-out infinite}
+.wbar:nth-child(1){height:6px;animation-delay:0s}
+.wbar:nth-child(2){height:12px;animation-delay:0.1s}
+.wbar:nth-child(3){height:18px;animation-delay:0.2s}
+.wbar:nth-child(4){height:12px;animation-delay:0.3s}
+.wbar:nth-child(5){height:6px;animation-delay:0.4s}
+@keyframes wave-bar{0%,100%{transform:scaleY(0.4);opacity:0.5}50%{transform:scaleY(1);opacity:1}}
+/* SCREEN-SPECIFIC */
+#s-login{background:radial-gradient(ellipse at 50% 30%,#061520 0%,var(--s0) 65%);color:var(--tx);align-items:center;padding:48px 22px 26px;text-align:center}
+html.light #s-login{background:var(--s0)}
+html.light #s-home,html.light #s-checkin,html.light #s-trips,html.light #s-pods,html.light #s-messages,html.light #s-profile{background:var(--s0)}
+#s-home,#s-checkin,#s-trips,#s-pods,#s-messages,#s-profile{background:var(--s0);color:var(--tx);padding-top:48px}
+.lbrand{margin:10px 0 3px;font-family:var(--fd);font-size:15px;letter-spacing:0.22em;background:var(--acGrad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ldiv{width:65px;height:1px;background:linear-gradient(90deg,transparent,var(--ac),transparent);margin:0 auto 13px;opacity:0.4}
+.ltit{font-size:18px;font-weight:600;color:var(--tx);line-height:1.2}
+.ltit span{color:var(--acL)}
+.lsub{font-size:12px;color:var(--tx2);margin:3px 0 17px}
+.forgot{text-align:right;font-size:11px;color:var(--tx3);margin:-4px 0 15px;cursor:pointer}
+.forgot:hover{color:var(--ac)}
+.signup{margin-top:15px;font-size:12px;color:var(--tx2)}
+.signup span{color:var(--ac);cursor:pointer;font-weight:600}
+
+/* SIDEBAR (outside phone) */
+.sidebar{position:absolute;left:-155px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:6px;width:145px}
+.ctx{display:flex;align-items:center;gap:8px;padding:8px 11px;border-radius:11px;cursor:pointer;transition:all 0.22s;border:1px solid transparent;color:var(--tx3)}
+.ctx:hover{background:rgba(0,201,177,0.07);border-color:rgba(0,201,177,0.15)}
+.ctx.on{background:rgba(0,201,177,0.1);border-color:rgba(0,201,177,0.3)}
+.ctx-n{font-family:var(--fm);font-size:9px;color:var(--goldD);width:14px;flex-shrink:0}
+.ctx-l{font-size:11px;font-weight:500;color:var(--tx3)}
+.ctx.on .ctx-l{color:var(--acL)}
+.outer-title{position:absolute;bottom:1.4rem;left:50%;transform:translateX(-50%);text-align:center;white-space:nowrap}
+.outer-title h1{font-family:var(--fd);font-size:clamp(0.85rem,1.7vw,1.15rem);letter-spacing:0.2em;background:var(--acGrad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.outer-title p{font-size:0.58rem;color:var(--tx3);letter-spacing:0.2em;text-transform:uppercase;margin-top:3px}
+</style>
+</head>
+<body>
+<div class="shell">
+<div class="sidebar" id="sidebar">
+  <div class="ctx on" data-s="login" onclick="go('login')"><span class="ctx-n">01</span><span class="ctx-l">Log In</span></div>
+  <div class="ctx" data-s="home" onclick="go('home')"><span class="ctx-n">02</span><span class="ctx-l">Home</span></div>
+  <div class="ctx" data-s="checkin" onclick="go('checkin')"><span class="ctx-n">03</span><span class="ctx-l">Check-in</span></div>
+  <div class="ctx" data-s="trips" onclick="go('trips')"><span class="ctx-n">04</span><span class="ctx-l">Trips</span></div>
+  <div class="ctx" data-s="pods" onclick="go('pods')"><span class="ctx-n">05</span><span class="ctx-l">Pods</span></div>
+  <div class="ctx" data-s="messages" onclick="go('messages')"><span class="ctx-n">06</span><span class="ctx-l">Messages</span></div>
+  <div class="ctx" data-s="profile" onclick="go('profile')"><span class="ctx-n">07</span><span class="ctx-l">Profile</span></div>
+</div>
+
+<div class="phone">
+  <div class="island"></div>
+  <div class="sb"><span class="sb-t">9:41</span><div class="sb-i"><span>▲▲▲</span><span>WiFi</span><span>⬛⬛⬛⬛</span></div></div>
+
+  <!-- 01 LOGIN — Minimal Line Design -->
+  <div class="screen active" id="s-login">
+    <!-- Full-screen login bg -->
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:52px 28px 0;position:relative">
+      <!-- Background glow -->
+      <div id="login-glow" style="position:absolute;top:20%;left:50%;transform:translate(-50%,-50%);width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(0,201,177,0.12) 0%,transparent 70%);pointer-events:none;transition:background 0.4s"></div>
+
+      <!-- Compass canvas — Minimal Line exact -->
+      <canvas id="compass-cv" width="160" height="160" style="flex-shrink:0;position:relative;z-index:1"></canvas>
+
+      <!-- Wordmark block — exact from logo card -->
+      <div class="a1" style="text-align:center;margin-top:16px;position:relative;z-index:1">
+        <!-- Divider lines flanking the wordmark -->
+        <div style="display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:10px">
+          <div style="height:1px;width:32px;background:linear-gradient(90deg,transparent,var(--ac));opacity:0.5"></div>
+          <span id="login-wordmark" style="font-family:'Cinzel',serif;font-size:17px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:var(--tx);transition:color 0.3s">SOLO PASSPORT</span>
+          <div style="height:1px;width:32px;background:linear-gradient(270deg,transparent,var(--ac));opacity:0.5"></div>
+        </div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:8.5px;letter-spacing:0.32em;text-transform:uppercase;color:var(--ac);margin-bottom:4px">TRAVEL SAFE · NEVER ALONE</div>
+      </div>
+
+      <!-- Thin horizontal rule -->
+      <div style="width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--ac),transparent);opacity:0.18;margin:16px 0 18px"></div>
+
+      <!-- Sign in form -->
+      <div class="a2" style="width:100%;text-align:center">
+        <div style="font-size:16px;font-weight:600;color:var(--tx);margin-bottom:3px">Welcome back</div>
+        <div style="font-size:11px;color:var(--tx3);margin-bottom:18px;letter-spacing:0.04em">Sign in to continue</div>
+        <input class="fi" type="email" placeholder="Email Address" id="email-f" autocomplete="off"/>
+        <div class="fw" style="margin-bottom:0"><input class="fi" type="password" placeholder="Password" id="pw-f" style="margin-bottom:0"/><span class="fe" onclick="togglePw()">👁</span></div>
+        <div style="height:8px"></div>
+        <div class="forgot" onclick="toast('📧','Reset link sent','Check your email inbox')">Forgot Password?</div>
+        <button class="bg" id="login-btn" onclick="doLogin(event)">Log In</button>
+        <div class="signup" style="margin-top:14px">Don't have an account? <span onclick="openTrip()">Sign Up</span></div>
+      </div>
+    </div>
+    <!-- Bottom brand strip -->
+    <div style="text-align:center;padding:14px 0 22px;border-top:1px solid var(--br);margin:0 20px">
+      <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:0.22em;text-transform:uppercase;color:var(--tx3)">solopassport.com</div>
+    </div>
+  </div>
+
+  <!-- 02 HOME -->
+  <div class="screen" id="s-home">
+    <div class="sb2">
+      <!-- header -->
+      <div class="hdr a1">
+        <div style="width:34px;height:34px;border-radius:50%;background:var(--acGrad);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--s0)">AS</div>
+        <div style="flex:1;padding-left:9px">
+          <div style="font-size:9px;color:var(--ac);font-weight:700;letter-spacing:0.1em;text-transform:uppercase" id="greet">Good Evening</div>
+          <div style="font-size:14px;font-weight:600;color:var(--tx)">Ahmad Schleifer</div>
+        </div>
+        <div style="width:30px;height:30px;border-radius:50%;background:rgba(0,201,177,0.1);border:1px solid rgba(0,201,177,0.2);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;transition:background 0.2s" onclick="toast('🔔','3 new alerts','Shadows checked in · Risk update');this.style.animation='bi 0.4s'">
+          🔔<div style="position:absolute;top:4px;right:4px;width:6px;height:6px;border-radius:50%;background:var(--ac);border:1.5px solid var(--s0)"></div>
+        </div>
+      </div>
+      <!-- trip card -->
+      <div class="tc a2">
+        <div><div class="tab"><div class="adot"></div>Active Trip</div><span class="tdt">Mar 15–22, 2026</span></div>
+        <div class="tn">Budapest Adventure</div>
+        <div class="tl">📍 Budapest, HU</div>
+        <div class="sr">
+          <div class="sc"><span class="sci">⏱</span><div><div class="scl">Next check-in</div><div class="scv" id="home-ci">2h 15m</div></div></div>
+          <div class="sc"><span class="sci">👤</span><div><div class="scl">Shadows</div><div class="scv">3 active</div></div></div>
+        </div>
+        <button class="bg" onclick="go('checkin');ripple(event,this)">Check In Now</button>
+      </div>
+      <!-- live map -->
+      <div style="margin:0 14px 0" class="a3">
+        <div class="map-wrap" style="height:150px"><canvas id="map-home" width="304" height="150"></canvas><div class="map-lbl">📍 Live — Budapest, Hungary</div></div>
+      </div>
+      <!-- risk -->
+      <div class="sl a3">Risk Summary</div>
+      <div class="card cg a3"><div style="display:flex;align-items:center;gap:11px"><div style="width:34px;height:34px;border-radius:9px;background:rgba(46,204,113,0.12);border:1px solid rgba(46,204,113,0.28);display:flex;align-items:center;justify-content:center;font-size:15px">🛡</div><div><div style="font-size:14px;font-weight:700;color:var(--green)">Low Risk</div><div style="font-size:11px;color:var(--mist)">Budapest, Hungary</div></div><div style="margin-left:auto;font-size:10px;color:var(--tx3)">Updated 2m ago</div></div></div>
+      <!-- alerts -->
+      <div class="sl a4">Safety Alerts</div>
+      <div style="display:flex;align-items:flex-start;gap:9px;padding:9px 10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:10px;margin:0 14px 7px;cursor:pointer;transition:background 0.2s" class="a4" onclick="toast('⚠️','Risk Area','Stay alert in Bairro Alto after 11pm')"><div style="width:7px;height:7px;border-radius:50%;background:var(--amber);flex-shrink:0;margin-top:4px"></div><div><div style="font-size:12px;font-weight:600;color:#fff">Moderate Risk Area</div><div style="font-size:10px;color:var(--mist);margin-top:1px">Bairro Alto — stay alert after 11pm</div></div></div>
+      <div style="display:flex;align-items:flex-start;gap:9px;padding:9px 10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:10px;margin:0 14px 7px;cursor:pointer;transition:background 0.2s" class="a5" onclick="toast('🏛','Embassy','US Embassy is 2.3km away')"><div style="width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:4px"></div><div><div style="font-size:12px;font-weight:600;color:#fff">Embassy Nearby</div><div style="font-size:10px;color:var(--mist);margin-top:1px">US Embassy — 2.3 km away</div></div></div>
+      <div style="display:flex;align-items:flex-start;gap:9px;padding:9px 10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:10px;margin:0 14px 7px;cursor:pointer;transition:background 0.2s" class="a5" onclick="toast('🌧','Weather','Light rain expected this afternoon')"><div style="width:7px;height:7px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:4px"></div><div><div style="font-size:12px;font-weight:600;color:#fff">Weather Advisory</div><div style="font-size:10px;color:var(--mist);margin-top:1px">Light rain expected this afternoon</div></div></div>
+      <!-- SOS -->
+      <div class="sl a6">Emergency</div>
+      <div style="padding:0 14px 12px" class="a6"><button class="br" id="sos-btn" onclick="triggerSOS(event)">🚨 Emergency SOS</button></div>
+    </div>
+    <div class="bn">
+      <div class="ni on" onclick="nc(this)"><span class="ico">🏠</span><span class="lbl">Home</span></div>
+      <div class="ni" onclick="nc(this);go('trips')"><span class="ico">✈️</span><span class="lbl">Trips</span></div>
+      <div class="ni" onclick="nc(this);go('pods')"><span class="ico">👥</span><span class="lbl">Pods</span></div>
+      <div class="ni" onclick="nc(this);go('messages')"><span class="ico">💬</span><span class="lbl">Messages</span></div>
+      <div class="ni" onclick="nc(this);go('profile')"><span class="ico">👤</span><span class="lbl">Profile</span></div>
+    </div>
+  </div>
+
+  <!-- 03 CHECK-IN -->
+  <div class="screen" id="s-checkin">
+    <div class="sb2">
+      <div class="hdr a1"><div class="hbk" onclick="go('home')">←</div><div class="hm"><div class="ht">Check-in</div><div class="hs">Next check-in due</div></div><div style="width:28px"></div></div>
+      <div class="cw a2"><div class="cr"><canvas id="ring-cv" width="170" height="170"></canvas><div class="ri"><div class="rt" id="ring-t">42:22</div><div class="rf">Every 4 hours</div></div></div></div>
+      <div style="padding:0 18px 13px" class="a3"><button class="bg" id="ci-btn" onclick="doCheckin(event)">Check In Now</button></div>
+      <div style="padding:0 14px" class="a4"><div class="map-wrap" style="height:124px"><canvas id="map-ci" width="304" height="124"></canvas><div class="map-lbl">📍 Sharing live location with 3 shadows</div></div></div>
+      <div class="sl a5">Check-in Settings</div>
+      <div class="strow a5" onclick="openFreq()"><div class="sti">⏱</div><div class="stt"><div class="sttl">Check-in Frequency</div><div class="sts">4 Hours</div></div><span class="sta">⌄</span></div>
+      <div class="strow a6"><div class="sti">📍</div><div class="stt"><div class="sttl">Location Sharing</div><div class="sts">Shared with shadows on check-in</div></div></div>
+      <div class="strow a6" onclick="openShadows()"><div class="sti">👥</div><div class="stt"><div class="sttl">3 Shadows Active</div><div class="sts">Will alert if check-in missed</div></div><span class="sta">›</span></div>
+      <div class="strow a7"><div class="sti">🔔</div><div class="stt"><div class="sttl">Push Notifications</div><div class="sts">Reminder before check-in due</div></div></div>
+    </div>
+    <div class="bn">
+      <div class="ni" onclick="nc(this);go('home')"><span class="ico">🏠</span><span class="lbl">Home</span></div>
+      <div class="ni on"><span class="ico">✈️</span><span class="lbl">Trips</span></div>
+      <div class="ni" onclick="nc(this);go('pods')"><span class="ico">👥</span><span class="lbl">Pods</span></div>
+      <div class="ni" onclick="nc(this);go('messages')"><span class="ico">💬</span><span class="lbl">Messages</span></div>
+      <div class="ni" onclick="nc(this);go('profile')"><span class="ico">👤</span><span class="lbl">Profile</span></div>
+    </div>
+  </div>
+
+  <!-- 04 TRIPS -->
+  <div class="screen" id="s-trips">
+    <div class="sb2">
+      <div class="hdr a1" style="justify-content:space-between"><div class="ht" style="text-align:left;font-size:17px">My Trips</div><button class="bg" style="width:auto;padding:7px 14px;font-size:12px" onclick="openTrip()">+ New Trip</button></div>
+      <div class="sl a2">Active</div>
+      <div class="ti a2" onclick="go('checkin')"><span class="tif">🇭🇺</span><div class="tii"><div class="tin">Budapest Adventure</div><div class="tic">Budapest, Hungary</div><div class="tid">Mar 15–22, 2026</div></div><span class="tis act">Active</span></div>
+      <div class="sl a3">Planned</div>
+      <div class="ti a3" onclick="toast('✈️','Tokyo','Trip details coming up!')"><span class="tif">🇯🇵</span><div class="tii"><div class="tin">Tokyo Solo Journey</div><div class="tic">Tokyo, Japan</div><div class="tid">Apr 3–12, 2026</div></div><span class="tis pln">Planned</span></div>
+      <div class="ti a4" onclick="toast('✈️','Rio','Trip details coming up!')"><span class="tif">🇧🇷</span><div class="tii"><div class="tin">Rio de Janeiro</div><div class="tic">Rio, Brazil</div><div class="tid">May 18–25, 2026</div></div><span class="tis pln">Planned</span></div>
+      <div class="sl a5">Past</div>
+      <div class="ti a5"><span class="tif">🇵🇹</span><div class="tii"><div class="tin">Lisbon Adventure</div><div class="tic">Lisbon, Portugal</div><div class="tid">Jan 5–12, 2026</div></div><span class="tis don">Done</span></div>
+      <div class="ti a6"><span class="tif">🇹🇭</span><div class="tii"><div class="tin">Bangkok Explorer</div><div class="tic">Bangkok, Thailand</div><div class="tid">Nov 10–18, 2025</div></div><span class="tis don">Done</span></div>
+    </div>
+    <div class="bn">
+      <div class="ni" onclick="nc(this);go('home')"><span class="ico">🏠</span><span class="lbl">Home</span></div>
+      <div class="ni on"><span class="ico">✈️</span><span class="lbl">Trips</span></div>
+      <div class="ni" onclick="nc(this);go('pods')"><span class="ico">👥</span><span class="lbl">Pods</span></div>
+      <div class="ni" onclick="nc(this);go('messages')"><span class="ico">💬</span><span class="lbl">Messages</span></div>
+      <div class="ni" onclick="nc(this);go('profile')"><span class="ico">👤</span><span class="lbl">Profile</span></div>
+    </div>
+  </div>
+
+  <!-- 05 PODS -->
+  <div class="screen" id="s-pods">
+    <div class="sb2">
+      <div class="hdr a1" style="justify-content:space-between"><div class="ht" style="text-align:left">Safety Network</div><button class="bg" style="width:auto;padding:7px 14px;font-size:12px" onclick="toast('👥','Invite sent','Link copied to clipboard')">+ Add Shadow</button></div>
+      <div class="sl a2">Active Shadows — Budapest Trip</div>
+      <div class="pc a2" onclick="toast('📍','Sarah Chen','Currently monitoring your location')">
+        <div class="ph"><div class="pav" style="background:var(--acGrad)">SC</div><div><div class="pname">Sarah Chen</div><div class="prel">Sister · San Francisco</div></div><div class="pst" style="color:var(--green)">● Active</div></div>
+        <div class="ppill">📍 Last seen your location 8 min ago &nbsp;·&nbsp; ⏱ Next alert in 1h 52m</div>
+      </div>
+      <div class="pc a3" onclick="toast('📍','Marcus Johnson','Tracking your Budapest trip')">
+        <div class="ph"><div class="pav" style="background:linear-gradient(135deg,#5BA8D8,#2E6EA0);color:#fff">MJ</div><div><div class="pname">Marcus Johnson</div><div class="prel">Friend · New York</div></div><div class="pst" style="color:var(--green)">● Active</div></div>
+        <div class="ppill">📍 Tracking · Will alert if missed &nbsp;·&nbsp; ✓ ID Verified</div>
+      </div>
+      <div class="pc a4" onclick="toast('⚠️','Emma Rodriguez','Offline — alerts queued for when back online')">
+        <div class="ph"><div class="pav" style="background:linear-gradient(135deg,#C89BFF,#7B4BBF);color:#fff">ER</div><div><div class="pname">Emma Rodriguez</div><div class="prel">Colleague · Miami</div></div><div class="pst" style="color:var(--amber)">● Away</div></div>
+        <div class="ppill">⏸ Offline — alerts queued</div>
+      </div>
+      <div class="sl a5">Nearby Travelers</div>
+      <div class="card a5"><div style="font-size:11px;color:var(--mist);margin-bottom:8px">3 verified travelers near Budapest right now</div><div style="display:flex;margin-bottom:10px"><div style="width:28px;height:28px;border-radius:50%;background:var(--acGrad);border:2px solid var(--s0);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--s0)">AK</div><div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#5BA8D8,#2E6EA0);border:2px solid var(--ob);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;margin-left:-8px">JL</div><div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#2ECC71,#1A8A4C);border:2px solid var(--ob);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;margin-left:-8px">TM</div></div><button class="bo" style="font-size:11px;padding:8px" onclick="toast('🌍','Discovery','3 ID-verified travelers nearby')">View Nearby Travelers</button></div>
+    </div>
+    <div class="bn">
+      <div class="ni" onclick="nc(this);go('home')"><span class="ico">🏠</span><span class="lbl">Home</span></div>
+      <div class="ni" onclick="nc(this);go('trips')"><span class="ico">✈️</span><span class="lbl">Trips</span></div>
+      <div class="ni on"><span class="ico">👥</span><span class="lbl">Pods</span></div>
+      <div class="ni" onclick="nc(this);go('messages')"><span class="ico">💬</span><span class="lbl">Messages</span></div>
+      <div class="ni" onclick="nc(this);go('profile')"><span class="ico">👤</span><span class="lbl">Profile</span></div>
+    </div>
+  </div>
+
+  <!-- 06 MESSAGES -->
+  <div class="screen" id="s-messages">
+    <div class="sb2">
+      <div class="hdr a1"><div class="ht" style="text-align:left;font-size:17px">Messages</div></div>
+      <div class="sl a2">Recent</div>
+      <div class="mr a2" onclick="toast('💬','Sarah Chen','Hey! Saw your check-in. Stay safe! 🙏')"><div class="mav" style="background:var(--acGrad);color:var(--s0)">SC<div class="mon"></div></div><div class="mb"><div class="mn">Sarah Chen</div><div class="mp">Hey! Saw your check-in. Stay safe!</div></div><div class="mm"><div class="mtime">2m</div><div class="mbadge">3</div></div></div>
+      <div class="mr a3" onclick="toast('🛡','Safety Bot','Your next check-in is in 2 hours')"><div class="mav" style="background:linear-gradient(135deg,#E8394D,#C42A3C);color:#fff;font-size:14px">🛡<div class="mon"></div></div><div class="mb"><div class="mn">Safety Assistant</div><div class="mp">Next check-in due in 2 hours</div></div><div class="mm"><div class="mtime">18m</div><div class="mbadge">1</div></div></div>
+      <div class="mr a4" onclick="toast('💬','Marcus','All good here! Budapest looks amazing')"><div class="mav" style="background:linear-gradient(135deg,#5BA8D8,#2E6EA0);color:#fff">MJ</div><div class="mb"><div class="mn">Marcus Johnson</div><div class="mp">All good! Budapest looks amazing 🏰</div></div><div class="mm"><div class="mtime">1h</div></div></div>
+      <div class="mr a5" onclick="toast('💬','Emma','Heads up — I might be offline tonight')"><div class="mav" style="background:linear-gradient(135deg,#C89BFF,#7B4BBF);color:#fff">ER</div><div class="mb"><div class="mn">Emma Rodriguez</div><div class="mp">Heads up — offline tonight</div></div><div class="mm"><div class="mtime">3h</div></div></div>
+      <div class="sl a6">Community</div>
+      <div class="card a6"><div style="font-size:11px;color:var(--mist);margin-bottom:8px">Connect with verified travelers in Budapest</div><button class="bo" style="font-size:11px;padding:8px" onclick="toast('🌍','Community','Join the Budapest Travelers group')">Join Traveler Community</button></div>
+    </div>
+    <div class="bn">
+      <div class="ni" onclick="nc(this);go('home')"><span class="ico">🏠</span><span class="lbl">Home</span></div>
+      <div class="ni" onclick="nc(this);go('trips')"><span class="ico">✈️</span><span class="lbl">Trips</span></div>
+      <div class="ni" onclick="nc(this);go('pods')"><span class="ico">👥</span><span class="lbl">Pods</span></div>
+      <div class="ni on"><span class="ico">💬</span><span class="lbl">Messages</span></div>
+      <div class="ni" onclick="nc(this);go('profile')"><span class="ico">👤</span><span class="lbl">Profile</span></div>
+    </div>
+  </div>
+
+  <!-- 07 PROFILE -->
+  <div class="screen" id="s-profile">
+    <div class="sb2">
+      <div class="prhero a1">
+        <div class="pravt">AS<div class="prvbg">✓</div></div>
+        <div class="prn">Ahmad Schleifer</div>
+        <div class="prh">@ahmad.s · ID Verified ✓</div>
+        <div class="prst">
+          <div class="psi"><div class="psv" id="stat-t">12</div><div class="psl">Trips</div></div>
+          <div class="psi"><div class="psv">3</div><div class="psl">Active</div></div>
+          <div class="psi"><div class="psv">8</div><div class="psl">Shadows</div></div>
+          <div class="psi"><div class="psv" id="stat-d">47</div><div class="psl">Days Safe</div></div>
+        </div>
+      </div>
+      <div style="margin:10px 14px 0" class="a2"><div style="background:linear-gradient(135deg,rgba(0,201,177,0.1),rgba(0,201,177,0.03));border:1px solid rgba(0,201,177,0.3);border-radius:14px;padding:11px 13px;display:flex;align-items:center;gap:10px;cursor:pointer" onclick="toast('⭐','Premium Plan','$14.99/month · Unlimited trips')"><span style="font-size:18px">⭐</span><div style="flex:1"><div style="font-size:12px;font-weight:700;color:var(--acLL)">Premium Plan Active</div><div style="font-size:10px;color:var(--mist)">$14.99/month · Renews Apr 1</div></div><span style="font-size:11px;color:var(--mistD)">›</span></div></div>
+      <div style="padding:0 14px;margin-top:10px" class="a3">
+        <div class="menu-row"><span class="mi">🛡</span><span class="mlb">Safety Settings</span><span class="ma">›</span></div>
+        <div class="menu-row" onclick="go('pods')"><span class="mi">👥</span><span class="mlb">My Shadow Network</span><span class="ma">›</span></div>
+        <div class="menu-row" onclick="toast('📍','Location','GPS sharing enabled')"><span class="mi">📍</span><span class="mlb">Location Preferences</span><span class="ma">›</span></div>
+        <div class="menu-row" onclick="toast('🔔','Notifications','All alerts enabled')"><span class="mi">🔔</span><span class="mlb">Notifications</span><span class="ma">›</span></div>
+        <div class="menu-row" onclick="toast('🪪','Identity','Verified via Stripe Identity')"><span class="mi">🪪</span><span class="mlb">ID Verification</span><span class="ma" style="color:var(--green)">✓</span></div>
+        <div class="menu-row" onclick="go('trips')"><span class="mi">✈️</span><span class="mlb">Trip History</span><span class="ma">›</span></div>
+        <div class="menu-row" style="border-color:rgba(232,57,77,0.15)" onclick="doLogout()"><span class="mi">🚪</span><span class="mlb" style="color:var(--red)">Sign Out</span><span class="ma">›</span></div>
+      </div>
+    </div>
+    <div class="bn">
+      <div class="ni" onclick="nc(this);go('home')"><span class="ico">🏠</span><span class="lbl">Home</span></div>
+      <div class="ni" onclick="nc(this);go('trips')"><span class="ico">✈️</span><span class="lbl">Trips</span></div>
+      <div class="ni" onclick="nc(this);go('pods')"><span class="ico">👥</span><span class="lbl">Pods</span></div>
+      <div class="ni" onclick="nc(this);go('messages')"><span class="ico">💬</span><span class="lbl">Messages</span></div>
+      <div class="ni on"><span class="ico">👤</span><span class="lbl">Profile</span></div>
+    </div>
+  </div>
+
+  <!-- SOS FULL-SCREEN SAFETY CIRCLES OVERLAY -->
+  <div class="sos-ov" id="sos-ov">
+    <canvas id="sos-cv"></canvas>
+
+    <!-- Top HUD -->
+    <div class="sos-hud">
+      <div class="sos-alert-strip">
+        <div class="sos-alert-dot"></div>
+        <span class="sos-alert-lbl" id="sos-strip">Emergency SOS Active</span>
+      </div>
+      <div class="sos-headline" id="sos-headline">Safety Network Activating</div>
+      <div class="sos-sublabel" id="sos-sublabel">Locating GPS signal…</div>
+    </div>
+
+    <!-- Floating phase pill (centre) -->
+    <div class="sos-phase-pill" id="sos-pill">Phase 1 — Locating</div>
+
+    <!-- Bottom shadow status cards -->
+    <div class="sos-cards">
+      <div class="scard" id="sc0">
+        <div class="sc-av" style="background:var(--goldGrad);color:var(--ob)">SC<div class="sc-av-ring"></div></div>
+        <div class="sc-info"><div class="sc-name">Sarah Chen</div><div class="sc-loc">Sister · San Francisco</div></div>
+        <div class="sc-status" id="scs0">Standby</div>
+      </div>
+      <div class="scard" id="sc1">
+        <div class="sc-av" style="background:linear-gradient(135deg,#5BA8D8,#2E6EA0);color:#fff">MJ<div class="sc-av-ring"></div></div>
+        <div class="sc-info"><div class="sc-name">Marcus Johnson</div><div class="sc-loc">Friend · New York</div></div>
+        <div class="sc-status" id="scs1">Standby</div>
+      </div>
+      <div class="scard" id="sc2">
+        <div class="sc-av" style="background:linear-gradient(135deg,#C89BFF,#7B4BBF);color:#fff">ER<div class="sc-av-ring"></div></div>
+        <div class="sc-info"><div class="sc-name">Emma Rodriguez</div><div class="sc-loc">Colleague · Miami</div></div>
+        <div class="sc-status" id="scs2">Standby</div>
+      </div>
+    </div>
+
+    <button class="sos-dismiss" id="sos-dismiss" onclick="closeSOS()">✓ All Shadows Notified — Close</button>
+  </div>
+
+  <!-- NEW TRIP MODAL -->
+  <div class="mo" id="m-trip" onclick="if(event.target===this)closeM('m-trip')">
+    <div class="ms">
+      <div class="mh"></div>
+      <div class="sdots"><div class="sdot cur" id="sd0"></div><div class="sdot" id="sd1"></div><div class="sdot" id="sd2"></div></div>
+      <div id="tstep0"><div class="mt">Plan a New Trip</div><div class="msub">Set up your safety protocol</div><input class="fi" placeholder="Trip Name (e.g. Tokyo Adventure)"/><input class="fi" placeholder="Destination City"/><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px"><input class="fi" placeholder="Start date" style="margin-bottom:0"/><input class="fi" placeholder="End date" style="margin-bottom:0"/></div><button class="bg" onclick="tStep(1)">Continue →</button></div>
+      <div id="tstep1" style="display:none"><div class="mt">Add Shadow Contacts</div><div class="msub">Who monitors your safety?</div><input class="fi" placeholder="Search contacts or enter email"/><div style="display:flex;flex-direction:column;gap:7px;margin-bottom:14px"><div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:rgba(200,148,26,0.08);border:1px solid rgba(200,148,26,0.2);border-radius:10px"><div style="width:26px;height:26px;border-radius:50%;background:var(--acGrad);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--s0)">SC</div><span style="font-size:12px;flex:1">Sarah Chen</span><span style="font-size:16px;color:var(--green)">✓</span></div><div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px"><div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#5BA8D8,#2E6EA0);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff">MJ</div><span style="font-size:12px;flex:1">Marcus Johnson</span><span style="font-size:16px;color:var(--green)">✓</span></div></div><button class="bg" onclick="tStep(2)">Continue →</button></div>
+      <div id="tstep2" style="display:none"><div class="mt">Safety Protocol</div><div class="msub">Customize your check-in settings</div><div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px"><div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:rgba(255,255,255,0.04);border-radius:10px;border:1px solid rgba(255,255,255,0.07)"><span style="font-size:12px">Check-in every</span><span style="font-size:13px;font-weight:700;color:var(--goldLL)">4 hours</span></div><div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:rgba(255,255,255,0.04);border-radius:10px;border:1px solid rgba(255,255,255,0.07)"><span style="font-size:12px">Share location</span><span style="font-size:13px;font-weight:700;color:var(--green)">On</span></div><div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:rgba(255,255,255,0.04);border-radius:10px;border:1px solid rgba(255,255,255,0.07)"><span style="font-size:12px">Emergency SOS</span><span style="font-size:13px;font-weight:700;color:var(--green)">Enabled</span></div></div><button class="bg" onclick="createTrip(event)" id="create-btn">Activate Trip 🚀</button></div>
+    </div>
+  </div>
+
+  <!-- FREQ MODAL -->
+  <div class="mo" id="m-freq" onclick="if(event.target===this)closeM('m-freq')">
+    <div class="ms"><div class="mh"></div><div class="mt">Check-in Frequency</div><div class="msub">How often should shadows be alerted if you miss a check-in?</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+        <div style="padding:12px;background:rgba(255,255,255,0.04);border-radius:12px;border:1px solid rgba(255,255,255,0.07);cursor:pointer;font-size:13px;transition:all 0.2s" onclick="setFreq(this,'1 Hour')">Every 1 Hour</div>
+        <div style="padding:12px;background:rgba(0,201,177,0.1);border-radius:12px;border:1px solid rgba(0,201,177,0.3);cursor:pointer;font-size:13px;font-weight:700;color:var(--acL)" onclick="setFreq(this,'4 Hours')">Every 4 Hours ✓</div>
+        <div style="padding:12px;background:rgba(255,255,255,0.04);border-radius:12px;border:1px solid rgba(255,255,255,0.07);cursor:pointer;font-size:13px;transition:all 0.2s" onclick="setFreq(this,'8 Hours')">Every 8 Hours</div>
+        <div style="padding:12px;background:rgba(255,255,255,0.04);border-radius:12px;border:1px solid rgba(255,255,255,0.07);cursor:pointer;font-size:13px;transition:all 0.2s" onclick="setFreq(this,'12 Hours')">Every 12 Hours</div>
+      </div>
+      <button class="bo" onclick="closeM('m-freq')">Close</button>
+    </div>
+  </div>
+
+  <!-- SHADOWS MODAL -->
+  <div class="mo" id="m-shadows" onclick="if(event.target===this)closeM('m-shadows')">
+    <div class="ms"><div class="mh"></div><div class="mt">3 Shadows Active</div><div class="msub">Alerted if you miss a check-in</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+        <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(46,204,113,0.06);border:1px solid rgba(46,204,113,0.15);border-radius:12px"><div style="width:32px;height:32px;border-radius:50%;background:var(--acGrad);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--s0)">SC</div><div style="flex:1"><div style="font-size:12px;font-weight:600">Sarah Chen</div><div style="font-size:10px;color:var(--mist)">Sister · Online now</div></div><span style="color:var(--green);font-size:11px;font-weight:700">● Active</span></div>
+        <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(46,204,113,0.06);border:1px solid rgba(46,204,113,0.15);border-radius:12px"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#5BA8D8,#2E6EA0);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff">MJ</div><div style="flex:1"><div style="font-size:12px;font-weight:600">Marcus Johnson</div><div style="font-size:10px;color:var(--mist)">Friend · Online</div></div><span style="color:var(--green);font-size:11px;font-weight:700">● Active</span></div>
+        <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#C89BFF,#7B4BBF);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff">ER</div><div style="flex:1"><div style="font-size:12px;font-weight:600">Emma Rodriguez</div><div style="font-size:10px;color:var(--mist)">Colleague · Offline</div></div><span style="color:var(--amber);font-size:11px;font-weight:700">● Away</span></div>
+      </div>
+      <button class="bg" onclick="closeM('m-shadows')">Done</button>
+    </div>
+  </div>
+
+</div><!-- /phone -->
+
+<!-- ── INVESTOR METRICS PANEL (right of phone) ───────────────────────────── -->
+<div id="investor-panel" style="display:none;flex-direction:column;gap:10px;width:200px">
+  <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.2em;color:var(--ac);text-transform:uppercase;margin-bottom:2px">Live Metrics</div>
+
+  <div class="inv-card" id="inv-waitlist">
+    <div class="inv-label">Waitlist Signups</div>
+    <div class="inv-val" id="wl-count">2,847</div>
+    <div class="inv-sub" id="wl-sub">+12 in last hour</div>
+    <div class="inv-bar"><div class="inv-bar-fill" id="wl-bar" style="width:28%"></div></div>
+    <div class="inv-target">Goal: 10,000</div>
+  </div>
+
+  <div class="inv-card">
+    <div class="inv-label">Viral Coefficient (K)</div>
+    <div class="inv-val" style="color:#2ECC71">1.4×</div>
+    <div class="inv-sub">Each user invites 1.4 shadows avg</div>
+  </div>
+
+  <div class="inv-card">
+    <div class="inv-label">Projected ARR</div>
+    <div class="inv-val" style="color:var(--acL)" id="arr-val">$2.1M</div>
+    <div class="inv-sub">At 10K users · $14.99/mo avg</div>
+  </div>
+
+  <div class="inv-card" style="cursor:pointer" onclick="openRevCalc()">
+    <div class="inv-label">Revenue Calculator</div>
+    <div style="font-size:11px;color:var(--ac);margin-top:4px;font-weight:600">Tap to model → </div>
+  </div>
+
+  <div class="inv-card">
+    <div class="inv-label">Market Size</div>
+    <div class="inv-val" style="color:#5BA8D8;font-size:18px">$4.8B</div>
+    <div class="inv-sub">Solo travel safety TAM 2026</div>
+  </div>
+
+  <div class="inv-card">
+    <div class="inv-label">Launch Countdown</div>
+    <div class="inv-val" style="font-size:16px" id="launch-cd">89 days</div>
+    <div class="inv-sub">To public App Store launch</div>
+  </div>
+</div>
+
+<!-- ── MARKET TICKER (below phone) ───────────────────────────────────────── -->
+<div id="market-ticker" style="position:absolute;bottom:0;left:0;right:0;height:36px;background:var(--s0);border-top:1px solid var(--br);overflow:hidden;display:flex;align-items:center">
+  <div style="background:var(--acGrad);padding:0 14px;height:100%;display:flex;align-items:center;flex-shrink:0">
+    <span style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;color:var(--s0);letter-spacing:0.12em">SOLO PASSPORT</span>
+  </div>
+  <div id="ticker-track" style="display:flex;gap:0;white-space:nowrap;animation:ticker-scroll 28s linear infinite;padding-left:24px">
+    <span class="tk">🌍 Solo travel market growing 14% YoY</span>
+    <span class="tk">📱 70% travelers report feeling unsafe at some point</span>
+    <span class="tk">💰 $14.99/mo Premium · $29.99/mo Power Traveler</span>
+    <span class="tk">🚀 10,000 waitlist goal · 89 days to launch</span>
+    <span class="tk">🔄 Viral K-factor 1.4× — each user invites 1.4 shadows</span>
+    <span class="tk">📊 TAM $4.8B · SAM $890M · SOM $45M Year 1</span>
+    <span class="tk">⭐ ID Verified · Real-time location · SOS network · 3 shadow contacts</span>
+    <span class="tk">📈 Projected ARR $2.1M at 10K users · $21M at 100K users</span>
+    <!-- duplicate for seamless loop -->
+    <span class="tk">🌍 Solo travel market growing 14% YoY</span>
+    <span class="tk">📱 70% travelers report feeling unsafe at some point</span>
+    <span class="tk">💰 $14.99/mo Premium · $29.99/mo Power Traveler</span>
+    <span class="tk">🚀 10,000 waitlist goal · 89 days to launch</span>
+    <span class="tk">🔄 Viral K-factor 1.4× — each user invites 1.4 shadows</span>
+    <span class="tk">📊 TAM $4.8B · SAM $890M · SOM $45M Year 1</span>
+  </div>
+</div>
+
+<!-- ── REVENUE CALCULATOR MODAL ──────────────────────────────────────────── -->
+<div id="rev-calc" style="position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:2000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(12px)">
+  <div style="background:var(--s1);border:1px solid var(--brH);border-radius:24px;padding:28px 32px;width:420px;max-width:90vw">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+      <div style="font-family:'Cinzel',serif;font-size:16px;background:var(--acGrad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:0.08em">Revenue Model</div>
+      <button onclick="closeRevCalc()" style="background:none;border:none;color:#8A7F62;font-size:18px;cursor:pointer">×</button>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px">
+      <div>
+        <div style="font-size:10px;color:#8A7F62;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">Total Users</div>
+        <input id="rc-users" type="range" min="1000" max="500000" step="1000" value="10000" oninput="calcRev()" style="width:100%;accent-color:var(--ac)"/>
+        <div style="font-size:14px;font-weight:700;color:var(--acL);margin-top:4px" id="rc-users-lbl">10,000</div>
+      </div>
+      <div>
+        <div style="font-size:10px;color:#8A7F62;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">Premium Conversion</div>
+        <input id="rc-conv" type="range" min="5" max="60" step="1" value="35" oninput="calcRev()" style="width:100%;accent-color:var(--ac)"/>
+        <div style="font-size:14px;font-weight:700;color:var(--acL);margin-top:4px" id="rc-conv-lbl">35%</div>
+      </div>
+      <div>
+        <div style="font-size:10px;color:#8A7F62;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">Power Traveler %</div>
+        <input id="rc-power" type="range" min="2" max="25" step="1" value="8" oninput="calcRev()" style="width:100%;accent-color:var(--ac)"/>
+        <div style="font-size:14px;font-weight:700;color:var(--acL);margin-top:4px" id="rc-power-lbl">8%</div>
+      </div>
+      <div>
+        <div style="font-size:10px;color:#8A7F62;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">Insurance Attach Rate</div>
+        <input id="rc-ins" type="range" min="0" max="30" step="1" value="12" oninput="calcRev()" style="width:100%;accent-color:var(--ac)"/>
+        <div style="font-size:14px;font-weight:700;color:var(--acL);margin-top:4px" id="rc-ins-lbl">12%</div>
+      </div>
+    </div>
+    <!-- Output -->
+    <div style="background:rgba(0,201,177,0.06);border:1px solid rgba(0,201,177,0.2);border-radius:14px;padding:16px;display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div style="text-align:center">
+        <div style="font-size:10px;color:#8A7F62;text-transform:uppercase;letter-spacing:0.1em">Monthly Revenue</div>
+        <div style="font-size:22px;font-weight:700;color:var(--acL);margin-top:4px" id="rc-mrr">$52,371</div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-size:10px;color:#8A7F62;text-transform:uppercase;letter-spacing:0.1em">Annual ARR</div>
+        <div style="font-size:22px;font-weight:700;color:var(--acLL);margin-top:4px" id="rc-arr">$628K</div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-size:10px;color:#8A7F62;text-transform:uppercase;letter-spacing:0.1em">Premium Users</div>
+        <div style="font-size:18px;font-weight:700;color:#fff;margin-top:4px" id="rc-prem">3,500</div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-size:10px;color:#8A7F62;text-transform:uppercase;letter-spacing:0.1em">LTV (24mo)</div>
+        <div style="font-size:18px;font-weight:700;color:#2ECC71;margin-top:4px" id="rc-ltv">$359.76</div>
+      </div>
+    </div>
+    <div style="margin-top:12px;font-size:10px;color:#4A3A20;text-align:center">Assumes 24mo retention · 3× LTV:CAC ratio · Insurance avg $8.99/mo add-on</div>
+  </div>
+</div>
+
+<!-- ── CONTROLS ─────────────────────────────────────────────────────────── -->
+<div id="demo-controls" style="position:fixed;top:1rem;right:1rem;display:flex;flex-direction:column;align-items:flex-end;gap:8px;z-index:1500">
+  <!-- Theme switcher pill -->
+  <div style="display:flex;gap:0;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.1);border-radius:999px;padding:3px;backdrop-filter:blur(16px)">
+    <button onclick="setTheme('dark-teal')" id="t-dt" title="Dark Teal" style="width:28px;height:28px;border-radius:999px;border:none;cursor:pointer;font-size:13px;transition:all 0.2s;background:rgba(0,201,177,0.7)">🌊</button>
+    <button onclick="setTheme('light-teal')" id="t-lt" title="Light Teal" style="width:28px;height:28px;border-radius:999px;border:none;cursor:pointer;font-size:13px;transition:all 0.2s;background:transparent">🤍</button>
+    <button onclick="setTheme('dark-gold')" id="t-dg" title="Dark Gold" style="width:28px;height:28px;border-radius:999px;border:none;cursor:pointer;font-size:13px;transition:all 0.2s;background:transparent">🌑</button>
+    <button onclick="setTheme('light-gold')" id="t-lg" title="Light Gold" style="width:28px;height:28px;border-radius:999px;border:none;cursor:pointer;font-size:13px;transition:all 0.2s;background:transparent">☀️</button>
+  </div>
+  <div style="display:flex;gap:8px">
+  <button onclick="toggleInvestor()" id="inv-toggle" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;background:rgba(0,201,177,0.12);border:1px solid rgba(0,201,177,0.35);color:#5EEEDD;padding:6px 12px;border-radius:999px;cursor:pointer;transition:all 0.2s">📊 Investor View</button>
+  <button onclick="startAutoDemo()" id="demo-btn" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;background:rgba(0,201,177,0.12);border:1px solid rgba(0,201,177,0.35);color:#5EEEDD;padding:6px 12px;border-radius:999px;cursor:pointer;transition:all 0.2s">▶ Auto Demo</button>
+  </div>
+</div>
+
+<!-- ── AUTO DEMO NARRATION BAR ────────────────────────────────────────────── -->
+<div id="narration-bar" style="position:fixed;bottom:38px;left:50%;transform:translateX(-50%);z-index:1500;background:rgba(8,6,4,0.95);border:1px solid var(--brH);border-radius:16px;padding:10px 18px 10px 14px;font-size:12px;color:#fff;font-family:'DM Sans',sans-serif;backdrop-filter:blur(16px);display:none;max-width:680px;width:90vw;box-shadow:0 8px 32px rgba(0,0,0,0.5)">
+  <div style="display:flex;align-items:center;gap:10px">
+    <div id="voice-wave" style="display:flex;align-items:center;gap:2px;flex-shrink:0;opacity:0;transition:opacity 0.3s">
+      <div class="wbar"></div><div class="wbar"></div><div class="wbar"></div><div class="wbar"></div><div class="wbar"></div>
+    </div>
+    <span id="narration-text" style="flex:1;line-height:1.4">Starting demo…</span>
+    <div id="voice-badge" style="flex-shrink:0;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:0.1em;padding:2px 7px;border-radius:999px;border:1px solid var(--br);color:var(--ac);white-space:nowrap">BROWSER</div>
+  </div>
+</div>
+
+<!-- ── VOICE SETUP MODAL ───────────────────────────────────────────────────── -->
+<div id="voice-modal" style="position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:3000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(12px)">
+  <div style="background:var(--s1);border:1px solid var(--brH);border-radius:24px;padding:28px 30px;width:420px;max-width:90vw">
+    <div style="font-family:'Cinzel',serif;font-size:15px;background:var(--acGrad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:0.08em;margin-bottom:6px">Voice Setup</div>
+    <div style="font-size:12px;color:var(--tx3);margin-bottom:20px;line-height:1.6">Choose your voice engine for the auto-demo narration. Browser voice works offline instantly. ElevenLabs delivers a premium cinematic AI voice.</div>
+
+    <!-- Option A: Browser voice -->
+    <div id="opt-browser" onclick="selectVoiceOpt('browser')" style="display:flex;align-items:flex-start;gap:12px;padding:14px;background:rgba(0,201,177,0.07);border:1.5px solid rgba(0,201,177,0.4);border-radius:14px;cursor:pointer;margin-bottom:10px;transition:all 0.2s">
+      <div style="width:20px;height:20px;border-radius:50%;background:rgba(0,201,177,0.15);border:2px solid var(--ac);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">
+        <div id="sel-browser" style="width:8px;height:8px;border-radius:50%;background:var(--ac)"></div>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:3px">🔊 Browser Voice <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.08em;padding:2px 7px;border-radius:999px;background:rgba(46,204,113,0.12);border:1px solid rgba(46,204,113,0.3);color:#2ECC71;margin-left:6px">FREE · OFFLINE</span></div>
+        <div style="font-size:11px;color:var(--tx3);line-height:1.5">Works instantly, no setup. Built into your browser. Tuned pitch and rate for a professional sound.</div>
+        <div style="margin-top:10px;display:flex;align-items:center;gap:10px">
+          <select id="voice-select" style="background:var(--s2);border:1px solid var(--br);color:var(--acL);border-radius:8px;padding:5px 10px;font-size:11px;font-family:'DM Sans',sans-serif;flex:1" onchange="previewBrowserVoice()">
+            <option value="">Loading voices…</option>
+          </select>
+          <button onclick="previewBrowserVoice()" style="background:rgba(0,201,177,0.1);border:1px solid var(--br);color:var(--ac);border-radius:8px;padding:5px 12px;font-size:11px;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif">▶ Preview</button>
+        </div>
+        <div style="margin-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div>
+            <div style="font-size:9px;color:var(--tx3);margin-bottom:3px;text-transform:uppercase;letter-spacing:0.08em">Rate</div>
+            <input id="voice-rate" type="range" min="0.7" max="1.2" step="0.05" value="0.92" style="width:100%;accent-color:var(--ac)"/>
+          </div>
+          <div>
+            <div style="font-size:9px;color:var(--tx3);margin-bottom:3px;text-transform:uppercase;letter-spacing:0.08em">Pitch</div>
+            <input id="voice-pitch" type="range" min="0.7" max="1.3" step="0.05" value="0.95" style="width:100%;accent-color:var(--ac)"/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Option B: ElevenLabs -->
+    <div id="opt-eleven" onclick="selectVoiceOpt('elevenlabs')" style="display:flex;align-items:flex-start;gap:12px;padding:14px;background:rgba(255,255,255,0.02);border:1.5px solid rgba(255,255,255,0.08);border-radius:14px;cursor:pointer;margin-bottom:18px;transition:all 0.2s">
+      <div style="width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,0.06);border:2px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">
+        <div id="sel-eleven" style="width:8px;height:8px;border-radius:50%;background:transparent"></div>
+      </div>
+      <div style="width:100%">
+        <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:3px">✨ ElevenLabs AI Voice <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.08em;padding:2px 7px;border-radius:999px;background:rgba(91,168,216,0.12);border:1px solid rgba(91,168,216,0.3);color:#5BA8D8;margin-left:6px">PREMIUM</span></div>
+        <div style="font-size:11px;color:var(--tx3);line-height:1.5;margin-bottom:10px">Cinematic, lifelike AI narration. Requires ElevenLabs API key (free tier: 10,000 chars/month).</div>
+        <input id="eleven-key" type="password" placeholder="Paste your ElevenLabs API key here…" style="width:100%;background:var(--s2);border:1px solid var(--br);border-radius:8px;padding:8px 12px;color:var(--tx);font-family:'DM Sans',sans-serif;font-size:12px;outline:none;margin-bottom:8px" oninput="validateElevenKey()"/>
+        <div style="display:flex;gap:8px">
+          <select id="eleven-voice" style="background:var(--s2);border:1px solid var(--br);color:var(--tx2);border-radius:8px;padding:5px 10px;font-size:11px;font-family:'DM Sans',sans-serif;flex:1">
+            <option value="onwK4e9ZLuTAKqWW03F9">Daniel — Deep &amp; Confident</option>
+            <option value="N2lVS1w4EtoT3dr4eOWO">Callum — Authoritative</option>
+            <option value="TX3LPaxmHKxFdv7VOQHJ">Liam — Energetic</option>
+            <option value="XB0fDUnXU5powFXDhCwa">Charlotte — Clear &amp; Professional</option>
+            <option value="EXAVITQu4vr4xnSDxMaL">Bella — Warm</option>
+          </select>
+          <button id="test-eleven" onclick="testElevenLabs()" style="background:rgba(91,168,216,0.12);border:1px solid rgba(91,168,216,0.3);color:#5BA8D8;border-radius:8px;padding:5px 12px;font-size:11px;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif" disabled>▶ Test</button>
+        </div>
+        <div id="eleven-status" style="font-size:10px;margin-top:6px;color:var(--tx3)"></div>
+        <div style="margin-top:8px;font-size:10px;color:var(--tx3)">Get free API key → <span onclick="window.open('https://elevenlabs.io','_blank')" style="color:var(--ac);cursor:pointer;text-decoration:underline">elevenlabs.io</span> (free tier: 10,000 chars/mo)</div>
+      </div>
+    </div>
+
+    <button onclick="confirmVoiceSetup()" style="width:100%;padding:12px;border-radius:999px;border:none;background:var(--acGrad);color:var(--s0);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:0.04em">Confirm &amp; Start Demo</button>
+    <button onclick="document.getElementById('voice-modal').style.display='none'" style="width:100%;padding:9px;border-radius:999px;border:1px solid var(--br);background:transparent;color:var(--tx3);font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer;margin-top:8px">Cancel</button>
+  </div>
+</div>
+
+<div class="outer-title">
+  <h1>SOLO PASSPORT</h1>
+  <p>Investor Demo · Press I for metrics · Press D for auto-demo</p>
+</div>
+</div><!-- /shell -->
+
+<script>
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let cur = 'login', ciSecs = 42*60+22, ciIv = null, ringRaf = null, sosRaf = null;
+let _compassLightMode = false; // MUST be before compass IIFE below
+
+// ── NAVIGATION ─────────────────────────────────────────────────────────────────
+function go(name) {
+  if (cur === name) return;
+  document.getElementById('s-' + cur).classList.remove('active');
+  const next = document.getElementById('s-' + name);
+  next.classList.add('active');
+  cur = name;
+  document.querySelectorAll('.ctx').forEach(el => el.classList.toggle('on', el.dataset.s === name));
+  // re-trigger entry animations
+  next.querySelectorAll('[class]').forEach(el => {
+    if (/\ba[1-7]\b/.test(el.className)) { el.style.animation = 'none'; el.offsetHeight; el.style.animation = ''; }
+  });
+  if (name === 'checkin') { startRing(); drawMap('map-ci', 304, 124); }
+  if (name === 'home') { updateGreeting(); drawMap('map-home', 304, 150); }
+  if (name === 'profile') animStats();
+}
+function nc(el) { el.closest('.bn').querySelectorAll('.ni').forEach(n => n.classList.remove('on')); el.classList.add('on'); }
+
+// ── GREETING ──────────────────────────────────────────────────────────────────
+function updateGreeting() {
+  const h = new Date().getHours();
+  const el = document.getElementById('greet');
+  if (el) el.textContent = h < 12 ? 'Good Morning' : h < 18 ? 'Good Afternoon' : 'Good Evening';
+}
+updateGreeting();
+
+// ── TOAST ─────────────────────────────────────────────────────────────────────
+function toast(ico, title, sub) {
+  document.querySelectorAll('.toast').forEach(t => t.remove());
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.innerHTML = `<div class="toast-ico">${ico}</div><div class="toast-body"><div class="tt">${title}</div><div class="ts">${sub}</div></div>`;
+  document.querySelector('.phone').appendChild(t);
+  setTimeout(() => t.remove(), 3900);
+}
+
+// ── RIPPLE ─────────────────────────────────────────────────────────────────────
+function ripple(e, btn) {
+  const r = document.createElement('span'); r.className = 'rp';
+  const rect = btn.getBoundingClientRect(), sz = Math.max(rect.width, rect.height);
+  r.style.cssText = `width:${sz}px;height:${sz}px;left:${(e.clientX||rect.left+rect.width/2)-rect.left-sz/2}px;top:${(e.clientY||rect.top+rect.height/2)-rect.top-sz/2}px`;
+  btn.appendChild(r); setTimeout(() => r.remove(), 700);
+}
+
+// ── LOGIN ─────────────────────────────────────────────────────────────────────
+function doLogin(e) {
+  ripple(e, e.currentTarget);
+  const btn = e.currentTarget, email = document.getElementById('email-f').value;
+  if (!email) { document.getElementById('email-f').style.animation = 'sk 0.4s'; setTimeout(() => document.getElementById('email-f').style.animation='',500); return; }
+  btn.textContent = '⟳ Signing in…'; btn.style.opacity = '0.8';
+  setTimeout(() => { btn.textContent = '✓ Welcome back!'; btn.style.opacity='1'; btn.style.background='linear-gradient(135deg,#2ECC71,#27AE60)';
+    setTimeout(() => { go('home'); btn.textContent = 'Log In'; btn.style.background=''; btn.style.opacity='1'; }, 700); }, 1000);
+}
+function togglePw() { const f = document.getElementById('pw-f'); f.type = f.type === 'password' ? 'text' : 'password'; }
+function doLogout() { toast('👋','Signed out','See you on your next adventure!'); setTimeout(() => go('login'), 1200); }
+
+// ── CHECK-IN ──────────────────────────────────────────────────────────────────
+function doCheckin(e) {
+  ripple(e, e.currentTarget);
+  const btn = e.currentTarget, rt = document.getElementById('ring-t');
+  rt.style.color = 'var(--green)'; rt.style.animation = 'bi 0.4s both';
+  btn.textContent = '✓ Checked In!'; btn.style.background = 'linear-gradient(135deg,#2ECC71,#27AE60)'; btn.style.boxShadow = '0 4px 20px rgba(46,204,113,0.4)';
+  ciSecs = 4*3600;
+  toast('✅','Check-in Complete','Your shadows have been notified 👍');
+  setTimeout(() => { btn.textContent='Check In Now'; btn.style.background=''; btn.style.boxShadow=''; rt.style.color=''; rt.style.animation=''; }, 2500);
+}
+
+// ── EMERGENCY SOS — CINEMATIC SAFETY CIRCLES ─────────────────────────────────
+function triggerSOS(e) {
+  ripple(e, document.getElementById('sos-btn'));
+  const ov = document.getElementById('sos-ov');
+  // Reset
+  ['sc0','sc1','sc2'].forEach(id => { const c=document.getElementById(id); c.className='scard'; });
+  ['scs0','scs1','scs2'].forEach(id => { const s=document.getElementById(id); s.textContent='Standby'; s.style.color=''; });
+  document.getElementById('sos-dismiss').style.display='none';
+  document.getElementById('sos-headline').textContent='Safety Network Activating';
+  document.getElementById('sos-sublabel').textContent='Locating GPS signal…';
+  document.getElementById('sos-strip').textContent='Emergency SOS Active';
+  document.getElementById('sos-pill').textContent='Phase 1 — Locating';
+  document.getElementById('sos-pill').style.opacity='1';
+  ov.classList.add('open');
+  startSOSCanvas();
+  runSOSSequence();
+}
+
+function runSOSSequence() {
+  // helper to update HUD
+  function hud(strip, headline, sub, pill) {
+    document.getElementById('sos-strip').textContent = strip;
+    const h = document.getElementById('sos-headline');
+    h.style.animation='none'; h.offsetHeight; h.style.animation='nt 0.35s both';
+    h.textContent = headline;
+    document.getElementById('sos-sublabel').textContent = sub;
+    if (pill !== undefined) {
+      const p = document.getElementById('sos-pill');
+      p.style.opacity='0';
+      setTimeout(() => { p.textContent=pill; p.style.opacity='1'; }, 250);
+    }
+  }
+  function shadow(idx, state) {
+    const card = document.getElementById('sc'+idx);
+    const stat = document.getElementById('scs'+idx);
+    const names = ['Sarah Chen','Marcus Johnson','Emma Rodriguez'];
+    if (state === 'calling') {
+      card.className='scard sc-active';
+      stat.textContent='🔴 Calling…';
+    } else if (state === 'notified') {
+      card.className='scard sc-done';
+      stat.textContent='✓ Alerted';
+      toast('✅', names[idx]+' Alerted', 'Alert & location delivered');
+    }
+  }
+
+  const T = [
+    // [ms, fn]
+    [0,    ()=> hud('🔴  SOS ACTIVE','Safety Network Activating','📍 Budapest, Hungary — GPS locked','Phase 1 — GPS Located')],
+    [1100, ()=> hud('📡  BROADCASTING','Alerting Your Safety Network','Signal broadcasting to 3 shadows…','Phase 2 — Network Broadcast')],
+    [2100, ()=> { hud('📲  SHADOW 1 of 3','Contacting Sarah Chen…','📱 Reaching San Francisco…',undefined); shadow(0,'calling'); }],
+    [3100, ()=> { hud('✅  SHADOW 1 ALERTED','Sarah Chen Notified','✓ Location & SOS delivered',undefined); shadow(0,'notified'); if(window._sosRing1) window._sosRing1[0].notified=true; }],
+    [3800, ()=> { hud('📲  SHADOW 2 of 3','Contacting Marcus Johnson…','📱 Reaching New York…',undefined); shadow(1,'calling'); }],
+    [4800, ()=> { hud('✅  SHADOW 2 ALERTED','Marcus Johnson Notified','✓ Location & SOS delivered',undefined); shadow(1,'notified'); if(window._sosRing1) window._sosRing1[1].notified=true; }],
+    [5500, ()=> { hud('📲  SHADOW 3 of 3','Contacting Emma Rodriguez…','📱 Reaching Miami…',undefined); shadow(2,'calling'); }],
+    [6500, ()=> { hud('✅  ALL SHADOWS ALERTED','3 / 3 Shadows Notified','🆘 Help is on the way — network active','Phase 3 — Network Lit Up'); shadow(2,'notified'); if(window._sosRing2) window._sosRing2[0].notified=true; }],
+    [7400, ()=> { hud('🆘  EMERGENCY ACTIVE','Live Location Shared','📍 All shadows tracking you now','Phase 4 — Network Viral'); }],
+    [8200, ()=> { document.getElementById('sos-dismiss').style.display='block'; document.getElementById('sos-dismiss').style.animation='fi 0.5s both'; }],
+  ];
+  T.forEach(([ms, fn]) => setTimeout(fn, ms));
+}
+
+function closeSOS() {
+  document.getElementById('sos-ov').classList.remove('open');
+  if (sosRaf) { cancelAnimationFrame(sosRaf); sosRaf=null; }
+  toast('🆘','SOS Closed','Your shadows remain on active alert');
+}
+
+// ── SOS CANVAS — Full Safety Circles Engine (Slide 6 mirror) ─────────────────
+function startSOSCanvas() {
+  const cv = document.getElementById('sos-cv');
+  cv.width = 332; cv.height = 682;
+  const ctx = cv.getContext('2d');
+  if (sosRaf) { cancelAnimationFrame(sosRaf); sosRaf=null; }
+
+  let t = 0;
+  const W = 332, H = 682;
+
+  // ── NODE LAYOUT ─────────────────────────────────────────────────────────
+  // Center = YOU (traveler), orbiting rings = shadows + family + network
+  const CX = W/2, CY = H*0.415;
+
+  const traveler = { x:CX, y:CY, r:28, label:'YOU', emoji:'✈️', color:'#E8394D', scale:0, alpha:0 };
+
+  // Ring 1 — immediate circle (family/close shadows)  orbitR=72
+  const ring1 = [
+    { label:'SC', name:'Sarah',  color:'#E8B84B', orbitR:72, angle:-Math.PI/2,       speed:0.007,  scale:0, alpha:0, notified:false },
+    { label:'MJ', name:'Marcus', color:'#5BA8D8', orbitR:72, angle:-Math.PI/2+Math.PI*2/3*1, speed:0.007, scale:0, alpha:0, notified:false },
+  ];
+  // Ring 2 — extended network
+  const ring2 = [
+    { label:'ER', name:'Emma',   color:'#C89BFF', orbitR:118, angle:0,             speed:-0.005, scale:0, alpha:0, notified:false },
+    { label:'FM', name:'Family', color:'#E8B84B', orbitR:118, angle:Math.PI*0.7,   speed:-0.005, scale:0, alpha:0, notified:false },
+    { label:'EM', name:'Embassy',color:'#E8394D', orbitR:118, angle:Math.PI*1.4,   speed:-0.005, scale:0, alpha:0, notified:false },
+  ];
+  // Ring 3 — SOS outer network (phase 3+)
+  const ring3 = [
+    { label:'SOS', name:'911',  color:'#E8394D', orbitR:162, angle:Math.PI*0.2,  speed:0.003, scale:0, alpha:0 },
+    { label:'NET', name:'Peers',color:'#00C9B1', orbitR:162, angle:Math.PI*1.1,  speed:0.003, scale:0, alpha:0 },
+    { label:'GRD', name:'Guard',color:'#E8B84B', orbitR:162, angle:Math.PI*1.9,  speed:0.003, scale:0, alpha:0 },
+  ];
+
+  const allNodes = [...ring1,...ring2,...ring3];
+  window._sosRing1 = ring1;
+  window._sosRing2 = ring2;
+  let particles = [];
+  let viralNodes = [];
+  let phase = 0; // 0=intro, 1=ring1, 2=sos-blast, 3=ring2+3, 4=viral
+  let phaseT = 0;
+
+  // Advance phases based on SOS sequence timing
+  setTimeout(()=>{ phase=1; }, 1100);  // broadcast
+  setTimeout(()=>{ phase=2; }, 3100);  // first shadow notified
+  setTimeout(()=>{ phase=3; }, 6500);  // all alerted
+  setTimeout(()=>{ phase=4; }, 7400);  // viral
+
+  function nodePos(n) {
+    return { x: CX + Math.cos(n.angle)*n.orbitR, y: CY + Math.sin(n.angle)*n.orbitR };
+  }
+
+  function spawnParticle(from, to, col, big=false) {
+    particles.push({ x:from.x, y:from.y, tx:to.x, ty:to.y, prog:0, spd:0.025+Math.random()*0.015, color:col, big });
+  }
+
+  function spawnViral(fromX, fromY, color) {
+    const ang = Math.random()*Math.PI*2, dist=55+Math.random()*90;
+    const tx = Math.max(20, Math.min(W-20, fromX+Math.cos(ang)*dist));
+    const ty = Math.max(60, Math.min(H-120, fromY+Math.sin(ang)*dist));
+    viralNodes.push({ x:fromX, y:fromY, tx, ty, color, emoji:['✈️','🎒','🌍','👫','🗺️'][Math.floor(Math.random()*5)], life:0, spd:0.014+Math.random()*0.01, label:['Traveler','Explorer','Adventurer','Wanderer'][Math.floor(Math.random()*4)], childFired:false });
+  }
+
+  function easeOut(t){ return 1-Math.pow(1-t,3); }
+
+  function drawPetal(ctx, cx, cy, angle, len, wid, color) {
+    ctx.save(); ctx.translate(cx,cy); ctx.rotate(angle);
+    ctx.beginPath(); ctx.moveTo(0,-len); ctx.lineTo(wid,0); ctx.lineTo(0,len*0.12); ctx.lineTo(-wid,0); ctx.closePath();
+    ctx.fillStyle=color; ctx.fill(); ctx.restore();
+  }
+
+  function drawCompassStar(ctx, cx, cy, r, alpha, rot) {
+    ctx.save(); ctx.globalAlpha = alpha; ctx.translate(cx,cy); ctx.rotate(rot);
+    const g1=ctx.createRadialGradient(0,-r*0.4,0,0,0,r*1.2); g1.addColorStop(0,'#A0FFF5'); g1.addColorStop(0.45,'#00C9B1'); g1.addColorStop(1,'#007A6A');
+    const g2=ctx.createRadialGradient(0,0,0,0,0,r*0.85); g2.addColorStop(0,'#5EEEDD'); g2.addColorStop(1,'#005A52');
+    for(let i=0;i<4;i++) drawPetal(ctx,0,0,i*Math.PI/2,r*1.1,r*0.14,g1);
+    for(let i=0;i<4;i++) drawPetal(ctx,0,0,Math.PI/4+i*Math.PI/2,r*0.75,r*0.1,g2);
+    for(let i=0;i<8;i++) drawPetal(ctx,0,0,Math.PI/8+i*Math.PI/4,r*0.5,r*0.06,'rgba(184,134,11,0.55)');
+    ctx.restore();
+  }
+
+  function drawNode(n, x, y, r, labelColor, bgColor) {
+    if (n.alpha <= 0.01) return;
+    const rr = r * easeOut(Math.min(1,n.scale));
+    ctx.save(); ctx.globalAlpha = n.alpha;
+    // Glow
+    const gw = ctx.createRadialGradient(x,y,0,x,y,rr*3.5);
+    gw.addColorStop(0, n.color+'30'); gw.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle=gw; ctx.beginPath(); ctx.arc(x,y,rr*3.5,0,Math.PI*2); ctx.fill();
+    // Body
+    const gf = ctx.createRadialGradient(x,y-rr*0.3,0,x,y,rr*1.1);
+    gf.addColorStop(0, n.color); gf.addColorStop(1, n.color+'99');
+    ctx.beginPath(); ctx.arc(x,y,rr,0,Math.PI*2); ctx.fillStyle=gf; ctx.fill();
+    // Border
+    ctx.strokeStyle = n.notified ? '#2ECC71' : n.color; ctx.lineWidth=1.5; ctx.stroke();
+    // Label
+    ctx.font = `bold ${Math.max(7, rr*0.62)}px Space Mono,monospace`; ctx.fillStyle='#fff';
+    ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(n.label,x,y);
+    ctx.restore();
+  }
+
+  function frame() {
+    ctx.clearRect(0,0,W,H);
+    t++; phaseT++;
+
+    // ── BG gradient based on phase ──────────────────────────────────────────
+    const bgR = ctx.createRadialGradient(CX,CY*0.7,0,CX,CY,Math.max(W,H)*0.9);
+    const redIntensity = Math.min(0.25, (phase>=2?0.18:0.08) + Math.sin(t*0.05)*0.04);
+    bgR.addColorStop(0, `rgba(232,57,77,${redIntensity})`);
+    bgR.addColorStop(0.5, 'rgba(8,4,2,0.85)');
+    bgR.addColorStop(1, 'rgba(0,0,0,0.98)');
+    ctx.fillStyle=bgR; ctx.fillRect(0,0,W,H);
+
+    // ── Subtle grid ──────────────────────────────────────────────────────────
+    ctx.save(); ctx.strokeStyle='rgba(255,255,255,0.03)'; ctx.lineWidth=1;
+    for(let x=0;x<W;x+=40){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()}
+    for(let y=0;y<H;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
+    ctx.restore();
+
+    // ── Orbit rings (decorative) ─────────────────────────────────────────────
+    const ringAlphas = [
+      Math.min(0.35, phase>=1?0.35:0),
+      Math.min(0.25, phase>=2?0.25:0),
+      Math.min(0.18, phase>=3?0.18:0),
+    ];
+    [72,118,162].forEach((r,ri) => {
+      if(ringAlphas[ri]<=0) return;
+      ctx.save(); ctx.globalAlpha=ringAlphas[ri]; ctx.strokeStyle=ri===0?'#E8B84B':ri===1?'#5BA8D8':'#E8394D';
+      ctx.lineWidth=1; ctx.setLineDash([5,12]); ctx.lineDashOffset=-t*(ri===1?-0.4:0.6);
+      ctx.beginPath(); ctx.arc(CX,CY,r,0,Math.PI*2); ctx.stroke();
+      ctx.restore();
+    });
+
+    // ── Traveler appearance ──────────────────────────────────────────────────
+    traveler.scale = Math.min(1, traveler.scale+0.03);
+    traveler.alpha = Math.min(1, traveler.alpha+0.04);
+    const compassRot = t*0.006;
+    // Compass star as traveler center
+    if (traveler.alpha > 0) {
+      const tr = 22 * easeOut(Math.min(1,traveler.scale));
+      // Outer glow
+      const tg=ctx.createRadialGradient(CX,CY,0,CX,CY,tr*5);
+      tg.addColorStop(0,`rgba(232,57,77,${0.25*traveler.alpha})`); tg.addColorStop(1,'rgba(0,0,0,0)');
+      ctx.fillStyle=tg; ctx.beginPath(); ctx.arc(CX,CY,tr*5,0,Math.PI*2); ctx.fill();
+      // SOS ripples from traveler
+      [0,25,50].forEach(off => {
+        const p=((t+off)*0.02)%1;
+        ctx.save(); ctx.strokeStyle='#E8394D'; ctx.lineWidth=2; ctx.globalAlpha=traveler.alpha*0.6*(1-p);
+        ctx.beginPath(); ctx.arc(CX,CY,tr+p*(phase>=2?110:55),0,Math.PI*2); ctx.stroke(); ctx.restore();
+      });
+      // Compass
+      drawCompassStar(ctx, CX, CY, tr*0.75, traveler.alpha, compassRot);
+      // Center dot
+      const cd=ctx.createRadialGradient(CX,CY-tr*0.25,0,CX,CY,tr*0.45);
+      cd.addColorStop(0,'#FF6B7A'); cd.addColorStop(1,'#E8394D');
+      ctx.save(); ctx.globalAlpha=traveler.alpha; ctx.beginPath(); ctx.arc(CX,CY,tr*0.42,0,Math.PI*2); ctx.fillStyle=cd; ctx.fill(); ctx.restore();
+      // YOU label
+      ctx.save(); ctx.globalAlpha=traveler.alpha*0.9; ctx.font='bold 9px Space Mono,monospace'; ctx.fillStyle='#fff'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('YOU',CX,CY); ctx.restore();
+    }
+
+    // ── Ring 1 orbit nodes ────────────────────────────────────────────────────
+    ring1.forEach((n,i) => {
+      n.angle += n.speed;
+      if (phase>=1) { n.scale=Math.min(1,n.scale+0.025); n.alpha=Math.min(1,n.alpha+0.035); }
+      const p = nodePos(n);
+      if (n.alpha>0.01) {
+        // Connection line to center
+        ctx.save(); ctx.globalAlpha=n.alpha*0.3; ctx.strokeStyle=n.color; ctx.lineWidth=1;
+        ctx.setLineDash([3,9]); ctx.lineDashOffset=-t*1.2;
+        ctx.beginPath(); ctx.moveTo(CX,CY); ctx.lineTo(p.x,p.y); ctx.stroke(); ctx.restore();
+        // Pulse ring
+        const pp=(t*0.02+i*0.5)%1;
+        ctx.save(); ctx.strokeStyle=n.notified?'#2ECC71':n.color; ctx.lineWidth=1.2; ctx.globalAlpha=n.alpha*0.4*(1-pp);
+        ctx.beginPath(); ctx.arc(p.x,p.y,14+pp*22,0,Math.PI*2); ctx.stroke(); ctx.restore();
+      }
+      drawNode(n, p.x, p.y, 14, '#fff', n.color);
+    });
+
+    // ── Ring 2 orbit nodes ────────────────────────────────────────────────────
+    ring2.forEach((n,i) => {
+      n.angle += n.speed;
+      if (phase>=2) { n.scale=Math.min(1,n.scale+0.02); n.alpha=Math.min(1,n.alpha+0.025); }
+      const p = nodePos(n);
+      if(n.alpha>0.01) {
+        ctx.save(); ctx.globalAlpha=n.alpha*0.2; ctx.strokeStyle=n.color; ctx.lineWidth=1;
+        ctx.setLineDash([3,12]); ctx.lineDashOffset=-t*0.8;
+        ctx.beginPath(); ctx.moveTo(CX,CY); ctx.lineTo(p.x,p.y); ctx.stroke(); ctx.restore();
+      }
+      drawNode(n, p.x, p.y, 12, '#fff', n.color);
+    });
+
+    // ── Ring 3 ────────────────────────────────────────────────────────────────
+    ring3.forEach((n,i) => {
+      n.angle += n.speed;
+      if (phase>=3) { n.scale=Math.min(1,n.scale+0.015); n.alpha=Math.min(1,n.alpha+0.02); }
+      drawNode(n, nodePos(n).x, nodePos(n).y, 10, '#fff', n.color);
+    });
+
+    // ── Auto-spawn signal particles ───────────────────────────────────────────
+    if (phase>=1 && t%20===0) {
+      ring1.filter(n=>n.alpha>0.5).forEach(n=>{
+        const p=nodePos(n); spawnParticle({x:CX,y:CY},{x:p.x,y:p.y},'#E8394D',true);
+      });
+    }
+    if (phase>=2 && t%28===0) {
+      ring1.filter(n=>n.alpha>0.5).forEach(n=>{
+        const p=nodePos(n); spawnParticle({x:p.x,y:p.y},{x:CX,y:CY},n.color);
+      });
+    }
+    if (phase>=3 && t%35===0) {
+      const all=[...ring1,...ring2].filter(n=>n.alpha>0.4);
+      all.forEach(n=>{ const p=nodePos(n); spawnParticle({x:CX,y:CY},{x:p.x,y:p.y},n.color); });
+    }
+
+    // ── Draw particles ────────────────────────────────────────────────────────
+    particles = particles.filter(p => {
+      p.prog += p.spd;
+      if(p.prog>=1) return false;
+      const x=p.x+(p.tx-p.x)*p.prog, y=p.y+(p.ty-p.y)*p.prog;
+      const sz = p.big?9:6;
+      const g=ctx.createRadialGradient(x,y,0,x,y,sz); g.addColorStop(0,p.color); g.addColorStop(1,'rgba(0,0,0,0)');
+      ctx.save(); ctx.globalAlpha=1-p.prog*0.5; ctx.fillStyle=g; ctx.beginPath(); ctx.arc(x,y,sz,0,Math.PI*2); ctx.fill();
+      // Shadow of particle
+      ctx.shadowBlur=8; ctx.shadowColor=p.color; ctx.restore();
+      return true;
+    });
+
+    // ── Phase 4: Viral spread ─────────────────────────────────────────────────
+    if (phase>=4 && t%30===0 && viralNodes.length<12) {
+      const sources=[...ring1,...ring2].filter(n=>n.alpha>0.6);
+      if(sources.length){ const s=sources[Math.floor(Math.random()*sources.length)]; const p=nodePos(s); spawnViral(p.x,p.y,s.color); }
+    }
+    viralNodes = viralNodes.filter(vn => {
+      vn.life += vn.spd; if(vn.life>1.5) return false;
+      const prog=Math.min(1,vn.life), ex=easeOut(prog);
+      const x=vn.x+(vn.tx-vn.x)*ex, y=vn.y+(vn.ty-vn.y)*ex;
+      const alpha=vn.life<0.2?vn.life/0.2:vn.life>1.1?1-(vn.life-1.1)/0.4:1;
+      const r=10*Math.min(1,vn.life*3);
+      ctx.save(); ctx.globalAlpha=alpha*0.35; ctx.strokeStyle=vn.color; ctx.lineWidth=0.8; ctx.setLineDash([3,8]);
+      ctx.beginPath(); ctx.moveTo(vn.x,vn.y); ctx.lineTo(x,y); ctx.stroke(); ctx.setLineDash([]);
+      const gv=ctx.createRadialGradient(x,y-r*0.3,0,x,y,r*1.1); gv.addColorStop(0,vn.color); gv.addColorStop(1,vn.color+'66');
+      ctx.globalAlpha=alpha; ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fillStyle=gv; ctx.fill();
+      ctx.strokeStyle=vn.color; ctx.lineWidth=1; ctx.stroke();
+      ctx.font=`bold 7px Space Mono,monospace`; ctx.fillStyle='#fff'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(vn.emoji,x,y);
+      if(!vn.childFired && vn.life>0.9 && viralNodes.length<10){ vn.childFired=true; if(Math.random()<0.6) spawnViral(x,y,vn.color); }
+      ctx.restore(); return true;
+    });
+
+    sosRaf = requestAnimationFrame(frame);
+  }
+  frame();
+}
+
+// ── COMPASS — Minimal Line exact (named fn, called after all globals declared) ─
+function startCompass() {
+  const cv = document.getElementById('compass-cv');
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
+  let t = 0;
+
+  function frame() {
+    const W=cv.width, H=cv.height, cx=W/2, cy=H/2;
+    ctx.clearRect(0,0,W,H);
+    t++;
+
+    // Colors react to all 4 themes
+    const isGold = currentTheme==='dark-gold' || currentTheme==='light-gold';
+    const C  = isGold ? (_compassLightMode?'#B07A10':'#C8941A') : (_compassLightMode?'#00A896':'#00C9B1');
+    const CL = isGold ? (_compassLightMode?'#C8941A':'#E8B84B') : '#5EEEDD';
+    const bg = isGold ? (_compassLightMode?'rgba(176,122,16,':'rgba(200,148,26,') : (_compassLightMode?'rgba(0,168,150,':'rgba(0,201,177,');
+
+    // Background glow
+    const gw = ctx.createRadialGradient(cx,cy,0,cx,cy,75);
+    gw.addColorStop(0, bg+'0.18)');
+    gw.addColorStop(1, bg+'0)');
+    ctx.fillStyle=gw; ctx.beginPath(); ctx.arc(cx,cy,75,0,Math.PI*2); ctx.fill();
+
+    // ── Three concentric wireframe rings ──────────────────────────────────────
+    // Exact proportions from SVG logo A2: r=64, r=52, r=38 → scaled to canvas
+    [[64, 0.28, 1.0],
+     [52, 0.55, 1.0],
+     [38, 0.30, 0.6]].forEach(([r, alpha, lw]) => {
+      ctx.save();
+      ctx.strokeStyle=C; ctx.lineWidth=lw; ctx.globalAlpha=alpha;
+      ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2); ctx.stroke();
+      ctx.restore();
+    });
+
+    // ── Crosshair lines (slowly rotating, 0.3° per frame) ────────────────────
+    const rotCross = t * 0.003;
+    ctx.save(); ctx.translate(cx,cy); ctx.rotate(rotCross);
+    ctx.strokeStyle=C; ctx.lineWidth=0.7; ctx.globalAlpha=0.30; ctx.setLineDash([]);
+    ctx.beginPath(); ctx.moveTo(0,-66); ctx.lineTo(0,66); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(-66,0); ctx.lineTo(66,0); ctx.stroke();
+    ctx.restore();
+
+    // ── 4 Cardinal arrows (counter-rotating) ─────────────────────────────────
+    const rotArrow = -t * 0.002;
+    ctx.save(); ctx.translate(cx,cy); ctx.rotate(rotArrow);
+    for (let i=0; i<4; i++) {
+      ctx.save(); ctx.rotate(i * Math.PI/2);
+      ctx.globalAlpha = i===0 ? 1.0 : 0.5;
+      ctx.fillStyle   = i===0 ? CL  : C;
+      // Sharp chevron arrow pointing toward edge
+      ctx.beginPath();
+      ctx.moveTo(0, -64);   // tip
+      ctx.lineTo(-5, -48);  // left
+      ctx.lineTo(0, -54);   // notch
+      ctx.lineTo(5, -48);   // right
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+    ctx.restore();
+
+    // ── Intercardinal diagonal ticks ─────────────────────────────────────────
+    ctx.save(); ctx.translate(cx,cy); ctx.rotate(rotCross + Math.PI/4);
+    for (let i=0; i<4; i++) {
+      ctx.save(); ctx.rotate(i * Math.PI/2);
+      ctx.strokeStyle=C; ctx.lineWidth=1; ctx.globalAlpha=0.4;
+      ctx.beginPath(); ctx.moveTo(-5,-62); ctx.lineTo(0,-66); ctx.lineTo(5,-62);
+      ctx.stroke();
+      ctx.restore();
+    }
+    ctx.restore();
+
+    // ── Center: outer ring + filled dot ──────────────────────────────────────
+    ctx.strokeStyle=C; ctx.lineWidth=1.5; ctx.globalAlpha=1;
+    ctx.beginPath(); ctx.arc(cx,cy,8,0,Math.PI*2); ctx.stroke();
+    ctx.fillStyle=C; ctx.globalAlpha=1;
+    ctx.beginPath(); ctx.arc(cx,cy,3,0,Math.PI*2); ctx.fill();
+
+    // ── N label ───────────────────────────────────────────────────────────────
+    ctx.save();
+    ctx.translate(cx,cy); ctx.rotate(rotArrow);
+    ctx.font='600 11px DM Sans,sans-serif';
+    ctx.fillStyle=CL; ctx.globalAlpha=0.95;
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText('N', 0, -78);
+    ctx.restore();
+
+    // ── W E S labels (faint) ─────────────────────────────────────────────────
+    [['W',-1,0],['E',1,0],['S',0,1]].forEach(([lbl,dx,dy]) => {
+      ctx.save();
+      ctx.translate(cx + dx*78, cy + dy*78);
+      ctx.rotate(rotArrow);
+      ctx.font='500 8px DM Sans,sans-serif';
+      ctx.fillStyle=C; ctx.globalAlpha=0.35;
+      ctx.textAlign='center'; ctx.textBaseline='middle';
+      ctx.fillText(lbl, 0, 0);
+      ctx.restore();
+    });
+
+    // ── Pulse rings — 3 staggered, strong and visible ─────────────────────────
+    [0, 22, 44].forEach(off => {
+      const p = ((t + off) * 0.016) % 1;
+      const r = 38 + p * 38;          // expand from inner ring to outer ring
+      const a = 0.55 * (1 - p);       // strong alpha fade
+      ctx.save();
+      ctx.strokeStyle=C; ctx.lineWidth=1.5; ctx.globalAlpha=a;
+      ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2); ctx.stroke();
+      ctx.restore();
+    });
+
+    // ── Signal packets along crosshair arms ──────────────────────────────────
+    const pPhase = (t * 0.02) % 1;
+    [[0,-1],[0,1],[-1,0],[1,0]].forEach(([dx,dy]) => {
+      const dist = 10 + pPhase * 52;
+      const px = cx + dx*dist, py = cy + dy*dist;
+      const a = 0.7 * (1 - pPhase);
+      const pg = ctx.createRadialGradient(px,py,0,px,py,6);
+      pg.addColorStop(0, C); pg.addColorStop(1, bg+'0)');
+      ctx.save(); ctx.globalAlpha=a;
+      ctx.fillStyle=pg; ctx.beginPath(); ctx.arc(px,py,6,0,Math.PI*2); ctx.fill();
+      ctx.restore();
+    });
+
+    requestAnimationFrame(frame);
+  }
+  frame();
+}
+
+// ── RING ──────────────────────────────────────────────────────────────────────
+function startRing() {
+  if (ringRaf) return;
+  const cv=document.getElementById('ring-cv'), ctx=cv.getContext('2d'), total=4*3600;
+  function frame() {
+    const W=cv.width,H=cv.height,cx=W/2,cy=H/2,R=72;
+    ctx.clearRect(0,0,W,H);
+    const frac=Math.max(0,Math.min(1,ciSecs/total));
+    const _isGold = currentTheme==='dark-gold'||currentTheme==='light-gold';
+    const _trackC = _compassLightMode ? (_isGold?'rgba(200,148,26,0.12)':'rgba(0,168,150,0.12)') : 'rgba(255,255,255,0.07)';
+    ctx.save();ctx.strokeStyle=_trackC;ctx.lineWidth=9;ctx.lineCap='round';ctx.beginPath();ctx.arc(cx,cy,R,-Math.PI/2,Math.PI*1.5);ctx.stroke();ctx.restore();
+    if(frac>0){
+      const endA=-Math.PI/2+frac*Math.PI*2;
+      const _ig2 = currentTheme==='dark-gold'||currentTheme==='light-gold';
+      const r1 = _ig2 ? '#9A6800' : (_compassLightMode?'#005A52':'#007A6A');
+      const r2 = _ig2 ? '#C8941A' : (_compassLightMode?'#00A896':'#00C9B1');
+      const r3 = _ig2 ? '#F5C542' : (_compassLightMode?'#5EEEDD':'#A0FFF5');
+    const gr=ctx.createLinearGradient(cx-R,cy,cx+R,cy); gr.addColorStop(0,r1); gr.addColorStop(0.5,r2); gr.addColorStop(1,r3);
+      ctx.save();ctx.strokeStyle=gr;ctx.lineWidth=9;ctx.lineCap='round';ctx.shadowBlur=12;ctx.shadowColor='rgba(0,201,177,0.45)';ctx.beginPath();ctx.arc(cx,cy,R,-Math.PI/2,endA);ctx.stroke();ctx.restore();
+      const tx=cx+Math.cos(endA)*R,ty=cy+Math.sin(endA)*R;
+      const dg=ctx.createRadialGradient(tx,ty,0,tx,ty,7); dg.addColorStop(0,'#A0FFF5'); dg.addColorStop(1,'rgba(0,201,177,0)');
+      ctx.fillStyle=dg; ctx.beginPath(); ctx.arc(tx,ty,9,0,Math.PI*2); ctx.fill();
+    }
+    const el=document.getElementById('ring-t');
+    if(el){const m=Math.floor(ciSecs/60).toString().padStart(2,'0'),s=(ciSecs%60).toString().padStart(2,'0');el.textContent=m+':'+s;}
+    ringRaf=requestAnimationFrame(frame);
+  }
+  frame();
+  clearInterval(ciIv); ciIv=setInterval(()=>{if(ciSecs>0)ciSecs--;},1000);
+}
+
+// ── LIVE MAP ──────────────────────────────────────────────────────────────────
+const mapRafs = {};
+function drawMap(id, W, H) {
+  const cv=document.getElementById(id); if(!cv)return; cv.width=W; cv.height=H;
+  const ctx=cv.getContext('2d'); let t=0;
+  if(mapRafs[id]) cancelAnimationFrame(mapRafs[id]);
+  function frame() {
+    ctx.clearRect(0,0,W,H);
+    const _igm = currentTheme==='dark-gold'||currentTheme==='light-gold';
+    const mapBg = _compassLightMode ? (_igm?'#FDF8EE':'#EDF5F8') : (_igm?'#0C0A06':'#0d1117');
+    const gridC = _compassLightMode ? (_igm?'rgba(200,148,26,0.08)':'rgba(0,168,150,0.08)') : (_igm?'rgba(200,148,26,0.04)':'rgba(255,255,255,0.04)');
+    const streetC = _compassLightMode ? (_igm?'rgba(200,148,26,0.15)':'rgba(0,168,150,0.15)') : (_igm?'rgba(200,148,26,0.09)':'rgba(255,255,255,0.09)');
+    const blockC = _compassLightMode ? (_igm?'rgba(200,148,26,0.06)':'rgba(0,168,150,0.06)') : (_igm?'rgba(200,148,26,0.04)':'rgba(255,255,255,0.04)');
+    ctx.fillStyle=mapBg; ctx.fillRect(0,0,W,H);
+    // grid
+    ctx.strokeStyle=gridC; ctx.lineWidth=1;
+    for(let x=0;x<W;x+=26){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()}
+    for(let y=0;y<H;y+=26){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
+    // main streets
+    ctx.strokeStyle=streetC; ctx.lineWidth=1.5;
+    [52,104,156,208].forEach(x=>{ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()});
+    [H/3,H*2/3].forEach(y=>{ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()});
+    // city blocks - small filled rects as buildings
+    [[14,14,22,16],[65,18,18,14],[120,10,20,18],[170,22,16,12],[220,8,18,16],[260,18,24,10]].forEach(([x,y,w,h])=>{
+      ctx.fillStyle=blockC; ctx.fillRect(x,y,w,h);
+      ctx.fillRect(x+2,y+H/3,w-2,h+4); ctx.fillRect(x+4,y+H*2/3-2,w,h+2);
+    });
+    // me - drifting gold dot
+    const lx=W/2+Math.sin(t*0.007)*8, ly=H/2+Math.cos(t*0.005)*5;
+    const pp=(t*0.016)%1;
+    ctx.save();ctx.strokeStyle='#E8B84B';ctx.lineWidth=1.5;ctx.globalAlpha=0.45*(1-pp);ctx.beginPath();ctx.arc(lx,ly,12+pp*20,0,Math.PI*2);ctx.stroke();ctx.restore();
+    // shadow trails
+    [[W*0.3,H*0.38,'#5BA8D8'],[W*0.68,H*0.62,'#C89BFF']].forEach(([sx,sy,c],i)=>{
+      ctx.save();ctx.fillStyle=c;ctx.globalAlpha=0.4+Math.sin(t*0.02+i)*0.15;
+      ctx.beginPath();ctx.arc(sx+Math.sin(t*0.009+i*2)*6,sy+Math.cos(t*0.007+i*2)*4,5,0,Math.PI*2);ctx.fill();
+      // label
+      ctx.font='bold 9px DM Sans,sans-serif'; ctx.fillStyle=c; ctx.globalAlpha=0.55; ctx.textAlign='center';
+      ctx.fillText(i===0?'MJ':'ER',sx+Math.sin(t*0.009+i*2)*6,sy+Math.cos(t*0.007+i*2)*4-9); ctx.restore();
+    });
+    // accuracy ring
+    ctx.save();ctx.strokeStyle='rgba(0,201,177,0.25)';ctx.lineWidth=1;ctx.setLineDash([3,6]);ctx.beginPath();ctx.arc(lx,ly,26,0,Math.PI*2);ctx.stroke();ctx.restore();
+    // gold dot
+    const dg=ctx.createRadialGradient(lx,ly,0,lx,ly,9); dg.addColorStop(0,'#A0FFF5'); dg.addColorStop(0.5,'#00C9B1'); dg.addColorStop(1,'rgba(0,201,177,0.3)');
+    ctx.fillStyle=dg; ctx.beginPath(); ctx.arc(lx,ly,9,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(lx,ly,3,0,Math.PI*2); ctx.fill();
+    // YOU label
+    ctx.save();ctx.font='bold 9px DM Sans,sans-serif';ctx.fillStyle='#E8B84B';ctx.textAlign='center';ctx.fillText('YOU',lx,ly-13);ctx.restore();
+    t++; mapRafs[id]=requestAnimationFrame(frame);
+  }
+  frame();
+}
+
+// ── MODALS ────────────────────────────────────────────────────────────────────
+function openTrip() { tStep(0); document.getElementById('m-trip').classList.add('open'); }
+function openFreq() { document.getElementById('m-freq').classList.add('open'); }
+function openShadows() { document.getElementById('m-shadows').classList.add('open'); }
+function closeM(id) { document.getElementById(id).classList.remove('open'); }
+
+function tStep(n) {
+  [0,1,2].forEach(i => {
+    document.getElementById('tstep'+i).style.display = i===n?'block':'none';
+    const d=document.getElementById('sd'+i);
+    if(d) d.className='sdot'+(i<n?' done':i===n?' cur':'');
+  });
+}
+
+function createTrip(e) {
+  ripple(e, e.currentTarget); const btn=e.currentTarget;
+  btn.textContent='⟳ Creating…';
+  setTimeout(()=>{ btn.textContent='✅ Trip Activated!'; btn.style.background='linear-gradient(135deg,#2ECC71,#27AE60)';
+    setTimeout(()=>{ closeM('m-trip'); btn.textContent='Activate Trip 🚀'; btn.style.background=''; go('home'); toast('✈️','Trip Created!','Your safety protocol is now active'); }, 900); }, 1000);
+}
+
+function setFreq(el, val) {
+  el.closest('.ms').querySelectorAll('[onclick*="setFreq"]').forEach(r => {
+    r.style.background='rgba(255,255,255,0.04)'; r.style.borderColor='rgba(255,255,255,0.07)'; r.style.color='#fff'; r.style.fontWeight='400'; r.innerHTML=r.innerHTML.replace(' ✓','');
+  });
+  el.style.background='rgba(0,201,177,0.1)'; el.style.borderColor='rgba(0,201,177,0.3)'; el.style.color='var(--acL)'; el.style.fontWeight='700';
+  if(!el.textContent.includes('✓')) el.textContent+=' ✓';
+  const sub=document.querySelector('.strow .sts'); if(sub) sub.textContent=val;
+  toast('⏱','Frequency Updated',`Check-in every ${val}`);
+  setTimeout(()=>closeM('m-freq'),600);
+}
+
+// ── PROFILE STATS COUNTER ─────────────────────────────────────────────────────
+function animStats() {
+  [{id:'stat-t',end:12},{id:'stat-d',end:47}].forEach(({id,end})=>{
+    const el=document.getElementById(id); if(!el)return; let v=0; const step=end/30;
+    const iv=setInterval(()=>{ v=Math.min(end,v+step); el.textContent=Math.round(v); el.style.animation='none'; el.offsetHeight; el.style.animation='nt 0.1s both'; if(v>=end)clearInterval(iv); }, 40);
+  });
+}
+
+// ── THEME TOGGLE — Dark (Navy/Teal) ↔ Light (White/Teal) ─────────────────────
+// ── 4-THEME SWITCHER ──────────────────────────────────────────────────────────
+let currentTheme = 'dark-teal';
+
+const THEMES = {
+  'dark-teal':  { cls: '',           light: false, ac: '#00C9B1', acL: '#5EEEDD', label: 'Dark Teal'  },
+  'light-teal': { cls: 'light',      light: true,  ac: '#00A896', acL: '#00C9B1', label: 'Light Teal' },
+  'dark-gold':  { cls: 'gold-dark',  light: false, ac: '#C8941A', acL: '#E8B84B', label: 'Dark Gold'  },
+  'light-gold': { cls: 'gold-light', light: true,  ac: '#B07A10', acL: '#C8941A', label: 'Light Gold' },
+};
+
+function setTheme(name) {
+  if (currentTheme === name) return;
+  const html = document.documentElement;
+  // Remove all theme classes
+  html.classList.remove('light','gold-dark','gold-light');
+  const t = THEMES[name];
+  if (t.cls) html.classList.add(t.cls);
+  currentTheme = name;
+  _compassLightMode = t.light;
+
+  // Update pill button active states
+  Object.keys(THEMES).forEach(k => {
+    const btn = document.getElementById('t-' + k.replace('dark-teal','dt').replace('light-teal','lt').replace('dark-gold','dg').replace('light-gold','lg'));
+    if (btn) btn.style.background = k === name ? (t.light ? 'rgba(0,0,0,0.15)' : 'rgba(255,255,255,0.2)') : 'transparent';
+  });
+
+  // Update control buttons to match accent color
+  const isDark = !t.light;
+  const btnColor = isDark ? t.acL : t.ac;
+  const btnBg = isDark ? `rgba(${hexToRgb(t.ac)},0.12)` : `rgba(${hexToRgb(t.ac)},0.12)`;
+  const btnBorder = isDark ? `rgba(${hexToRgb(t.ac)},0.35)` : `rgba(${hexToRgb(t.ac)},0.35)`;
+  ['inv-toggle','demo-btn'].forEach(id => {
+    const b = document.getElementById(id);
+    if (b) { b.style.color = btnColor; b.style.background = btnBg; b.style.borderColor = btnBorder; }
+  });
+
+  drawMap('map-home', 304, 150);
+  if (cur === 'checkin') drawMap('map-ci', 304, 124);
+}
+
+function hexToRgb(hex) {
+  const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+  return `${r},${g},${b}`;
+}
+
+// Legacy alias so keyboard shortcut T still works (cycles through themes)
+let _themeIdx = 0;
+const _themeOrder = ['dark-teal','light-teal','dark-gold','light-gold'];
+function toggleTheme() { _themeIdx = (_themeIdx+1) % 4; setTheme(_themeOrder[_themeIdx]); }
+let isLight = false; // kept for compatibility
+let investorOn = false;
+function toggleInvestor() {
+  investorOn = !investorOn;
+  const panel = document.getElementById('investor-panel');
+  const shell  = document.querySelector('.shell');
+  const btn    = document.getElementById('inv-toggle');
+  panel.style.display   = investorOn ? 'flex' : 'none';
+  shell.style.gap       = investorOn ? '1.5rem' : '2.5rem';
+  btn.style.background  = investorOn ? 'rgba(0,201,177,0.28)' : 'rgba(0,201,177,0.12)';
+  btn.style.borderColor = investorOn ? 'rgba(0,201,177,0.7)'  : 'rgba(0,201,177,0.35)';
+  btn.style.color       = investorOn ? '#A0FFF5' : '#5EEEDD';
+  if (investorOn) { startWaitlistTicker(); calcRev(); updateLaunchCountdown(); }
+}
+
+// Live waitlist counter — ticks up randomly to feel real
+let wlBase = 2847, wlRaf;
+function startWaitlistTicker() {
+  if (wlRaf) return;
+  let lastSpike = 0;
+  function tick() {
+    lastSpike++;
+    if (lastSpike > 60 + Math.random() * 120) {
+      const add = Math.floor(1 + Math.random() * 4);
+      wlBase += add;
+      lastSpike = 0;
+      const el = document.getElementById('wl-count');
+      const sub = document.getElementById('wl-sub');
+      const bar = document.getElementById('wl-bar');
+      if (el) {
+        el.textContent = wlBase.toLocaleString();
+        el.style.animation='none'; el.offsetHeight; el.style.animation='nt 0.3s both';
+        sub.textContent = `+${add} just now`;
+        const pct = Math.min(99, (wlBase / 10000) * 100);
+        bar.style.width = pct + '%';
+        // Update ARR estimate
+        const arrEl = document.getElementById('arr-val');
+        if(arrEl) arrEl.textContent = '$' + ((wlBase * 0.35 * 14.99 * 12)/1000).toFixed(1) + 'K';
+      }
+    }
+    wlRaf = requestAnimationFrame(tick);
+  }
+  tick();
+  // Initial bar
+  setTimeout(() => {
+    const bar = document.getElementById('wl-bar');
+    if (bar) bar.style.width = (wlBase/10000*100)+'%';
+  }, 100);
+}
+
+function updateLaunchCountdown() {
+  const launch = new Date('2025-06-15');
+  const now = new Date();
+  const diff = Math.max(0, Math.ceil((launch - now) / (1000*60*60*24)));
+  const el = document.getElementById('launch-cd');
+  if (el) el.textContent = diff + ' days';
+}
+
+// ── REVENUE CALCULATOR ────────────────────────────────────────────────────────
+function openRevCalc()  { document.getElementById('rev-calc').style.display='flex'; calcRev(); }
+function closeRevCalc() { document.getElementById('rev-calc').style.display='none'; }
+function calcRev() {
+  const users  = +document.getElementById('rc-users').value;
+  const conv   = +document.getElementById('rc-conv').value / 100;
+  const power  = +document.getElementById('rc-power').value / 100;
+  const ins    = +document.getElementById('rc-ins').value / 100;
+  document.getElementById('rc-users-lbl').textContent = users.toLocaleString();
+  document.getElementById('rc-conv-lbl').textContent  = Math.round(conv*100)+'%';
+  document.getElementById('rc-power-lbl').textContent = Math.round(power*100)+'%';
+  document.getElementById('rc-ins-lbl').textContent   = Math.round(ins*100)+'%';
+  const premUsers  = Math.round(users * conv);
+  const powerUsers = Math.round(users * power);
+  const insUsers   = Math.round(premUsers * ins);
+  const mrr = premUsers*14.99 + powerUsers*29.99 + insUsers*8.99;
+  const arr = mrr * 12;
+  const ltv = 14.99 * 24;
+  function fmt(n){ return n>=1e6?'$'+(n/1e6).toFixed(1)+'M':n>=1000?'$'+(n/1000).toFixed(0)+'K':'$'+Math.round(n); }
+  document.getElementById('rc-mrr').textContent  = fmt(mrr);
+  document.getElementById('rc-arr').textContent  = fmt(arr);
+  document.getElementById('rc-prem').textContent = premUsers.toLocaleString();
+  document.getElementById('rc-ltv').textContent  = '$'+ltv.toFixed(2);
+}
+// Close rev calc on outside click
+document.getElementById('rev-calc').addEventListener('click', e => { if(e.target===document.getElementById('rev-calc')) closeRevCalc(); });
+
+// ══════════════════════════════════════════════════════════════════════════════
+// VOICE ENGINE — ElevenLabs (Option 1) + Browser Speech (Option 3)
+// ══════════════════════════════════════════════════════════════════════════════
+const voiceEngine = {
+  mode: 'browser',          // 'browser' | 'elevenlabs'
+  elevenKey: '',
+  elevenVoiceId: 'onwK4e9ZLuTAKqWW03F9', // Daniel — deep, confident
+  rate: 0.92,
+  pitch: 0.95,
+  browserVoice: null,
+  speaking: false,
+  audioCtx: null,
+  currentSource: null,
+  currentUtterance: null,
+};
+
+// ── Voice-optimised narration scripts ────────────────────────────────────────
+// Written for spoken delivery: short sentences, natural pauses via commas,
+// numbers spelled out, no emojis in the spoken text.
+const V = {
+  login: {
+    bar: '🎙 First impression — the login screen',
+    speak: `First impression matters.
+The gold compass is our mark. Direction. Navigation. Trust.
+This is not a safety app that feels clinical and cold.
+It feels like something travelers actually want on their phone.`
+  },
+  home: {
+    bar: '🎙 Home dashboard — the command center',
+    speak: `This is Ahmad's home screen. He's in Budapest, right now, on a solo trip.
+Three things hit the moment he opens the app.
+One — his active trip, and exactly two hours fifteen minutes until his next check-in.
+Two — a live map. His location. His shadows' last known positions. A living safety network.
+Three — risk summary. Low risk, Budapest, Hungary. Updated two minutes ago.
+Travelers feel watched over. Shadows feel connected. Everyone sleeps better.`
+  },
+  trips: {
+    bar: '🎙 Trips — full travel history',
+    speak: `Budapest active. Tokyo and Rio planned. Lisbon and Bangkok completed.
+Every trip is its own safety context — different shadows, different check-in frequency, different risk profile.
+Watch the new trip creation flow.`
+  },
+  tripwizard: {
+    bar: '🎙 New trip wizard — three steps',
+    speak: `Step one — destination and dates.
+Step two — assign your shadow contacts. The people who get notified if something goes wrong.
+Step three — safety protocol. Check-in every four hours. Location sharing on. Emergency S.O.S. enabled.
+That's it. Trip is live. Your network is armed.`
+  },
+  pods: {
+    bar: '🎙 Safety network — where the viral loop lives',
+    speak: `This is where the viral loop lives.
+Sarah Chen — Ahmad's sister in San Francisco. Online. She can see his location in real time.
+Marcus Johnson — friend in New York. Active.
+Emma Rodriguez — colleague in Miami. Offline, but alerts are queued.
+Here is the growth mechanic investors need to understand.
+Sarah joins to watch Ahmad's trip. Sarah is now in the app.
+Three months later, Sarah goes to Portugal solo.
+She opens Solo Passport. She invites her own three shadows. Those shadows join.
+That is a K-factor of one point four.
+Every user generates one point four new users. This is not growth hacking.
+It is the product itself. Safety is inherently social.`
+  },
+  messages: {
+    bar: '🎙 Messages — organic engagement',
+    speak: `Sarah already messaged after seeing his check-in.
+"Hey! Saw your check-in. Stay safe."
+That is emotional engagement we cannot manufacture.
+It is a natural outcome of the safety mechanic.
+The Safety Assistant is our in-app AI layer. Check-in reminders. Risk updates. Embassy proximity. Always on.`
+  },
+  checkin: {
+    bar: '🎙 Check-in — the heartbeat of the product',
+    speak: `The check-in is the heartbeat of the product.
+Forty-two minutes left on this countdown.
+Every four hours, Ahmad taps one button.
+His shadows see it. The clock resets. Everyone exhales.
+If he misses it — escalation kicks in.
+First a push notification. Then S.M.S. to shadows. Then an automated call.
+Three layers before anyone panics.`
+  },
+  checkinDone: {
+    bar: '✅ Checked in — shadows notified',
+    speak: `Checked in. Shadows notified instantly. Clock resets to four hours.
+One tap. That is the entire safety protocol.`
+  },
+  profile: {
+    bar: '🎙 Profile — verified identity',
+    speak: `Every user is I.D. verified.
+That green checkmark is earned. Stripe Identity. Government I.D. scan. Liveness check.
+This is what separates us from every other travel app.
+You know who you are trusting with your life.
+Ahmad is on Premium — fourteen ninety-nine a month. Twelve trips. Forty-seven days safe.`
+  },
+  sosSetup: {
+    bar: '🚨 The moment — Emergency SOS incoming',
+    speak: `Now I want to show you the reason we built this.
+Everything else — the trips, the check-ins, the maps —
+all of it exists to make this moment as unlikely as possible.
+But when it happens...`
+  },
+  sosFire: {
+    bar: '🚨 SOS — Safety Circles activating',
+    speak: `Ahmad is in trouble. One tap.
+Phase one — G.P.S. locked. Budapest, Hungary.
+Phase two — the network activates. Signal broadcasting to every shadow simultaneously.
+Sarah Chen. San Francisco. Alerted.
+Marcus Johnson. New York. Alerted.
+Emma Rodriguez. Miami. Alerted.
+Three people who love Ahmad just received his exact location.
+In under ten seconds.
+No nine one one operator. No language barrier. No waiting on hold.
+His people know.
+That is the product.`
+  },
+  viral: {
+    bar: '🌐 Viral spread — the flywheel',
+    speak: `And watch what happens next.
+Those shadow contacts — now they know about Solo Passport.
+Now they download it. Now they invite their own circles.
+That is the flywheel.`
+  },
+  revenue: {
+    bar: '💰 Revenue model — the numbers',
+    speak: `At ten thousand users, our ninety-day launch goal, with thirty-five percent premium conversion — six hundred twenty-eight thousand dollars in annual recurring revenue.
+Drag to one hundred thousand users — six point three million.
+Pure subscription. No ads. No data selling.
+Add the insurance attach rate — seven point one million A.R.R.
+The unit economics: lifetime value at twenty-four months is three hundred fifty-nine dollars.
+We expect customer acquisition cost under twelve dollars through the viral loop.
+That is a thirty times L.T.V. to C.A.C. ratio.`
+  },
+  close: {
+    bar: '🎯 Solo Passport — the close',
+    speak: `We have eighty-nine days to launch.
+We have a waitlist growing right now.
+The market is one point four billion solo travel trips per year.
+Growing at fourteen percent annually.
+And right now, zero players own the safety layer.
+Solo Passport is that layer.
+We are not building a feature. We are building infrastructure.
+The passport for safe solo travel.
+Everywhere you go, you are never alone.
+What questions do you have?`
+  }
+};
+
+// ── Browser voice setup ───────────────────────────────────────────────────────
+function populateBrowserVoices() {
+  const sel = document.getElementById('voice-select');
+  if (!sel) return;
+  const voices = speechSynthesis.getVoices();
+  if (!voices.length) return;
+  sel.innerHTML = '';
+  // Prefer English voices, put them first
+  const en = voices.filter(v => v.lang.startsWith('en'));
+  const rest = voices.filter(v => !v.lang.startsWith('en'));
+  const ordered = [...en, ...rest];
+  ordered.forEach(v => {
+    const o = document.createElement('option');
+    o.value = v.name;
+    o.textContent = `${v.name} (${v.lang})`;
+    // Auto-select a good default male voice
+    if (!voiceEngine.browserVoice && (v.name.includes('Daniel') || v.name.includes('Google UK English Male') || v.name.includes('Alex') || v.name.includes('Aaron'))) {
+      o.selected = true;
+      voiceEngine.browserVoice = v;
+    }
+    sel.appendChild(o);
+  });
+  if (!voiceEngine.browserVoice && en.length) voiceEngine.browserVoice = en[0];
+}
+speechSynthesis.onvoiceschanged = populateBrowserVoices;
+populateBrowserVoices();
+
+function selectVoiceOpt(opt) {
+  voiceEngine.mode = opt;
+  const selB = document.getElementById('sel-browser');
+  const selE = document.getElementById('sel-eleven');
+  const optB = document.getElementById('opt-browser');
+  const optE = document.getElementById('opt-eleven');
+  if (opt === 'browser') {
+    selB.style.background = 'var(--ac)';
+    selE.style.background = 'transparent';
+    optB.style.borderColor = 'rgba(0,201,177,0.45)';
+    optB.style.background = 'rgba(0,201,177,0.08)';
+    optE.style.borderColor = 'rgba(255,255,255,0.08)';
+    optE.style.background = 'rgba(255,255,255,0.02)';
+  } else {
+    selE.style.background = '#5BA8D8';
+    selB.style.background = 'transparent';
+    optE.style.borderColor = 'rgba(91,168,216,0.45)';
+    optE.style.background = 'rgba(91,168,216,0.06)';
+    optB.style.borderColor = 'rgba(255,255,255,0.08)';
+    optB.style.background = 'rgba(255,255,255,0.02)';
+  }
+}
+
+function previewBrowserVoice() {
+  const sel = document.getElementById('voice-select');
+  const voices = speechSynthesis.getVoices();
+  const chosen = voices.find(v => v.name === sel.value) || voices[0];
+  voiceEngine.browserVoice = chosen;
+  const u = new SpeechSynthesisUtterance('Solo Passport. Travel solo. Never alone.');
+  u.voice = chosen;
+  u.rate = +document.getElementById('voice-rate').value;
+  u.pitch = +document.getElementById('voice-pitch').value;
+  speechSynthesis.cancel();
+  speechSynthesis.speak(u);
+}
+
+function validateElevenKey() {
+  const key = document.getElementById('eleven-key').value.trim();
+  const btn = document.getElementById('test-eleven');
+  const status = document.getElementById('eleven-status');
+  voiceEngine.elevenKey = key;
+  if (key.length > 20) {
+    btn.disabled = false;
+    btn.style.opacity = '1';
+    status.textContent = '✓ Key entered — click Test to verify';
+    status.style.color = 'var(--ac)';
+  } else {
+    btn.disabled = true;
+    btn.style.opacity = '0.4';
+    status.textContent = '';
+  }
+}
+
+async function testElevenLabs() {
+  const key = document.getElementById('eleven-key').value.trim();
+  const voiceId = document.getElementById('eleven-voice').value;
+  const status = document.getElementById('eleven-status');
+  const btn = document.getElementById('test-eleven');
+  if (!key) return;
+  btn.textContent = '⟳ Testing…'; btn.disabled = true;
+  status.textContent = 'Connecting to ElevenLabs…'; status.style.color = '#8A7F62';
+  try {
+    const res = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`, {
+      method: 'POST',
+      headers: { 'xi-api-key': key, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: 'Solo Passport. Travel solo. Never alone.', model_id: 'eleven_multilingual_v2', voice_settings: { stability: 0.5, similarity_boost: 0.75 } })
+    });
+    if (!res.ok) throw new Error(`Status ${res.status}`);
+    const buf = await res.arrayBuffer();
+    await playAudioBuffer(buf);
+    status.textContent = '✓ ElevenLabs connected! Voice sounds great.'; status.style.color = '#2ECC71';
+    voiceEngine.elevenKey = key;
+    voiceEngine.elevenVoiceId = voiceId;
+    selectVoiceOpt('elevenlabs');
+  } catch(e) {
+    status.textContent = `✗ Error: ${e.message} — check your API key`; status.style.color = '#E8394D';
+  }
+  btn.textContent = '▶ Test'; btn.disabled = false;
+}
+
+async function playAudioBuffer(arrayBuffer) {
+  if (!voiceEngine.audioCtx) voiceEngine.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  const ctx = voiceEngine.audioCtx;
+  if (ctx.state === 'suspended') await ctx.resume();
+  const audioBuf = await ctx.decodeAudioData(arrayBuffer.slice(0));
+  return new Promise(resolve => {
+    if (voiceEngine.currentSource) { try { voiceEngine.currentSource.stop(); } catch(e){} }
+    const source = ctx.createBufferSource();
+    source.buffer = audioBuf;
+    source.connect(ctx.destination);
+    voiceEngine.currentSource = source;
+    source.onended = resolve;
+    source.start(0);
+  });
+}
+
+function confirmVoiceSetup() {
+  // Capture browser voice settings
+  if (voiceEngine.mode === 'browser') {
+    const sel = document.getElementById('voice-select');
+    const voices = speechSynthesis.getVoices();
+    voiceEngine.browserVoice = voices.find(v => v.name === sel.value) || voices[0];
+    voiceEngine.rate = +document.getElementById('voice-rate').value;
+    voiceEngine.pitch = +document.getElementById('voice-pitch').value;
+  } else {
+    voiceEngine.elevenKey = document.getElementById('eleven-key').value.trim();
+    voiceEngine.elevenVoiceId = document.getElementById('eleven-voice').value;
+  }
+  // Update badge
+  const badge = document.getElementById('voice-badge');
+  if (badge) badge.textContent = voiceEngine.mode === 'elevenlabs' ? 'ELEVENLABS' : 'BROWSER';
+  document.getElementById('voice-modal').style.display = 'none';
+  _runDemo();
+}
+
+// ── Core speak function ───────────────────────────────────────────────────────
+async function speak(text) {
+  stopSpeech();
+  showVoiceWave(true);
+  voiceEngine.speaking = true;
+  const clean = text.replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
+  if (voiceEngine.mode === 'elevenlabs' && voiceEngine.elevenKey) {
+    try {
+      const res = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceEngine.elevenVoiceId}`, {
+        method: 'POST',
+        headers: { 'xi-api-key': voiceEngine.elevenKey, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: clean, model_id: 'eleven_multilingual_v2', voice_settings: { stability: 0.52, similarity_boost: 0.76 } })
+      });
+      if (!res.ok) throw new Error('ElevenLabs error');
+      const buf = await res.arrayBuffer();
+      await playAudioBuffer(buf);
+    } catch(e) {
+      console.warn('ElevenLabs failed, falling back to browser:', e);
+      await speakBrowser(clean);
+    }
+  } else {
+    await speakBrowser(clean);
+  }
+  showVoiceWave(false);
+  voiceEngine.speaking = false;
+}
+
+function speakBrowser(text) {
+  return new Promise(resolve => {
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    if (voiceEngine.browserVoice) u.voice = voiceEngine.browserVoice;
+    u.rate  = voiceEngine.rate  || 0.92;
+    u.pitch = voiceEngine.pitch || 0.95;
+    u.volume = 1;
+    u.onend = resolve;
+    u.onerror = resolve;
+    voiceEngine.currentUtterance = u;
+    speechSynthesis.speak(u);
+    // Fallback timeout in case onend never fires
+    const timeout = setTimeout(resolve, text.length * 80 + 2000);
+    u.onend = () => { clearTimeout(timeout); resolve(); };
+  });
+}
+
+function stopSpeech() {
+  speechSynthesis.cancel();
+  if (voiceEngine.currentSource) { try { voiceEngine.currentSource.stop(); } catch(e){} voiceEngine.currentSource = null; }
+  showVoiceWave(false);
+  voiceEngine.speaking = false;
+}
+
+function showVoiceWave(on) {
+  const w = document.getElementById('voice-wave');
+  if (w) w.style.opacity = on ? '1' : '0';
+}
+
+// ── narrate() — updates bar + speaks, waits for speech to finish ─────────────
+async function narrate(key, minDur = 0) {
+  const entry = V[key] || { bar: key, speak: key };
+  const bar  = document.getElementById('narration-bar');
+  const span = document.getElementById('narration-text');
+  bar.style.display = 'block';
+  bar.style.animation = 'none'; bar.offsetHeight; bar.style.animation = 'fi 0.3s both';
+  span.textContent = entry.bar;
+  const t0 = Date.now();
+  await speak(entry.speak);
+  const elapsed = Date.now() - t0;
+  if (elapsed < minDur) await sleep(minDur - elapsed);
+}
+
+// ── AUTO DEMO ─────────────────────────────────────────────────────────────────
+let demoRunning = false;
+
+function startAutoDemo() {
+  if (demoRunning) { stopAutoDemo(); return; }
+  // Show voice setup modal first
+  populateBrowserVoices();
+  document.getElementById('voice-modal').style.display = 'flex';
+}
+
+async function _runDemo() {
+  demoRunning = true;
+  document.getElementById('demo-btn').textContent = '⏹ Stop Demo';
+  document.getElementById('demo-btn').style.background = 'rgba(232,57,77,0.2)';
+  document.getElementById('demo-btn').style.borderColor = 'rgba(232,57,77,0.4)';
+  document.getElementById('demo-btn').style.color = '#FF8090';
+  if (!investorOn) toggleInvestor();
+
+  const S = [
+    // 01 LOGIN
+    async () => {
+      go('login');
+      await narrate('login', 500);
+    },
+    // auto-login
+    async () => {
+      if (!demoRunning) return;
+      document.getElementById('email-f').value = 'ahmad@solopassport.com';
+      await sleep(500);
+      document.querySelector('#s-login .bg').click();
+      await sleep(1600);
+    },
+    // 02 HOME
+    async () => { if (!demoRunning) return; go('home'); await narrate('home', 500); },
+    // 03 TRIPS
+    async () => { if (!demoRunning) return; go('trips'); await narrate('trips', 400); },
+    // new trip wizard
+    async () => {
+      if (!demoRunning) return;
+      await narrate('tripwizard', 0);
+      openTrip();
+      await sleep(900);
+      document.querySelector('#tstep0 input').value = 'Tokyo Adventure';
+      document.querySelectorAll('#tstep0 input')[1].value = 'Tokyo, Japan';
+      await sleep(1200);
+      tStep(1); await sleep(1400);
+      tStep(2); await sleep(1600);
+      closeM('m-trip');
+      await sleep(400);
+    },
+    // 04 PODS
+    async () => { if (!demoRunning) return; go('pods'); await narrate('pods', 500); },
+    // 05 MESSAGES
+    async () => { if (!demoRunning) return; go('messages'); await narrate('messages', 500); },
+    // 06 CHECK-IN
+    async () => { if (!demoRunning) return; go('checkin'); await narrate('checkin', 400); },
+    // tap check-in
+    async () => {
+      if (!demoRunning) return;
+      document.getElementById('ci-btn').click();
+      await narrate('checkinDone', 400);
+    },
+    // 07 PROFILE
+    async () => { if (!demoRunning) return; go('profile'); await narrate('profile', 400); },
+    // SOS setup
+    async () => { if (!demoRunning) return; go('home'); await sleep(500); await narrate('sosSetup', 300); },
+    // SOS FIRE — the moment
+    async () => {
+      if (!demoRunning) return;
+      // Start SOS narration + canvas simultaneously
+      document.getElementById('sos-btn').click();
+      await narrate('sosFire', 0);
+      // Wait for the SOS sequence to finish visual phases (they run ~8s)
+      const elapsed = 0;
+      await sleep(Math.max(0, 3000));
+    },
+    // viral spread narration
+    async () => { if (!demoRunning) return; await narrate('viral', 1500); },
+    // close SOS
+    async () => { if (!demoRunning) return; closeSOS(); await sleep(600); },
+    // REVENUE
+    async () => {
+      if (!demoRunning) return;
+      openRevCalc();
+      await narrate('revenue', 1000);
+      closeRevCalc();
+      await sleep(400);
+    },
+    // CLOSE
+    async () => { if (!demoRunning) return; await narrate('close', 800); stopAutoDemo(); },
+  ];
+
+  for (const step of S) {
+    if (!demoRunning) break;
+    await step();
+    await sleep(250);
+  }
+}
+
+function stopAutoDemo() {
+  demoRunning = false;
+  stopSpeech();
+  document.getElementById('demo-btn').textContent = '▶ Auto Demo';
+  document.getElementById('demo-btn').style.background = 'rgba(0,201,177,0.12)';
+  document.getElementById('demo-btn').style.borderColor = 'rgba(0,201,177,0.35)';
+  document.getElementById('demo-btn').style.color = '#5EEEDD';
+  document.getElementById('narration-bar').style.display = 'none';
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+// ── KEYBOARD SHORTCUTS ────────────────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+  const k = e.key.toLowerCase();
+  if (k === 't') toggleTheme();
+  if (k === 'i') toggleInvestor();
+  if (k === 'd') startAutoDemo();
+  if (k === 'r') { if (document.getElementById('rev-calc').style.display === 'flex') closeRevCalc(); else openRevCalc(); }
+  if (k === 'v') { populateBrowserVoices(); document.getElementById('voice-modal').style.display = 'flex'; }
+  if (k === 'escape') { closeSOS(); closeRevCalc(); stopAutoDemo(); document.getElementById('voice-modal').style.display = 'none'; }
+  const screenOrder = ['login','home','trips','pods','messages','checkin','profile'];
+  const idx = screenOrder.indexOf(cur);
+  if (k === 'arrowright' && idx < screenOrder.length - 1) go(screenOrder[idx + 1]);
+  if (k === 'arrowleft'  && idx > 0)                     go(screenOrder[idx - 1]);
+});
+
+// ── KEYBOARD HINT (first 6 seconds) ──────────────────────────────────────────
+setTimeout(() => {
+  const hint = document.createElement('div');
+  hint.style.cssText = 'position:fixed;bottom:48px;left:50%;transform:translateX(-50%);background:rgba(8,6,4,0.9);border:1px solid rgba(0,201,177,0.22);border-radius:999px;padding:7px 18px;font-family:Space Mono,monospace;font-size:9px;color:#5EEEDD;letter-spacing:0.12em;z-index:1800;pointer-events:none;animation:fi 0.4s both;white-space:nowrap';
+  hint.textContent = 'T = cycle theme  ·  I = investor  ·  D = auto demo  ·  V = voice  ·  R = revenue  ·  ← → = navigate';
+  document.body.appendChild(hint);
+  setTimeout(() => { hint.style.opacity = '0'; hint.style.transition = 'opacity 0.8s'; setTimeout(() => hint.remove(), 900); }, 6000);
+}, 1400);
+
+// ── BOOT ──────────────────────────────────────────────────────────────────────
+startCompass();  // compass runs after _compassLightMode is declared
+startRing();
+drawMap('map-home', 304, 150);
+</script>
+</body>
+</html>
