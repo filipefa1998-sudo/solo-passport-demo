@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Solo Passport — Investor Demo</title>
+<title>Solo Passport — Interactive App Prototype</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -137,7 +137,7 @@ html.light #login-glow{display:none}
 html.light .shell{overflow:visible}
 html.light body{overflow:hidden}
 html.gold-light #s-login{background:var(--s0)}
-html.gold-light #s-home,html.gold-light #s-checkin,html.gold-light #s-trips,html.gold-light #s-pods,html.gold-light #s-messages,html.gold-light #s-profile{background:var(--s0)}
+html.gold-light #s-home,html.gold-light #s-checkin,html.gold-light #s-trips,html.gold-light #s-pods,html.gold-light #s-messages,html.gold-light #s-profile,html.gold-light #s-city{background:var(--s0)}
 html.gold-light .phone{box-shadow:0 0 0 1.5px var(--brH),0 0 0 1px rgba(200,148,26,0.15),0 4px 20px rgba(100,60,0,0.1)}
 html.gold-light .shell{overflow:visible}
 html.gold-light .shell::before{background:none}
@@ -403,8 +403,8 @@ html.light .phone{box-shadow:0 0 0 1.5px var(--brH),0 0 0 1px rgba(0,168,150,0.1
 /* SCREEN-SPECIFIC */
 #s-login{background:radial-gradient(ellipse at 50% 30%,#061520 0%,var(--s0) 65%);color:var(--tx);align-items:center;padding:48px 22px 26px;text-align:center}
 html.light #s-login{background:var(--s0)}
-html.light #s-home,html.light #s-checkin,html.light #s-trips,html.light #s-pods,html.light #s-messages,html.light #s-profile{background:var(--s0)}
-#s-home,#s-checkin,#s-trips,#s-pods,#s-messages,#s-profile{background:var(--s0);color:var(--tx);padding-top:48px}
+html.light #s-home,html.light #s-checkin,html.light #s-trips,html.light #s-pods,html.light #s-messages,html.light #s-profile,html.light #s-city{background:var(--s0)}
+#s-home,#s-checkin,#s-trips,#s-pods,#s-messages,#s-profile,#s-city{background:var(--s0);color:var(--tx);padding-top:48px}
 .lbrand{margin:10px 0 3px;font-family:var(--fd);font-size:15px;letter-spacing:0.22em;background:var(--acGrad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .ldiv{width:65px;height:1px;background:linear-gradient(90deg,transparent,var(--ac),transparent);margin:0 auto 13px;opacity:0.4}
 .ltit{font-size:18px;font-weight:600;color:var(--tx);line-height:1.2}
@@ -435,9 +435,11 @@ html.light #s-home,html.light #s-checkin,html.light #s-trips,html.light #s-pods,
   <div class="ctx" data-s="home" onclick="go('home')"><span class="ctx-n">02</span><span class="ctx-l">Home</span></div>
   <div class="ctx" data-s="checkin" onclick="go('checkin')"><span class="ctx-n">03</span><span class="ctx-l">Check-in</span></div>
   <div class="ctx" data-s="trips" onclick="go('trips')"><span class="ctx-n">04</span><span class="ctx-l">Trips</span></div>
-  <div class="ctx" data-s="pods" onclick="go('pods')"><span class="ctx-n">05</span><span class="ctx-l">Pods</span></div>
+  
   <div class="ctx" data-s="messages" onclick="go('messages')"><span class="ctx-n">06</span><span class="ctx-l">Messages</span></div>
-  <div class="ctx" data-s="profile" onclick="go('profile')"><span class="ctx-n">07</span><span class="ctx-l">Profile</span></div>
+  <div class="ctx" data-s="pods" onclick="go('pods')"><span class="ctx-n">05</span><span class="ctx-l">Connect</span></div>
+        <div class="ctx" data-s="city" onclick="go('city')"><span class="ctx-n">05b</span><span class="ctx-l">City Safety</span></div>
+        <div class="ctx" data-s="profile" onclick="go('profile')"><span class="ctx-n">07</span><span class="ctx-l">Profile</span></div>
 </div>
 
 <div class="phone">
@@ -504,7 +506,7 @@ html.light #s-home,html.light #s-checkin,html.light #s-trips,html.light #s-pods,
       <div class="tc a2">
         <div><div class="tab"><div class="adot"></div>Active Trip</div><span class="tdt">Mar 15–22, 2026</span></div>
         <div class="tn">Budapest Adventure</div>
-        <div class="tl">📍 Budapest, HU</div>
+        <div class="tl" onclick="go('city')" style="cursor:pointer;color:var(--ac)">📍 Budapest, HU →</div>
         <div class="sr">
           <div class="sc"><span class="sci">⏱</span><div><div class="scl">Next check-in</div><div class="scv" id="home-ci">2h 15m</div></div></div>
           <div class="sc"><span class="sci">👤</span><div><div class="scl">Shadows</div><div class="scv">3 active</div></div></div>
@@ -580,30 +582,259 @@ html.light #s-home,html.light #s-checkin,html.light #s-trips,html.light #s-pods,
     </div>
   </div>
 
-  <!-- 05 PODS -->
+  <!-- 05 CONNECT — Map + List view of solo travelers -->
   <div class="screen" id="s-pods">
-    <div class="sb2">
-      <div class="hdr a1" style="justify-content:space-between"><div class="ht" style="text-align:left">Safety Network</div><button class="bg" style="width:auto;padding:7px 14px;font-size:12px" onclick="toast('👥','Invite sent','Link copied to clipboard')">+ Add Shadow</button></div>
-      <div class="sl a2">Active Shadows — Budapest Trip</div>
-      <div class="pc a2" onclick="toast('📍','Sarah Chen','Currently monitoring your location')">
-        <div class="ph"><div class="pav" style="background:var(--acGrad)">SC</div><div><div class="pname">Sarah Chen</div><div class="prel">Sister · San Francisco</div></div><div class="pst" style="color:var(--green)">● Active</div></div>
-        <div class="ppill">📍 Last seen your location 8 min ago &nbsp;·&nbsp; ⏱ Next alert in 1h 52m</div>
+    <!-- Header stays above the map -->
+    <div style="padding:48px 0 0;background:var(--s0);position:relative;z-index:10">
+      <div style="padding:10px 16px 0">
+        <div style="font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--tx3);margin-bottom:2px">CONNECTIONS</div>
+        <div style="font-size:17px;font-weight:700;color:var(--tx);margin-bottom:10px">Discover solo travelers worldwide</div>
+        <!-- Search + view toggles -->
+        <div style="display:flex;gap:8px;align-items:center;margin-bottom:10px">
+          <div style="flex:1;background:var(--s2);border:1px solid var(--br);border-radius:999px;padding:8px 12px;display:flex;align-items:center;gap:7px">
+            <span style="font-size:12px;opacity:0.5">🔍</span>
+            <span style="font-size:12px;color:var(--tx3)">Search travelers, location…</span>
+          </div>
+          <div style="display:flex;background:var(--s2);border:1px solid var(--br);border-radius:10px;overflow:hidden;flex-shrink:0">
+            <button id="connect-map-btn" onclick="setConnectView('map')" style="width:34px;height:34px;border:none;background:var(--ac);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all 0.2s">🗺</button>
+            <button id="connect-list-btn" onclick="setConnectView('list')" style="width:34px;height:34px;border:none;background:transparent;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all 0.2s">☰</button>
+          </div>
+        </div>
+        <!-- Filter chips -->
+        <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:10px;scrollbar-width:none">
+          <button class="fc-chip active" id="fc-all" onclick="setConnectFilter('all',this)" style="white-space:nowrap;padding:5px 12px;border-radius:999px;border:1px solid var(--brH);background:var(--ac);color:var(--s0);font-size:11px;font-weight:700;cursor:pointer;flex-shrink:0">All</button>
+          <button class="fc-chip" id="fc-traveling" onclick="setConnectFilter('traveling',this)" style="white-space:nowrap;padding:5px 12px;border-radius:999px;border:1px solid var(--br);background:transparent;color:var(--tx2);font-size:11px;cursor:pointer;flex-shrink:0">✈️ Currently Traveling</button>
+          <button class="fc-chip" id="fc-planning" onclick="setConnectFilter('planning',this)" style="white-space:nowrap;padding:5px 12px;border-radius:999px;border:1px solid var(--br);background:transparent;color:var(--tx2);font-size:11px;cursor:pointer;flex-shrink:0">🗓 Planning Trips</button>
+        </div>
+        <!-- Proximity chips -->
+        <div style="display:flex;gap:6px;margin-bottom:8px">
+          <button onclick="toast('📍','Within 50 miles','Showing 3 travelers')" style="padding:4px 10px;border-radius:999px;border:1px solid var(--br);background:var(--s2);color:var(--tx3);font-size:10px;cursor:pointer">Within 50 mi</button>
+          <button onclick="toast('📍','Within 100 miles','Showing 7 travelers')" style="padding:4px 10px;border-radius:999px;border:1px solid var(--br);background:var(--s2);color:var(--tx3);font-size:10px;cursor:pointer">Within 100 mi</button>
+          <button onclick="toast('🌍','Worldwide','Showing 10 connections')" style="padding:4px 10px;border-radius:999px;border:1px solid var(--brH);background:rgba(0,201,177,0.06);color:var(--ac);font-size:10px;cursor:pointer;font-weight:600">Worldwide ✓</button>
+        </div>
       </div>
-      <div class="pc a3" onclick="toast('📍','Marcus Johnson','Tracking your Budapest trip')">
-        <div class="ph"><div class="pav" style="background:linear-gradient(135deg,#5BA8D8,#2E6EA0);color:#fff">MJ</div><div><div class="pname">Marcus Johnson</div><div class="prel">Friend · New York</div></div><div class="pst" style="color:var(--green)">● Active</div></div>
-        <div class="ppill">📍 Tracking · Will alert if missed &nbsp;·&nbsp; ✓ ID Verified</div>
-      </div>
-      <div class="pc a4" onclick="toast('⚠️','Emma Rodriguez','Offline — alerts queued for when back online')">
-        <div class="ph"><div class="pav" style="background:linear-gradient(135deg,#C89BFF,#7B4BBF);color:#fff">ER</div><div><div class="pname">Emma Rodriguez</div><div class="prel">Colleague · Miami</div></div><div class="pst" style="color:var(--amber)">● Away</div></div>
-        <div class="ppill">⏸ Offline — alerts queued</div>
-      </div>
-      <div class="sl a5">Nearby Travelers</div>
-      <div class="card a5"><div style="font-size:11px;color:var(--mist);margin-bottom:8px">3 verified travelers near Budapest right now</div><div style="display:flex;margin-bottom:10px"><div style="width:28px;height:28px;border-radius:50%;background:var(--acGrad);border:2px solid var(--s0);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--s0)">AK</div><div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#5BA8D8,#2E6EA0);border:2px solid var(--ob);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;margin-left:-8px">JL</div><div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#2ECC71,#1A8A4C);border:2px solid var(--ob);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;margin-left:-8px">TM</div></div><button class="bo" style="font-size:11px;padding:8px" onclick="toast('🌍','Discovery','3 ID-verified travelers nearby')">View Nearby Travelers</button></div>
     </div>
+
+    <!-- MAP VIEW -->
+    <div id="connect-map-view" style="flex:1;position:relative;overflow:hidden">
+      <canvas id="connect-map-cv" width="332" height="340" style="width:100%;height:340px;display:block"></canvas>
+      <!-- Traveler avatar pins on map (positioned absolutely over canvas) -->
+      <div id="connect-pins" style="position:absolute;inset:0;pointer-events:none"></div>
+      <!-- Online/Offline legend -->
+      <div style="position:absolute;bottom:10px;left:12px;background:rgba(0,0,0,0.7);border-radius:20px;padding:5px 12px;display:flex;align-items:center;gap:10px;backdrop-filter:blur(8px)">
+        <span style="display:flex;align-items:center;gap:4px;font-size:10px;color:#fff"><span style="width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block"></span>Online</span>
+        <span style="display:flex;align-items:center;gap:4px;font-size:10px;color:#fff"><span style="width:7px;height:7px;border-radius:50%;background:#666;display:inline-block"></span>Offline</span>
+      </div>
+      <div style="position:absolute;bottom:10px;right:12px;background:var(--ac);border-radius:20px;padding:5px 12px;cursor:pointer" onclick="toast('👥','10 Connections','Tap any pin to connect')">
+        <span style="font-size:10px;font-weight:700;color:var(--s0)">10 Connections</span>
+      </div>
+    </div>
+
+    <!-- LIST VIEW (hidden by default) -->
+    <div id="connect-list-view" style="flex:1;overflow-y:auto;display:none;scrollbar-width:none">
+      <div style="padding:4px 0 76px">
+        <!-- Currently Traveling section -->
+        <div class="sl">Currently Traveling <span style="color:var(--green);font-size:10px">● 4 active</span></div>
+
+        <div style="display:flex;align-items:center;gap:11px;padding:11px 14px;border-bottom:1px solid var(--br);cursor:pointer" onclick="toast('👋','Sofia K.','Currently in Bangkok · 14 trips completed')">
+          <div style="position:relative;flex-shrink:0"><div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#E8B84B,#C8941A);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--s0);border:2px solid var(--green)">SK</div><div style="position:absolute;bottom:0;right:0;width:12px;height:12px;border-radius:50%;background:var(--green);border:2px solid var(--s0)"></div></div>
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:700;color:var(--tx)">Sofia K. <span style="font-size:10px;font-weight:400;color:var(--tx3)">· ✓ Verified</span></div>
+            <div style="font-size:11px;color:var(--ac);margin-top:1px">✈️ Bangkok, Thailand</div>
+            <div style="font-size:10px;color:var(--tx3);margin-top:2px">Mar 10 – Mar 24, 2026 · 14 trips</div>
+          </div>
+          <div style="text-align:right"><div style="font-size:9px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:rgba(46,204,113,0.12);color:var(--green);border:1px solid rgba(46,204,113,0.25)">Traveling</div></div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:11px;padding:11px 14px;border-bottom:1px solid var(--br);cursor:pointer" onclick="toast('👋','Jake M.','Currently in Kyoto · Safety Rating: Excellent')">
+          <div style="position:relative;flex-shrink:0"><div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#5BA8D8,#2E6EA0);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;border:2px solid var(--green)">JM</div><div style="position:absolute;bottom:0;right:0;width:12px;height:12px;border-radius:50%;background:var(--green);border:2px solid var(--s0)"></div></div>
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:700;color:var(--tx)">Jake M. <span style="font-size:10px;font-weight:400;color:var(--tx3)">· ✓ Verified</span></div>
+            <div style="font-size:11px;color:var(--ac);margin-top:1px">✈️ Kyoto, Japan</div>
+            <div style="font-size:10px;color:var(--tx3);margin-top:2px">Mar 8 – Mar 20, 2026 · 8 trips</div>
+          </div>
+          <div style="text-align:right"><div style="font-size:9px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:rgba(46,204,113,0.12);color:var(--green);border:1px solid rgba(46,204,113,0.25)">Traveling</div></div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:11px;padding:11px 14px;border-bottom:1px solid var(--br);cursor:pointer" onclick="toast('👋','Amara L.','Currently in Lisbon · 22 trips completed')">
+          <div style="position:relative;flex-shrink:0"><div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#C89BFF,#7B4BBF);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;border:2px solid var(--green)">AL</div><div style="position:absolute;bottom:0;right:0;width:12px;height:12px;border-radius:50%;background:var(--green);border:2px solid var(--s0)"></div></div>
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:700;color:var(--tx)">Amara L. <span style="font-size:10px;font-weight:400;color:var(--tx3)">· ✓ Verified</span></div>
+            <div style="font-size:11px;color:var(--ac);margin-top:1px">✈️ Lisbon, Portugal</div>
+            <div style="font-size:10px;color:var(--tx3);margin-top:2px">Mar 12 – Mar 28, 2026 · 22 trips</div>
+          </div>
+          <div style="text-align:right"><div style="font-size:9px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:rgba(46,204,113,0.12);color:var(--green);border:1px solid rgba(46,204,113,0.25)">Traveling</div></div>
+        </div>
+
+        <!-- Planning Trips section -->
+        <div class="sl" style="margin-top:4px">Planning Trips <span style="color:var(--ac);font-size:10px">● 6 upcoming</span></div>
+
+        <div style="display:flex;align-items:center;gap:11px;padding:11px 14px;border-bottom:1px solid var(--br);cursor:pointer" onclick="toast('🗓','Priya S.','Planning Tokyo next month!')">
+          <div style="position:relative;flex-shrink:0"><div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#2ECC71,#1A8A4C);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;border:2px solid rgba(255,255,255,0.2)">PS</div><div style="position:absolute;bottom:0;right:0;width:12px;height:12px;border-radius:50%;background:#888;border:2px solid var(--s0)"></div></div>
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:700;color:var(--tx)">Priya S. <span style="font-size:10px;font-weight:400;color:var(--tx3)">· ✓ Verified</span></div>
+            <div style="font-size:11px;color:var(--tx2);margin-top:1px">📍 New York → Tokyo</div>
+            <div style="font-size:10px;color:var(--tx3);margin-top:2px">Apr 5 – Apr 18, 2026 · 5 trips</div>
+          </div>
+          <div style="text-align:right"><div style="font-size:9px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:rgba(0,201,177,0.1);color:var(--acL);border:1px solid var(--br)">Planned</div></div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:11px;padding:11px 14px;border-bottom:1px solid var(--br);cursor:pointer" onclick="toast('🗓','Carlos R.','Heading to Buenos Aires in May')">
+          <div style="position:relative;flex-shrink:0"><div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#F39C12,#C0770A);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;border:2px solid rgba(255,255,255,0.2)">CR</div><div style="position:absolute;bottom:0;right:0;width:12px;height:12px;border-radius:50%;background:#888;border:2px solid var(--s0)"></div></div>
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:700;color:var(--tx)">Carlos R. <span style="font-size:10px;font-weight:400;color:var(--tx3)">· ✓ Verified</span></div>
+            <div style="font-size:11px;color:var(--tx2);margin-top:1px">📍 Madrid → Buenos Aires</div>
+            <div style="font-size:10px;color:var(--tx3);margin-top:2px">May 2 – May 16, 2026 · 11 trips</div>
+          </div>
+          <div style="text-align:right"><div style="font-size:9px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:rgba(0,201,177,0.1);color:var(--acL);border:1px solid var(--br)">Planned</div></div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:11px;padding:11px 14px;border-bottom:1px solid var(--br);cursor:pointer" onclick="toast('🗓','Yuki T.','Solo hiking in Iceland in June')">
+          <div style="position:relative;flex-shrink:0"><div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#A8D8FF,#4A8AB0);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;border:2px solid rgba(255,255,255,0.2)">YT</div><div style="position:absolute;bottom:0;right:0;width:12px;height:12px;border-radius:50%;background:var(--green);border:2px solid var(--s0)"></div></div>
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:700;color:var(--tx)">Yuki T. <span style="font-size:10px;font-weight:400;color:var(--tx3)">· ✓ Verified</span></div>
+            <div style="font-size:11px;color:var(--tx2);margin-top:1px">📍 Tokyo → Reykjavik</div>
+            <div style="font-size:10px;color:var(--tx3);margin-top:2px">Jun 10 – Jun 24, 2026 · 18 trips</div>
+          </div>
+          <div style="text-align:right"><div style="font-size:9px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:rgba(0,201,177,0.1);color:var(--acL);border:1px solid var(--br)">Planned</div></div>
+        </div>
+      </div>
+    </div>
+
     <div class="bn">
       <div class="ni" onclick="nc(this);go('home')"><span class="ico">🏠</span><span class="lbl">Home</span></div>
       <div class="ni" onclick="nc(this);go('trips')"><span class="ico">✈️</span><span class="lbl">Trips</span></div>
-      <div class="ni on"><span class="ico">👥</span><span class="lbl">Pods</span></div>
+      <div class="ni on"><span class="ico">👥</span><span class="lbl">Connect</span></div>
+      <div class="ni" onclick="nc(this);go('messages')"><span class="ico">💬</span><span class="lbl">Messages</span></div>
+      <div class="ni" onclick="nc(this);go('profile')"><span class="ico">👤</span><span class="lbl">Profile</span></div>
+    </div>
+  </div>
+
+  <!-- CITY SAFETY SCREEN — tapped from trip card location -->
+  <div class="screen" id="s-city">
+    <div class="sb2">
+      <!-- Hero image area with city name overlay -->
+      <div style="position:relative;height:160px;overflow:hidden;background:var(--s1)">
+        <canvas id="city-hero-cv" width="332" height="160" style="width:100%;height:160px;display:block"></canvas>
+        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(0,0,0,0.75));pointer-events:none"></div>
+        <div class="hbk" onclick="go('home')" style="position:absolute;top:52px;left:14px;background:rgba(0,0,0,0.4);border-color:rgba(255,255,255,0.2)">←</div>
+        <div style="position:absolute;bottom:12px;left:14px;right:60px">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:3px">
+            <span style="font-size:18px">🇭🇺</span>
+            <span style="font-size:18px;font-weight:700;color:#fff">Budapest, Hungary</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="background:rgba(46,204,113,0.25);color:#2ECC71;font-size:9px;font-weight:700;padding:2px 8px;border-radius:999px;border:1px solid rgba(46,204,113,0.4)">● Low Risk</span>
+            <span style="color:rgba(255,255,255,0.6);font-size:10px">$150/day avg</span>
+            <span style="color:rgba(255,255,255,0.6);font-size:10px">🌡 12°C</span>
+          </div>
+        </div>
+        <button onclick="toast('⭐','Budapest saved','Added to your destinations')" style="position:absolute;bottom:12px;right:14px;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.2);border-radius:999px;padding:5px 10px;color:#fff;font-size:11px;cursor:pointer">Save</button>
+      </div>
+
+      <!-- Safety Score bar -->
+      <div style="margin:14px 14px 0">
+        <div style="background:var(--s1);border:1px solid var(--br);border-radius:16px;padding:14px">
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--tx3);margin-bottom:10px">Safety Score</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-size:11px;color:var(--tx2)">Overall</span><span style="font-size:11px;font-weight:700;color:var(--green)">8.4/10</span></div>
+              <div style="height:5px;background:var(--s3);border-radius:3px;overflow:hidden"><div style="width:84%;height:100%;background:var(--green);border-radius:3px"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-size:11px;color:var(--tx2)">Solo Women</span><span style="font-size:11px;font-weight:700;color:var(--green)">8.1/10</span></div>
+              <div style="height:5px;background:var(--s3);border-radius:3px;overflow:hidden"><div style="width:81%;height:100%;background:var(--green);border-radius:3px"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-size:11px;color:var(--tx2)">Nightlife</span><span style="font-size:11px;font-weight:700;color:var(--amber)">6.8/10</span></div>
+              <div style="height:5px;background:var(--s3);border-radius:3px;overflow:hidden"><div style="width:68%;height:100%;background:var(--amber);border-radius:3px"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-size:11px;color:var(--tx2)">Transport</span><span style="font-size:11px;font-weight:700;color:var(--green)">9.0/10</span></div>
+              <div style="height:5px;background:var(--s3);border-radius:3px;overflow:hidden"><div style="width:90%;height:100%;background:var(--green);border-radius:3px"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick stats row -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:10px 14px 0">
+        <div style="background:var(--s1);border:1px solid var(--br);border-radius:12px;padding:10px;text-align:center">
+          <div style="font-size:16px;margin-bottom:3px">👮</div>
+          <div style="font-size:11px;font-weight:700;color:var(--tx)">Low</div>
+          <div style="font-size:9px;color:var(--tx3)">Crime</div>
+        </div>
+        <div style="background:var(--s1);border:1px solid var(--br);border-radius:12px;padding:10px;text-align:center">
+          <div style="font-size:16px;margin-bottom:3px">🏥</div>
+          <div style="font-size:11px;font-weight:700;color:var(--tx)">Good</div>
+          <div style="font-size:9px;color:var(--tx3)">Healthcare</div>
+        </div>
+        <div style="background:var(--s1);border:1px solid var(--br);border-radius:12px;padding:10px;text-align:center">
+          <div style="font-size:16px;margin-bottom:3px">🗣</div>
+          <div style="font-size:11px;font-weight:700;color:var(--tx)">High</div>
+          <div style="font-size:9px;color:var(--tx3)">English</div>
+        </div>
+      </div>
+
+      <!-- Live alerts -->
+      <div class="sl" style="margin-top:12px">Live Safety Alerts</div>
+      <div style="margin:0 14px;display:flex;flex-direction:column;gap:7px">
+        <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:rgba(243,156,18,0.08);border:1px solid rgba(243,156,18,0.25);border-radius:12px;cursor:pointer" onclick="toast('⚠️','Bairro Alto','Pickpocketing reported on Andrássy Ave')">
+          <div style="width:28px;height:28px;border-radius:8px;background:rgba(243,156,18,0.15);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">⚠️</div>
+          <div><div style="font-size:12px;font-weight:600;color:var(--tx)">Pickpocketing — Andrássy Ave</div><div style="font-size:10px;color:var(--tx3);margin-top:2px">Reported 3 times this week · Tourist area</div></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:rgba(46,204,113,0.06);border:1px solid rgba(46,204,113,0.2);border-radius:12px;cursor:pointer" onclick="toast('🏛','US Embassy','Open Mon–Fri 8am–5pm · +36 1 475 4400')">
+          <div style="width:28px;height:28px;border-radius:8px;background:rgba(46,204,113,0.12);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">🏛</div>
+          <div><div style="font-size:12px;font-weight:600;color:var(--tx)">US Embassy — 2.3 km away</div><div style="font-size:10px;color:var(--tx3);margin-top:2px">Open now · Szabadság tér 12</div></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:rgba(91,168,216,0.06);border:1px solid rgba(91,168,216,0.2);border-radius:12px;cursor:pointer" onclick="toast('🌧','Weather','Rain until 6pm, clearing tonight')">
+          <div style="width:28px;height:28px;border-radius:8px;background:rgba(91,168,216,0.12);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">🌧</div>
+          <div><div style="font-size:12px;font-weight:600;color:var(--tx)">Light Rain This Afternoon</div><div style="font-size:10px;color:var(--tx3);margin-top:2px">Clearing by 6pm · Carry umbrella</div></div>
+        </div>
+      </div>
+
+      <!-- Neighborhood safety -->
+      <div class="sl" style="margin-top:12px">Neighborhoods</div>
+      <div style="margin:0 14px;display:flex;flex-direction:column;gap:6px">
+        <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--s1);border:1px solid var(--br);border-radius:12px;cursor:pointer" onclick="toast('📍','District V','Old Town — very safe for solo travelers')">
+          <div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--tx)">District V — Old Town</div><div style="font-size:10px;color:var(--tx3);margin-top:1px">Tourist hub · Well-lit · Safe at night</div></div>
+          <div style="text-align:right"><div style="font-size:11px;font-weight:700;color:var(--green)">Safe</div><div style="width:50px;height:4px;background:var(--s3);border-radius:2px;margin-top:3px;overflow:hidden"><div style="width:90%;height:100%;background:var(--green);border-radius:2px"></div></div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--s1);border:1px solid var(--br);border-radius:12px;cursor:pointer" onclick="toast('📍','District VII','Ruin bars area — caution after midnight')">
+          <div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--tx)">District VII — Jewish Quarter</div><div style="font-size:10px;color:var(--tx3);margin-top:1px">Ruin bars · Busy nights · Moderate risk</div></div>
+          <div style="text-align:right"><div style="font-size:11px;font-weight:700;color:var(--amber)">Moderate</div><div style="width:50px;height:4px;background:var(--s3);border-radius:2px;margin-top:3px;overflow:hidden"><div style="width:60%;height:100%;background:var(--amber);border-radius:2px"></div></div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--s1);border:1px solid var(--br);border-radius:12px;cursor:pointer" onclick="toast('📍','District I','Castle Hill — very quiet and safe')">
+          <div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--tx)">District I — Castle Hill</div><div style="font-size:10px;color:var(--tx3);margin-top:1px">Historic · Quiet nights · Very safe</div></div>
+          <div style="text-align:right"><div style="font-size:11px;font-weight:700;color:var(--green)">Safe</div><div style="width:50px;height:4px;background:var(--s3);border-radius:2px;margin-top:3px;overflow:hidden"><div style="width:92%;height:100%;background:var(--green);border-radius:2px"></div></div></div>
+        </div>
+      </div>
+
+      <!-- Emergency numbers -->
+      <div class="sl" style="margin-top:12px">Emergency Contacts</div>
+      <div style="margin:0 14px 0;display:grid;grid-template-columns:1fr 1fr;gap:7px;padding-bottom:14px">
+        <div style="background:rgba(232,57,77,0.08);border:1px solid rgba(232,57,77,0.2);border-radius:12px;padding:10px 12px;cursor:pointer" onclick="toast('🚨','Emergency','Calling 112...')">
+          <div style="font-size:11px;color:var(--tx3);margin-bottom:2px">Emergency</div>
+          <div style="font-size:16px;font-weight:700;color:var(--red)">112</div>
+        </div>
+        <div style="background:var(--s1);border:1px solid var(--br);border-radius:12px;padding:10px 12px;cursor:pointer" onclick="toast('👮','Police','Calling local police...')">
+          <div style="font-size:11px;color:var(--tx3);margin-bottom:2px">Police</div>
+          <div style="font-size:16px;font-weight:700;color:var(--tx)">107</div>
+        </div>
+        <div style="background:var(--s1);border:1px solid var(--br);border-radius:12px;padding:10px 12px;cursor:pointer" onclick="toast('🏥','Ambulance','Calling ambulance...')">
+          <div style="font-size:11px;color:var(--tx3);margin-bottom:2px">Ambulance</div>
+          <div style="font-size:16px;font-weight:700;color:var(--tx)">104</div>
+        </div>
+        <div style="background:var(--s1);border:1px solid var(--br);border-radius:12px;padding:10px 12px;cursor:pointer" onclick="toast('🏛','US Embassy','+36 1 475 4400')">
+          <div style="font-size:11px;color:var(--tx3);margin-bottom:2px">US Embassy</div>
+          <div style="font-size:13px;font-weight:700;color:var(--ac)">+36 1 475</div>
+        </div>
+      </div>
+    </div>
+    <div class="bn">
+      <div class="ni on" onclick="nc(this);go('home')"><span class="ico">🏠</span><span class="lbl">Home</span></div>
+      <div class="ni" onclick="nc(this);go('trips')"><span class="ico">✈️</span><span class="lbl">Trips</span></div>
+      <div class="ni" onclick="nc(this);go('pods')"><span class="ico">👥</span><span class="lbl">Connect</span></div>
       <div class="ni" onclick="nc(this);go('messages')"><span class="ico">💬</span><span class="lbl">Messages</span></div>
       <div class="ni" onclick="nc(this);go('profile')"><span class="ico">👤</span><span class="lbl">Profile</span></div>
     </div>
@@ -966,13 +1197,14 @@ function go(name) {
   next.classList.add('active');
   cur = name;
   document.querySelectorAll('.ctx').forEach(el => el.classList.toggle('on', el.dataset.s === name));
-  // re-trigger entry animations
   next.querySelectorAll('[class]').forEach(el => {
     if (/\ba[1-7]\b/.test(el.className)) { el.style.animation = 'none'; el.offsetHeight; el.style.animation = ''; }
   });
   if (name === 'checkin') { startRing(); drawMap('map-ci', 304, 124); }
   if (name === 'home') { updateGreeting(); drawMap('map-home', 304, 150); }
   if (name === 'profile') animStats();
+  if (name === 'pods') { setTimeout(() => drawConnectMap(), 80); }
+  if (name === 'city') { setTimeout(() => drawCityHero(), 80); }
 }
 function nc(el) { el.closest('.bn').querySelectorAll('.ni').forEach(n => n.classList.remove('on')); el.classList.add('on'); }
 
@@ -1637,6 +1869,8 @@ function setTheme(name) {
 
   drawMap('map-home', 304, 150);
   if (cur === 'checkin') drawMap('map-ci', 304, 124);
+  if (cur === 'pods') drawConnectMap();
+  if (cur === 'city') drawCityHero();
 }
 
 function hexToRgb(hex) {
@@ -2214,7 +2448,7 @@ document.addEventListener('keydown', e => {
   if (k === 'r') { if (document.getElementById('rev-calc').style.display === 'flex') closeRevCalc(); else openRevCalc(); }
   if (k === 'v') { populateBrowserVoices(); document.getElementById('voice-modal').style.display = 'flex'; }
   if (k === 'escape') { closeSOS(); closeRevCalc(); stopAutoDemo(); document.getElementById('voice-modal').style.display = 'none'; }
-  const screenOrder = ['login','home','trips','pods','messages','checkin','profile'];
+  const screenOrder = ['login','home','trips','pods','city','messages','checkin','profile'];
   const idx = screenOrder.indexOf(cur);
   if (k === 'arrowright' && idx < screenOrder.length - 1) go(screenOrder[idx + 1]);
   if (k === 'arrowleft'  && idx > 0)                     go(screenOrder[idx - 1]);
@@ -2229,7 +2463,209 @@ setTimeout(() => {
   setTimeout(() => { hint.style.opacity = '0'; hint.style.transition = 'opacity 0.8s'; setTimeout(() => hint.remove(), 900); }, 6000);
 }, 1400);
 
-// ── BOOT ──────────────────────────────────────────────────────────────────────
+// ── CONNECT SCREEN — Map/List toggle + Filter ──────────────────────────────────
+let connectView = 'map';
+let connectFilter = 'all';
+
+function setConnectView(v) {
+  connectView = v;
+  const mapView  = document.getElementById('connect-map-view');
+  const listView = document.getElementById('connect-list-view');
+  const mapBtn   = document.getElementById('connect-map-btn');
+  const listBtn  = document.getElementById('connect-list-btn');
+  const isGold = currentTheme==='dark-gold'||currentTheme==='light-gold';
+  const acBg = isGold ? 'var(--ac)' : 'var(--ac)';
+  if (v === 'map') {
+    mapView.style.display  = 'block';
+    listView.style.display = 'none';
+    mapBtn.style.background  = 'var(--ac)';
+    listBtn.style.background = 'transparent';
+    drawConnectMap();
+  } else {
+    mapView.style.display  = 'none';
+    listView.style.display = 'block';
+    mapBtn.style.background  = 'transparent';
+    listBtn.style.background = 'var(--ac)';
+    applyConnectFilter();
+  }
+}
+
+function setConnectFilter(f, el) {
+  connectFilter = f;
+  // Update chip styles
+  ['fc-all','fc-traveling','fc-planning'].forEach(id => {
+    const btn = document.getElementById(id);
+    if (!btn) return;
+    const active = btn.id === 'fc-'+f;
+    btn.style.background   = active ? 'var(--ac)' : 'transparent';
+    btn.style.color        = active ? 'var(--s0)' : 'var(--tx2)';
+    btn.style.borderColor  = active ? 'var(--brH)' : 'var(--br)';
+    btn.style.fontWeight   = active ? '700' : '400';
+  });
+  if (connectView === 'list') applyConnectFilter();
+  else drawConnectMap();
+}
+
+function applyConnectFilter() {
+  // Show/hide list rows based on filter
+  const listView = document.getElementById('connect-list-view');
+  if (!listView) return;
+  const rows = listView.querySelectorAll('[data-status]');
+  rows.forEach(row => {
+    if (connectFilter === 'all') row.style.display = 'flex';
+    else row.style.display = row.dataset.status === connectFilter ? 'flex' : 'none';
+  });
+}
+
+// ── CONNECT MAP CANVAS ─────────────────────────────────────────────────────────
+function drawConnectMap() {
+  const cv = document.getElementById('connect-map-cv');
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
+  const W = cv.width, H = cv.height;
+  const isGold = currentTheme==='dark-gold'||currentTheme==='light-gold';
+  const isLight = _compassLightMode;
+
+  // Background
+  const mapBg = isLight ? (isGold?'#FDF8EE':'#EDF5F8') : (isGold?'#0C0806':'#0A1220');
+  ctx.fillStyle = mapBg; ctx.fillRect(0,0,W,H);
+
+  // Grid lines — streets
+  const gridC = isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.05)';
+  const streetC = isLight ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.09)';
+  ctx.strokeStyle = gridC; ctx.lineWidth = 1;
+  for (let x=0; x<W; x+=28) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
+  for (let y=0; y<H; y+=28) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+  // Major streets
+  ctx.strokeStyle = streetC; ctx.lineWidth = 2;
+  [[0,H*0.3,W,H*0.3],[0,H*0.6,W,H*0.6],[W*0.3,0,W*0.3,H],[W*0.65,0,W*0.65,H]].forEach(([x1,y1,x2,y2])=>{
+    ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke();
+  });
+  // River curve
+  ctx.save(); ctx.strokeStyle = isLight?'rgba(91,168,216,0.35)':'rgba(91,168,216,0.25)'; ctx.lineWidth=12; ctx.lineCap='round';
+  ctx.beginPath(); ctx.moveTo(W*0.2,H*0.1); ctx.bezierCurveTo(W*0.35,H*0.4,W*0.55,H*0.5,W*0.85,H*0.85); ctx.stroke();
+  ctx.restore();
+
+  // Traveler pins with avatar circles
+  const travelers = [
+    { x:W*0.22, y:H*0.42, initials:'SK', color:'#E8B84B', online:true,  status:'traveling' },
+    { x:W*0.48, y:H*0.38, initials:'JM', color:'#5BA8D8', online:true,  status:'traveling' },
+    { x:W*0.38, y:H*0.55, initials:'AL', color:'#C89BFF', online:true,  status:'traveling' },
+    { x:W*0.62, y:H*0.28, initials:'PS', color:'#2ECC71', online:false, status:'planning' },
+    { x:W*0.72, y:H*0.58, initials:'CR', color:'#F39C12', online:false, status:'planning' },
+  ];
+
+  travelers.forEach(t => {
+    // Skip if filter active
+    if (connectFilter === 'traveling' && t.status !== 'traveling') return;
+    if (connectFilter === 'planning'  && t.status !== 'planning')  return;
+
+    // Pulse ring for online travelers
+    if (t.online) {
+      ctx.save(); ctx.strokeStyle=t.color; ctx.lineWidth=1.5; ctx.globalAlpha=0.3;
+      ctx.beginPath(); ctx.arc(t.x,t.y,22,0,Math.PI*2); ctx.stroke();
+      ctx.restore();
+    }
+    // Avatar circle background
+    ctx.save();
+    ctx.beginPath(); ctx.arc(t.x,t.y,16,0,Math.PI*2);
+    // Shadow
+    ctx.shadowColor='rgba(0,0,0,0.35)'; ctx.shadowBlur=8;
+    ctx.fillStyle = t.color; ctx.fill();
+    // Border
+    ctx.shadowBlur=0; ctx.strokeStyle = t.online ? '#2ECC71' : '#666'; ctx.lineWidth=2.5; ctx.stroke();
+    ctx.restore();
+    // Initials text
+    ctx.save(); ctx.font='bold 9px DM Sans,sans-serif'; ctx.fillStyle='#fff';
+    ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(t.initials, t.x, t.y);
+    ctx.restore();
+    // Status dot
+    ctx.save(); ctx.fillStyle = t.online ? '#2ECC71' : '#888';
+    ctx.beginPath(); ctx.arc(t.x+12, t.y+12, 5, 0, Math.PI*2); ctx.fill();
+    ctx.strokeStyle='#fff'; ctx.lineWidth=1.5; ctx.stroke();
+    ctx.restore();
+  });
+}
+
+// ── CITY SAFETY HERO CANVAS ────────────────────────────────────────────────────
+function drawCityHero() {
+  const cv = document.getElementById('city-hero-cv');
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
+  const W=cv.width, H=cv.height;
+  const isGold = currentTheme==='dark-gold'||currentTheme==='light-gold';
+
+  // Sky gradient — golden hour
+  const sky = ctx.createLinearGradient(0,0,0,H);
+  sky.addColorStop(0,  isGold?'#2A1A05':'#061020');
+  sky.addColorStop(0.4,isGold?'#5A2A08':'#0A2040');
+  sky.addColorStop(0.7,isGold?'#C8601A':'#1A4060');
+  sky.addColorStop(1,  isGold?'#E8901A':'#0A2030');
+  ctx.fillStyle=sky; ctx.fillRect(0,0,W,H);
+
+  // Sun glow
+  const sg = ctx.createRadialGradient(W*0.65,H*0.35,0,W*0.65,H*0.35,80);
+  sg.addColorStop(0, isGold?'rgba(255,220,100,0.6)':'rgba(255,180,60,0.4)');
+  sg.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle=sg; ctx.fillRect(0,0,W,H);
+
+  // Danube river
+  ctx.fillStyle = isGold?'rgba(200,148,26,0.25)':'rgba(91,168,216,0.3)';
+  ctx.fillRect(0, H*0.7, W, H*0.12);
+
+  // City silhouette — Budapest skyline
+  const bldgs = [
+    [0,   H*0.62, 18, H*0.38],  // far left
+    [20,  H*0.55, 22, H*0.45],
+    [44,  H*0.50, 16, H*0.50],
+    [60,  H*0.58, 28, H*0.42],
+    // Parliament dome
+    [88,  H*0.35, 12, H*0.65],  // left tower
+    [100, H*0.30, 40, H*0.70],  // main body
+    [115, H*0.18, 8,  H*0.18],  // center spire
+    [140, H*0.35, 12, H*0.65],  // right tower
+    [152, H*0.52, 22, H*0.48],
+    [175, H*0.45, 18, H*0.55],
+    [193, H*0.60, 30, H*0.40],
+    // Chain Bridge towers
+    [224, H*0.42, 8,  H*0.58],
+    [264, H*0.42, 8,  H*0.58],
+    [236, H*0.58, 28, H*0.42],  // bridge deck
+    [280, H*0.48, 20, H*0.52],
+    [302, H*0.55, 30, H*0.45],
+  ];
+
+  ctx.fillStyle = isGold?'rgba(10,5,0,0.85)':'rgba(0,8,20,0.88)';
+  bldgs.forEach(([x,y,w,h]) => ctx.fillRect(x,y,w,h));
+
+  // Parliament dome top
+  ctx.beginPath();
+  ctx.arc(119, H*0.30, 14, Math.PI, 0);
+  ctx.fillStyle = isGold?'rgba(10,5,0,0.85)':'rgba(0,8,20,0.88)';
+  ctx.fill();
+
+  // Spire
+  ctx.beginPath(); ctx.moveTo(119,H*0.10); ctx.lineTo(115,H*0.30); ctx.lineTo(123,H*0.30); ctx.closePath();
+  ctx.fill();
+
+  // Bridge cables
+  ctx.strokeStyle = isGold?'rgba(200,148,26,0.4)':'rgba(255,255,255,0.2)'; ctx.lineWidth=0.8;
+  [[228,H*0.42,236,H*0.58],[228,H*0.42,244,H*0.58],[228,H*0.42,252,H*0.58],
+   [268,H*0.42,236,H*0.58],[268,H*0.42,252,H*0.58],[268,H*0.42,260,H*0.58]].forEach(([x1,y1,x2,y2])=>{
+    ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke();
+  });
+
+  // City light reflections on water
+  for (let i=0; i<8; i++) {
+    const rx = 20 + i*40 + Math.random()*10;
+    const rg = ctx.createLinearGradient(rx,H*0.70,rx,H);
+    rg.addColorStop(0, isGold?'rgba(200,140,30,0.3)':'rgba(255,200,80,0.15)');
+    rg.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle=rg; ctx.fillRect(rx-3,H*0.70,6,H*0.30);
+  }
+}
+
+// ── BOOT additions — also update light/gold overrides ─────────────────────────
 startCompass();  // compass runs after _compassLightMode is declared
 startRing();
 drawMap('map-home', 304, 150);
